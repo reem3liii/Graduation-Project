@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:saas/modules/login_screen.dart';
+import 'package:saas/shared/components/components.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
-class BoardingModel {
-  String image;
-  String title;
-  String body;
-  BoardingModel({required this.image, required this.title, required this.body});
-}
+import 'package:saas/models/models.dart';
+import 'package:saas/shared/styles/colors.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -45,25 +39,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white10,
+          backgroundColor: defaultBackgroundColor,
           elevation: 0,
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LoginScreen()),
-                    (route) => false);
+                navigateToThenRemove(context, const LoginScreen());
               },
               child: Text(
                 'SKIP',
-                style: GoogleFonts.abel(
-                  textStyle: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                style: bodyStyle(),
               ),
             ),
           ],
@@ -105,18 +90,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       expansionFactor: 4,
                       dotWidth: 10,
                       spacing: 5,
-                      activeDotColor: HexColor('064b68'),
+                      activeDotColor: defaultColor,
                     ),
                   ),
                   const Spacer(),
                   FloatingActionButton(
                     onPressed: () {
                       if (isLast) {
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const LoginScreen()),
-                            (route) => false);
+                        navigateToThenRemove(context, const LoginScreen());
                       } else {
                         boardController.nextPage(
                           duration: const Duration(
@@ -130,7 +111,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       Icons.arrow_forward_ios,
                       size: 15,
                     ),
-                    backgroundColor: HexColor('2d587b'),
+                    backgroundColor: defaultColor,
                     mini: true,
                   ),
                 ],
@@ -151,24 +132,14 @@ Widget buildBoardingItem(BoardingModel model) => Column(
         ),
         Text(
           model.title,
-          style: GoogleFonts.jost(
-            textStyle: const TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          style: titleStyle(),
         ),
         const SizedBox(
           height: 15,
         ),
         Text(
           model.body,
-          style: GoogleFonts.abel(
-            textStyle: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          style: bodyStyle(),
         ),
         const SizedBox(
           height: 15,

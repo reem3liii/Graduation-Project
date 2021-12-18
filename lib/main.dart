@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'modules/onboarding_screen.dart';
+import 'package:saas/shared/styles/themes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,9 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: const OnboardingScreen(),
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-      ),
+      theme: lightTheme,
     );
   }
 }
