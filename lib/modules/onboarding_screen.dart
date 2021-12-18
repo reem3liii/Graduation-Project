@@ -105,7 +105,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       expansionFactor: 4,
                       dotWidth: 10,
                       spacing: 5,
-                      activeDotColor: HexColor('2d587b'),
+                      activeDotColor: HexColor('064b68'),
                     ),
                   ),
                   const Spacer(),
