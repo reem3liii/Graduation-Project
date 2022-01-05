@@ -44,7 +44,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           actions: [
             TextButton(
               onPressed: () {
-                navigateToThenRemove(context, const LoginScreen());
+                navigateToThenRemove(context, LoginScreen());
               },
               child: Text(
                 'SKIP',
@@ -97,7 +97,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   FloatingActionButton(
                     onPressed: () {
                       if (isLast) {
-                        navigateToThenRemove(context, const LoginScreen());
+                        navigateToThenRemove(context, LoginScreen());
                       } else {
                         boardController.nextPage(
                           duration: const Duration(
