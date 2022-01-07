@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:saas/shared/styles/colors.dart';
 
 void navigateTo(context, widget) => Navigator.push(
   context,
