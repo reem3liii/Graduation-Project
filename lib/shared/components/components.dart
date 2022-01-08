@@ -29,8 +29,32 @@ TextStyle titleStyle(
     );
 
 TextStyle bodyStyle(
-        {color = Colors.black, size = 20.0, weight = FontWeight.bold}) =>
+        {color = Colors.black,
+        double size = 20.0,
+        weight = FontWeight.normal}) =>
     GoogleFonts.abel(
+      textStyle: TextStyle(
+        fontSize: size,
+        fontWeight: weight,
+        color: color,
+      ),
+    );
+TextStyle bodyStyle2(
+        {color = Colors.black,
+        double size = 20.0,
+        weight = FontWeight.normal}) =>
+    GoogleFonts.lato(
+      textStyle: TextStyle(
+        fontSize: size,
+        fontWeight: weight,
+        color: color,
+      ),
+    );
+TextStyle bodyStyle3(
+        {color = Colors.black,
+        double size = 20.0,
+        weight = FontWeight.normal}) =>
+    GoogleFonts.actor(
       textStyle: TextStyle(
         fontSize: size,
         fontWeight: weight,
@@ -125,35 +149,28 @@ Widget settingSectionName(name) => Text(
     );
 
 Widget settingItem(icon, title, {current = ''}) => InkWell(
-      onTap: () {},
+      onTap: () {
+        print('Clicked');
+      },
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadiusDirectional.circular(10),
           color: defaultLightColor.withOpacity(0.5),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(10.0),
           child: Row(
             children: [
               icon,
               widthSpace(),
               Text(
                 title,
-                style: const TextStyle(
-                  fontSize: 14,
-
-                  fontWeight: FontWeight.w400,
-
-                  //color: Colors.blueGrey,
-                ),
+                style: bodyStyle3(size: 16),
               ),
               const Spacer(),
               Text(
                 current,
-                style: const TextStyle(
-                  fontSize: 10,
-                  color: Colors.blueGrey,
-                ),
+                style: bodyStyle3(size: 10, color: defaultColor),
               ),
               widthSpace(),
               defaultForwardArrow(),

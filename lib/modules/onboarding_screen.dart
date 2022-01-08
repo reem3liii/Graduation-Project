@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:saas/modules/login_screen.dart';
 import 'package:saas/shared/components/components.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -39,7 +40,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: defaultBackgroundColor,
+          backgroundColor: defaultBeigeColor,
           elevation: 0,
           actions: [
             TextButton(
@@ -48,13 +49,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               },
               child: Text(
                 'SKIP',
-                style: bodyStyle(),
+                style: bodyStyle(weight: FontWeight.bold, color: defaultColor),
               ),
             ),
           ],
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: defaultBeigeColor,
+            statusBarIconBrightness: Brightness.dark,
+          ),
         ),
-        body: Padding(
+        body: Container(
           padding: const EdgeInsets.all(30),
+          color: defaultBeigeColor,
           child: Column(
             children: [
               Expanded(
@@ -139,7 +145,7 @@ Widget buildBoardingItem(BoardingModel model) => Column(
         ),
         Text(
           model.body,
-          style: bodyStyle(),
+          style: bodyStyle2(weight: FontWeight.w400),
         ),
         const SizedBox(
           height: 15,

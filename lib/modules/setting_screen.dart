@@ -27,7 +27,7 @@ class SettingScreen extends StatelessWidget {
       body: Container(
         color: defaultBeigeColor,
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -52,17 +52,32 @@ class SettingScreen extends StatelessWidget {
               settingItem(const Icon(Icons.info_rounded), 'App info'),
               const Spacer(),
               TextButton(
-                onPressed: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.logout_rounded),
-                    widthSpace(),
-                    Text(
-                      'LOGOUT',
-                      style: titleStyle(size: 20, color: defaultColor),
+                onPressed: () {
+                  print('Logout');
+                },
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadiusDirectional.circular(10),
+                    color: defaultColor,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.logout_rounded,
+                          color: defaultBeigeColor,
+                        ),
+                        widthSpace(),
+                        Text(
+                          'LOGOUT',
+                          style: titleStyle(size: 20, color: defaultBeigeColor),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ],
