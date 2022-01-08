@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:saas/shared/components/components.dart';
 import 'package:saas/shared/styles/colors.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -8,94 +9,64 @@ class SettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Settings',
-          style: TextStyle(
-            color: Colors.white,
-          ),
+          style: titleStyle(
+              color: defaultColor, size: 24, weight: FontWeight.w600),
         ),
-        backgroundColor: defaultColor,
+        leading: IconButton(
+          icon: defaultBackArrow(),
+          onPressed: () {},
+        ),
+        backgroundColor: defaultBeigeColor,
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: defaultColor,
-          statusBarIconBrightness: Brightness.light,
+          statusBarColor: defaultBeigeColor,
+          statusBarIconBrightness: Brightness.dark,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'General',
-              style: TextStyle(
-                color: defaultColor,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadiusDirectional.circular(10),
-                color: defaultLightColor,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
+      body: Container(
+        color: defaultBeigeColor,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              settingSectionName('Account'),
+              heightSpace(),
+              settingItem(const Icon(Icons.lock), 'Password'),
+              heightSpace(),
+              settingItem(
+                  const Icon(Icons.phone_android_rounded), 'Phone number'),
+              heightSpace(),
+              settingSectionName('General'),
+              heightSpace(),
+              settingItem(const Icon(Icons.language_rounded), 'Language',
+                  current: 'English'),
+              heightSpace(),
+              settingItem(const Icon(Icons.brightness_4_rounded), 'Theme',
+                  current: 'Light'),
+              heightSpace(),
+              settingItem(
+                  const Icon(Icons.help_outline_rounded), 'Help center'),
+              heightSpace(),
+              settingItem(const Icon(Icons.info_rounded), 'App info'),
+              const Spacer(),
+              TextButton(
+                onPressed: () {},
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.language),
-                    const SizedBox(
-                      width: 10,
-                    ),
+                    const Icon(Icons.logout_rounded),
+                    widthSpace(),
                     Text(
-                      'Language',
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                    Spacer(),
-                    Icon(
-                      Icons.arrow_forward_ios,
-                      size: 20,
+                      'LOGOUT',
+                      style: titleStyle(size: 20, color: defaultColor),
                     ),
                   ],
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadiusDirectional.circular(10),
-                color: defaultLightColor,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    const Icon(Icons.language),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      'Language',
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                    Spacer(),
-                    Icon(
-                      Icons.arrow_forward_ios,
-                      size: 20,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
