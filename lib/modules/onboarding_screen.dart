@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:saas/modules/login_screen.dart';
 import 'package:saas/shared/components/components.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -39,22 +40,39 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: defaultBackgroundColor,
+          backgroundColor: defaultBeigeColor,
           elevation: 0,
           actions: [
             TextButton(
               onPressed: () {
                 navigateToThenRemove(context, LoginScreen());
               },
-              child: Text(
-                'SKIP',
-                style: bodyStyle(),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadiusDirectional.circular(5),
+                  color: defaultColor,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(7.0),
+                  child: Text(
+                    'SKIP',
+                    style: bodyStyle2(
+                        weight: FontWeight.bold,
+                        color: defaultBeigeColor,
+                        size: 14),
+                  ),
+                ),
               ),
             ),
           ],
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: defaultBeigeColor,
+            statusBarIconBrightness: Brightness.dark,
+          ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(30),
+        body: Container(
+          padding: const EdgeInsets.all(20),
+          color: defaultBeigeColor,
           child: Column(
             children: [
               Expanded(
@@ -139,7 +157,7 @@ Widget buildBoardingItem(BoardingModel model) => Column(
         ),
         Text(
           model.body,
-          style: bodyStyle(),
+          style: bodyStyle2(weight: FontWeight.w400),
         ),
         const SizedBox(
           height: 15,
