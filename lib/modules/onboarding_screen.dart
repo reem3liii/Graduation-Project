@@ -47,9 +47,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               onPressed: () {
                 navigateToThenRemove(context, LoginScreen());
               },
-              child: Text(
-                'SKIP',
-                style: bodyStyle(weight: FontWeight.bold, color: defaultColor),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadiusDirectional.circular(5),
+                  color: defaultColor,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(7.0),
+                  child: Text(
+                    'SKIP',
+                    style: bodyStyle2(
+                        weight: FontWeight.bold,
+                        color: defaultBeigeColor,
+                        size: 14),
+                  ),
+                ),
               ),
             ),
           ],
@@ -59,7 +71,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
         ),
         body: Container(
-          padding: const EdgeInsets.all(30),
+          padding: const EdgeInsets.all(20),
           color: defaultBeigeColor,
           child: Column(
             children: [
