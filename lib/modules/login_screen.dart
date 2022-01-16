@@ -101,7 +101,7 @@ class LoginScreen extends StatelessWidget {
                               function: (){
                                 if(formKey.currentState!.validate()){
                                   Navigator.push(context,
-                                    MaterialPageRoute(builder: (context)=>const HomeScreen()),
+                                    MaterialPageRoute(builder: (context)=> const HomeScreen()),
                                   );
                                 }
                               },
