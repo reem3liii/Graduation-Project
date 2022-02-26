@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:rolling_switch/rolling_switch.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:percent_indicator/circular_percent_indicator.dart';
+
 import 'package:saas/shared/styles/colors.dart';
 
 void navigateTo(context, widget) => Navigator.push(
@@ -67,7 +69,7 @@ TextStyle bodyStyle3(
 Widget defaultTextField({
   required TextEditingController textEditingController,
   required TextInputType textInputType,
-  required String hintText,
+  String hintText = '',
   required preIcon,
   required validator,
   bool isPassword = false,
@@ -147,14 +149,15 @@ Widget defaultForwardArrow() => const Icon(
 
 Widget settingSectionName(name) => Text(
       name,
-      style: titleStyle(color: defaultLightColor, size: 18),
+      style: titleStyle(color: defaultLightColor, size: 20),
     );
 
-Widget settingItem(icon, title, {current = ''}) => InkWell(
+Widget settingItem(icon, title, context, screen) => InkWell(
       onTap: () {
-        print('Clicked');
+        navigateTo(context, screen);
       },
       child: Container(
+        height: 60,
         decoration: BoxDecoration(
           borderRadius: BorderRadiusDirectional.circular(10),
           color: defaultLightColor.withOpacity(0.5),
@@ -167,15 +170,54 @@ Widget settingItem(icon, title, {current = ''}) => InkWell(
               widthSpace(),
               Text(
                 title,
-                style: bodyStyle3(size: 16),
+                style: bodyStyle3(size: 18),
               ),
               const Spacer(),
-              Text(
-                current,
-                style: bodyStyle3(size: 10, color: defaultColor),
-              ),
-              widthSpace(),
               defaultForwardArrow(),
+            ],
+          ),
+        ),
+      ),
+    );
+
+Widget settingSwitchItem(icon, title, context, screen, leftIcon, rightIcon) =>
+    InkWell(
+      onTap: () {
+        navigateTo(context, screen);
+      },
+      child: Container(
+        height: 60,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadiusDirectional.circular(10),
+          color: defaultLightColor.withOpacity(0.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            children: [
+              icon,
+              widthSpace(),
+              Text(
+                title,
+                style: bodyStyle3(size: 18),
+              ),
+              const Spacer(),
+              RollingSwitch.icon(
+                onChanged: (bool state) {
+                  print('turned ${(state) ? 'on' : 'off'}');
+                },
+                rollingInfoLeft: RollingIconInfo(
+                  icon: leftIcon,
+                  backgroundColor: defaultColor,
+                ),
+                rollingInfoRight: RollingIconInfo(
+                  icon: rightIcon,
+                  backgroundColor: defaultColor,
+                ),
+                width: 85,
+                //h//eight: 30,
+                //innerSize: 20,
+              )
             ],
           ),
         ),
