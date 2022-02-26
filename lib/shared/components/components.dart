@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:rolling_switch/rolling_switch.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:percent_indicator/circular_percent_indicator.dart';
+
 import 'package:saas/shared/styles/colors.dart';
 
 void navigateTo(context, widget) => Navigator.push(
@@ -226,4 +229,58 @@ Widget heightSpace() => const SizedBox(
     );
 Widget widthSpace() => const SizedBox(
       width: 10,
+    );
+
+Widget containerWithShadow({
+  // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
+  required Widget,
+}) => Expanded(
+  child: Container(
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(10),
+      color: Colors.white,
+      boxShadow:const [
+        BoxShadow(
+          blurRadius: 4,
+          offset: Offset(1,2),
+          color: Colors.grey,
+        ),
+      ],
+    ),
+    clipBehavior: Clip.antiAliasWithSaveLayer,
+    height: 140,
+    child: Widget,
+  ),
+);
+
+Widget defaultCircularPercentIndicator({
+  required String titleText,
+  required String value,
+  required Color color,
+  required double percentValue,
+}) => Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Column(
+        children: [
+          Text(titleText,style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 14.0),),
+          heightSpace(),
+          Center(
+            child: CircularPercentIndicator(
+              radius: 85.0,
+              lineWidth: 10.0,
+              animation: true,
+              percent: percentValue,
+              center: Text(
+                    value,
+                    style:
+                    TextStyle(fontSize: 18.0,color: color,fontWeight: FontWeight.w500),
+              ),
+              circularStrokeCap: CircularStrokeCap.round,
+              progressColor: color,
+              backgroundColor: Colors.grey.shade100,
+            ),
+          ),
+        ],
+        crossAxisAlignment: CrossAxisAlignment.start,
+      ),
     );
