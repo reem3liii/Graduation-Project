@@ -37,6 +37,7 @@ dependencies:
   hexcolor: ^2.0.5
   smooth_page_indicator: ^1.0.0+2
   google_fonts: ^2.1.0
+  rolling_switch: ^0.0.2
 
 dev_dependencies:
   flutter_test:

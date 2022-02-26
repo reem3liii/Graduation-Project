@@ -26,7 +26,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         image: 'assets/images/onboarding2.png',
         title: 'The goal of the application',
         body:
-            'It helps you by suggesting courses that meet your current needs, and at the same time improve your academic performance.'),
+            'It helps you by suggesting courses that meet your current needs, and at the same time improve the academic performance.'),
     BoardingModel(
         image: 'assets/images/onboarding3.png',
         title: 'Let\'s get started',
@@ -47,20 +47,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               onPressed: () {
                 navigateToThenRemove(context, LoginScreen());
               },
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadiusDirectional.circular(5),
-                  color: defaultColor,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(7.0),
-                  child: Text(
-                    'SKIP',
-                    style: bodyStyle2(
-                        weight: FontWeight.bold,
-                        color: defaultBeigeColor,
-                        size: 14),
-                  ),
+              child: Padding(
+                padding: const EdgeInsets.all(7.0),
+                child: Text(
+                  'SKIP',
+                  style: bodyStyle2(
+                      weight: FontWeight.bold, color: defaultColor, size: 16),
                 ),
               ),
             ),

@@ -38,3 +38,40 @@ ThemeData lightTheme = ThemeData(
     ),
   ),
 );
+
+//ThemeData darkTheme = ThemeData(
+//  primarySwatch: Colors.teal,
+//  scaffoldBackgroundColor: defaultDarkBackgroundColor,
+// appBarTheme: AppBarTheme(
+//    titleSpacing: 20,
+    //backwardsCompatibility: false,
+//    systemOverlayStyle: const SystemUiOverlayStyle(
+//      statusBarColor: defaultDarkBackgroundColor,
+//      statusBarIconBrightness: Brightness.light,
+//    ),
+//    backgroundColor: defaultDarkBackgroundColor,
+//    elevation: 0,
+//    titleTextStyle: TextStyle(
+//      color: defaultLightColor,
+//      fontWeight: FontWeight.bold,
+//      fontSize: 20,
+//    ),
+//    iconTheme: IconThemeData(
+//      color: defaultLightColor,
+//    ),
+//  ),
+//  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+//    type: BottomNavigationBarType.fixed,
+//    unselectedItemColor: Colors.grey,
+//    selectedItemColor: defaultLightColor,
+//    elevation: 20,
+//    backgroundColor: defaultDarkBackgroundColor,
+//  ),
+//  textTheme: TextTheme(
+//    bodyText1: TextStyle(
+//      fontSize: 18,
+//      fontWeight: FontWeight.w600,
+//      color: defaultLightColor,
+//    ),
+//  ),
+//);
