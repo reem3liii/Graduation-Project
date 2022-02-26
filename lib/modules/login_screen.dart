@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saas/shared/components/components.dart';
 import 'package:saas/shared/styles/colors.dart';
-import 'for_student/home_screen.dart';
+import 'home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
