@@ -8,7 +8,7 @@ ThemeData lightTheme = ThemeData(
   appBarTheme: AppBarTheme(
     titleSpacing: 20,
     //backwardsCompatibility: false,
-    systemOverlayStyle: const SystemUiOverlayStyle(
+    systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: defaultBackgroundColor,
       statusBarIconBrightness: Brightness.dark,
     ),

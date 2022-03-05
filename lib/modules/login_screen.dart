@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:saas/shared/components/components.dart';
 import 'package:saas/shared/styles/colors.dart';
-import 'home_screen.dart';
+import 'main_page.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   var emailController = TextEditingController();
+
   var passwordController = TextEditingController();
+
   var formKey = GlobalKey<FormState>();
 
   bool isPassword = true;
+
   bool get isEmail {
-    String p =
-        '[a-z0-9!#\$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#\$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?';
+    String p = '[a-z0-9!#\$%&\'*+/=?^_`{|}~-]+(?:.[a-z0-9!#\$%&\'*+/=?^_`{|}~-]+)*@ci.suez.edu.eg';
     RegExp regExp = RegExp(p);
     return regExp.hasMatch(emailController.toString());
   }
@@ -20,6 +29,17 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(15.0),
+        child: AppBar(
+          backgroundColor: defaultLightColor,
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: defaultLightColor,
+            statusBarIconBrightness: Brightness.light,
+          ),
+          automaticallyImplyLeading: false,
+        ),
+      ),
       backgroundColor: defaultLightColor,
       body: CustomScrollView(
         slivers: [
@@ -29,28 +49,21 @@ class LoginScreen extends StatelessWidget {
               key: formKey,
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 40,
+                  Center(
+                    child: Image.asset(
+                      'assets/images/login.png',
+                      width: 175,
+                      height: 175,
+                    ),
                   ),
-                  Row(
-                    children: [
-                      Image.asset(
-                        'assets/images/login.png',
-                        width: 175,
-                        height: 175,
-                      ),
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.center,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  heightSpace(),
+                  heightSpace(),
                   Expanded(
                     child: Container(
                       width: double.infinity,
-                      decoration: const BoxDecoration(
-                        color: defaultBackgroundColor,
-                        borderRadius: BorderRadius.only(
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.98),
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(20),
                           topRight: Radius.circular(20),
                         ),
@@ -60,14 +73,12 @@ class LoginScreen extends StatelessWidget {
                             horizontal: 35, vertical: 20),
                         child: Column(
                           children: [
-                            const Text(
-                              '  Sign In',
-                              style: TextStyle(
-                                  fontSize: 25, fontWeight: FontWeight.bold),
+                            Text(
+                              'Sign In',
+                                style: titleStyle(size: 25,),
                             ),
-                            const SizedBox(
-                              height: 20,
-                            ),
+                            heightSpace(),
+                            heightSpace(),
                             defaultTextField(
                               textEditingController: emailController,
                               textInputType: TextInputType.emailAddress,
@@ -75,16 +86,14 @@ class LoginScreen extends StatelessWidget {
                               preIcon: Icons.email,
                               validator: (emailController) {
                                 if (emailController.toString().isEmpty) {
-                                  return 'Your Email is empty!';
+                                  return 'Email Field is Empty!';
                                 } else if (!isEmail) {
                                   return 'Check Your Email';
                                 }
                                 return null;
                               },
                             ),
-                            const SizedBox(
-                              height: 15.0,
-                            ),
+                            heightSpace(),
                             defaultTextField(
                               textEditingController: passwordController,
                               textInputType: TextInputType.visiblePassword,
@@ -94,31 +103,31 @@ class LoginScreen extends StatelessWidget {
                               suffixIcon: isPassword
                                   ? Icons.visibility
                                   : Icons.visibility_off,
-                              /*suffixPressed: (){
+                              suffixPressed: (){
                                       setState(() {
                                         isPassword = !isPassword;
                                       });
-                                    },*/
+                                    },
                               validator: (passwordController) {
                                 if (passwordController.toString().isEmpty) {
-                                  return 'Your password is empty!';
+                                  return 'Password Field is Empty!';
                                 } else if (passwordController
                                         .toString()
-                                        .length <=
-                                    6) {
-                                  return 'Password must be greater than 6 characters';
+                                        .length <= 6) {
+                                  return 'Password must be greater than 6 characters!';
                                 }
                                 return null;
                               },
                             ),
-                            const SizedBox(
-                              height: 20,
-                            ),
+                            heightSpace(),
+                            heightSpace(),
                             defaultButton(
                               function: (){
                                 if(formKey.currentState!.validate()){
-                                  Navigator.push(context,
-                                    MaterialPageRoute(builder: (context)=> const HomeScreen()),
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(builder: (context)=> const MainPage()),
+                                        (Route<dynamic> route) => false,
                                   );
                                 }
                               },

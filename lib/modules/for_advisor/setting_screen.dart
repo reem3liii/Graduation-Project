@@ -5,6 +5,7 @@ import 'package:saas/modules/setting_screens/phone.dart';
 import 'package:saas/shared/components/components.dart';
 import 'package:saas/shared/styles/colors.dart';
 
+import '../login_screen.dart';
 import '../setting_screens/app_info.dart';
 
 class SettingScreenAdv extends StatelessWidget {
@@ -20,16 +21,18 @@ class SettingScreenAdv extends StatelessWidget {
         ),
         leading: IconButton(
           icon: defaultBackArrow(),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        backgroundColor: defaultBeigeColor,
+        backgroundColor: defaultBackgroundColor,
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: defaultBeigeColor,
+          statusBarColor: defaultBackgroundColor,
           statusBarIconBrightness: Brightness.dark,
         ),
       ),
       body: Container(
-        color: defaultBeigeColor,
+        color: defaultBackgroundColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 14,
@@ -87,6 +90,7 @@ class SettingScreenAdv extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
+                  navigateToThenRemove(context, const LoginScreen());
                   print('Logout');
                 },
                 child: Container(

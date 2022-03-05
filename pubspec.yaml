@@ -40,6 +40,9 @@ dependencies:
   rolling_switch: ^0.0.2
   percent_indicator: "^2.1.7+2"
   syncfusion_flutter_charts: ^18.4.49
+  conditional_builder: ^1.0.2
+  bloc: ^7.1.0
+  flutter_bloc: ^7.1.0
 
 
 dev_dependencies:
