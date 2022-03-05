@@ -5,6 +5,7 @@ import 'package:saas/modules/setting_screens/phone.dart';
 import 'package:saas/shared/components/components.dart';
 import 'package:saas/shared/styles/colors.dart';
 
+import '../login_screen.dart';
 import '../setting_screens/app_info.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -20,16 +21,18 @@ class SettingScreen extends StatelessWidget {
         ),
         leading: IconButton(
           icon: defaultBackArrow(),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        backgroundColor: defaultBeigeColor,
+        backgroundColor: defaultBackgroundColor,
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: defaultBeigeColor,
+          statusBarColor: defaultBackgroundColor,
           statusBarIconBrightness: Brightness.dark,
         ),
       ),
       body: Container(
-        color: defaultBeigeColor,
+        color: defaultBackgroundColor,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -66,14 +69,15 @@ class SettingScreen extends StatelessWidget {
               const Spacer(),
               TextButton(
                 onPressed: () {
+                  navigateToThenRemove(context, const LoginScreen());
                   print('Logout');
                 },
-                child: Container(
+                /*child: Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadiusDirectional.circular(10),
                     color: defaultColor,
-                  ),
+                  ),*/
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -81,17 +85,17 @@ class SettingScreen extends StatelessWidget {
                       children: [
                         Icon(
                           Icons.logout_rounded,
-                          color: defaultBeigeColor,
+                          color: defaultColor,
                         ),
                         widthSpace(),
                         Text(
                           'LOGOUT',
-                          style: titleStyle(size: 20, color: defaultBeigeColor),
+                          style: titleStyle(size: 20, color: defaultColor),
                         ),
                       ],
                     ),
                   ),
-                ),
+                //),
               ),
             ],
           ),

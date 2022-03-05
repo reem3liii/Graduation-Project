@@ -40,12 +40,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: defaultBeigeColor,
+          backgroundColor: Colors.grey.shade100,
           elevation: 0,
           actions: [
             TextButton(
               onPressed: () {
-                navigateToThenRemove(context, LoginScreen());
+                navigateToThenRemove(context, const LoginScreen());
               },
               child: Padding(
                 padding: const EdgeInsets.all(7.0),
@@ -58,17 +58,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
           ],
           systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: defaultBeigeColor,
+            statusBarColor: defaultBackgroundColor,
             statusBarIconBrightness: Brightness.dark,
           ),
         ),
         body: Container(
           padding: const EdgeInsets.all(20),
-          color: defaultBeigeColor,
+          color: defaultBackgroundColor,
           child: Column(
             children: [
               Expanded(
                 child: PageView.builder(
+                  physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, index) =>
                       buildBoardingItem(boarding[index]),
                   itemCount: boarding.length,
@@ -107,7 +108,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   FloatingActionButton(
                     onPressed: () {
                       if (isLast) {
-                        navigateToThenRemove(context, LoginScreen());
+                        navigateToThenRemove(context, const LoginScreen());
                       } else {
                         boardController.nextPage(
                           duration: const Duration(

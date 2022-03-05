@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:saas/modules/for_student/setting_screen.dart';
 import 'package:saas/shared/components/components.dart';
 import 'package:saas/shared/styles/colors.dart';
 
@@ -18,17 +17,17 @@ class InfoScreen extends StatelessWidget {
         leading: IconButton(
           icon: defaultBackArrow(),
           onPressed: () {
-            navigateTo(context, const SettingScreen());
+            Navigator.pop(context);
           },
         ),
-        backgroundColor: defaultBeigeColor,
+        backgroundColor: defaultBackgroundColor,
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: defaultBeigeColor,
+          statusBarColor: defaultBackgroundColor,
           statusBarIconBrightness: Brightness.dark,
         ),
       ),
       body: Container(
-        color: defaultBeigeColor,
+        color: defaultBackgroundColor,
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Container(

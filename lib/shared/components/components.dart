@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:rolling_switch/rolling_switch.dart';
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:saas/models/models.dart';
 
 import 'package:saas/shared/styles/colors.dart';
 
@@ -149,7 +149,7 @@ Widget defaultForwardArrow() => const Icon(
 
 Widget settingSectionName(name) => Text(
       name,
-      style: titleStyle(color: defaultLightColor, size: 20),
+      style: titleStyle(color: defaultColor, size: 20),
     );
 
 Widget settingItem(icon, title, context, screen) => InkWell(
@@ -160,7 +160,7 @@ Widget settingItem(icon, title, context, screen) => InkWell(
         height: 60,
         decoration: BoxDecoration(
           borderRadius: BorderRadiusDirectional.circular(10),
-          color: defaultLightColor.withOpacity(0.5),
+          //color: defaultLightColor.withOpacity(0.5),
         ),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -189,7 +189,7 @@ Widget settingSwitchItem(icon, title, context, screen, leftIcon, rightIcon) =>
         height: 60,
         decoration: BoxDecoration(
           borderRadius: BorderRadiusDirectional.circular(10),
-          color: defaultLightColor.withOpacity(0.5),
+          //color: defaultLightColor.withOpacity(0.5),
         ),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -231,27 +231,28 @@ Widget widthSpace() => const SizedBox(
       width: 10,
     );
 
-Widget containerWithShadow({
-  // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
-  required Widget,
-}) => Expanded(
-  child: Container(
+Widget containerWithOROutShadow({
+  required widget,
+  double blurRadiusValue = 4,
+  double offsetValue1 = 1,
+  double offsetValue2 = 2,
+  double height = 140,
+}) => Container(
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(10),
-      color: Colors.white,
-      boxShadow:const [
+      color: Colors.white.withOpacity(0.98),
+      boxShadow:[
         BoxShadow(
-          blurRadius: 4,
-          offset: Offset(1,2),
+          blurRadius: blurRadiusValue,
+          offset: Offset(offsetValue1,offsetValue2),
           color: Colors.grey,
         ),
       ],
     ),
     clipBehavior: Clip.antiAliasWithSaveLayer,
-    height: 140,
-    child: Widget,
-  ),
-);
+    height: height,
+    child: widget,
+  );
 
 Widget defaultCircularPercentIndicator({
   required String titleText,
@@ -262,18 +263,24 @@ Widget defaultCircularPercentIndicator({
       padding: const EdgeInsets.all(12.0),
       child: Column(
         children: [
-          Text(titleText,style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 14.0),),
+          Text(titleText,
+            style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 14.0),),
           heightSpace(),
           Center(
             child: CircularPercentIndicator(
               radius: 85.0,
               lineWidth: 10.0,
+              backgroundWidth: 6,
               animation: true,
+              animationDuration: 1500,
               percent: percentValue,
               center: Text(
                     value,
-                    style:
-                    TextStyle(fontSize: 18.0,color: color,fontWeight: FontWeight.w500),
+                    style: bodyStyle(
+                        color: color,
+                      weight: FontWeight.w700,
+                    ),
+                    //TextStyle(fontSize: 18.0,color: color,fontWeight: FontWeight.w500),
               ),
               circularStrokeCap: CircularStrokeCap.round,
               progressColor: color,
@@ -284,3 +291,70 @@ Widget defaultCircularPercentIndicator({
         crossAxisAlignment: CrossAxisAlignment.start,
       ),
     );
+
+Widget defaultGridViewList({
+  required list,
+  required itembuild,
+})=> GridView.builder(
+    padding: const EdgeInsets.all(5),
+    shrinkWrap: true,
+    physics: const ScrollPhysics(),
+    itemCount: list.length,
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 3,
+      crossAxisSpacing: 10,
+      mainAxisSpacing: 10,
+      mainAxisExtent: 170,
+    ),
+    itemBuilder: itembuild,
+);
+
+Widget coursesList (CurrentCourses course) => containerWithOROutShadow(
+  blurRadiusValue: 0,
+  offsetValue1: 0,
+  offsetValue2: 0.2,
+  widget: Padding(
+  padding: const EdgeInsets.all(8.0),
+    child: Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          child: Text(course.courseAbbreviation,
+                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0,color: course.color),
+                  ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: course.color.withOpacity(0.2),
+            ),
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          ),
+          heightSpace(),
+          Text(course.courseName,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 13.0,),
+              ),
+          Text('(${course.courseCode})',
+              style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 13.0,),
+              ),
+          heightSpace(),
+          Row(
+              children: [
+                Icon(Icons.perm_identity,color: Colors.grey.shade600,size: 13,),
+                const SizedBox(width: 4,),
+                Expanded(
+                  child: Text("Dr.${course.courseProfessor}",
+                  style: TextStyle(fontSize: 12.0,color: Colors.grey.shade600),
+                  //overflow: TextOverflow.fade,
+                  maxLines: 2,
+                  //softWrap: false,
+                  ),
+                ),
+              ],
+            crossAxisAlignment: CrossAxisAlignment.start,
+       ),
+      ],
+      crossAxisAlignment: CrossAxisAlignment.start,
+    ),
+  ),
+);
