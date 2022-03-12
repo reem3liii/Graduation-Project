@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'modules/onboarding_screen.dart';
+import 'package:saas/modules/splash_screen.dart';
 import 'package:saas/shared/styles/themes.dart';
+//import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     //SystemChrome.setEnabledSystemUIOverlays([]);
     return MaterialApp(
-      home: const OnboardingScreen(),
+      home: const Splash(),
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
     );
