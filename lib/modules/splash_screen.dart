@@ -27,33 +27,33 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey.shade100,
+        backgroundColor: defaultLightColor,
         elevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: defaultBackgroundColor,
-          statusBarIconBrightness: Brightness.dark,
+          statusBarColor: defaultLightColor,
+          statusBarIconBrightness: Brightness.light,
         ),
       ),
       body: Container(
         padding: const EdgeInsets.all(30),
         width: double.infinity,
-        color: defaultBackgroundColor,
+        color: defaultLightColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Expanded(
+          children: [
+            const Expanded(
               child: Image(
-                image: AssetImage('assets/images/SAAS Logo 2.png'),
-                width: 150,
-                height: 150,
+                image: AssetImage('assets/images/SAAS Logo 1.png'),
+                width: 180,
+                height: 180,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 100,
             ),
             LinearProgressIndicator(
-              backgroundColor: Colors.grey,
-              valueColor: AlwaysStoppedAnimation<Color>(
+              backgroundColor: defaultBackgroundColor,
+              valueColor: const AlwaysStoppedAnimation<Color>(
                   Color.fromARGB(255, 6, 75, 104)),
               minHeight: 5,
             ),
