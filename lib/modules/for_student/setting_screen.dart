@@ -4,7 +4,7 @@ import 'package:saas/modules/setting_screens/password.dart';
 import 'package:saas/modules/setting_screens/phone.dart';
 import 'package:saas/shared/components/components.dart';
 import 'package:saas/shared/styles/colors.dart';
-
+import 'package:saas/main.dart';
 import '../login_screen.dart';
 import '../setting_screens/app_info.dart';
 
@@ -15,16 +15,21 @@ class SettingScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Settings',
-          style: titleStyle(
-              color: defaultColor, size: 24, weight: FontWeight.w600),
+          isArabic ? 'الاعدادات' : 'Settings',
+          style: isArabic
+              ? arTitleStyle(
+                  color: defaultColor, size: 24, weight: FontWeight.w600)
+              : titleStyle(
+                  color: defaultColor, size: 24, weight: FontWeight.w600),
         ),
-        leading: IconButton(
-          icon: defaultBackArrow(),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        //leading: IconButton(
+        //  icon: isArabic
+        //      ? const Icon(Icons.arrow_forward_ios_rounded)
+        //      : const Icon(Icons.arrow_back_ios_new_rounded),
+        //  onPressed: () {
+        //    Navigator.pop(context);
+        //  },
+        //),
         backgroundColor: defaultBackgroundColor,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: defaultBackgroundColor,
@@ -38,19 +43,25 @@ class SettingScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              settingSectionName('Account'),
+              settingSectionName(isArabic ? 'الملف الشخصي' : 'Account'),
               heightSpace(),
-              settingItem(const Icon(Icons.lock), 'Password', context,
+              settingItem(
+                  const Icon(Icons.lock),
+                  isArabic ? 'كلمة المرور' : 'Password',
+                  context,
                   const PasswordScreen()),
               heightSpace(),
-              settingItem(const Icon(Icons.phone_android_rounded),
-                  'Phone number', context, const PhoneScreen()),
+              settingItem(
+                  const Icon(Icons.phone_android_rounded),
+                  isArabic ? 'رقم الهاتف' : 'Phone number',
+                  context,
+                  const PhoneScreen()),
               heightSpace(),
-              settingSectionName('General'),
+              settingSectionName(isArabic ? 'عام' : 'General'),
               heightSpace(),
               settingSwitchItem(
                   const Icon(Icons.language_rounded),
-                  'Language',
+                  isArabic ? 'اللغة' : 'Language',
                   context,
                   const PasswordScreen(),
                   Icons.change_circle_outlined,
@@ -58,13 +69,16 @@ class SettingScreen extends StatelessWidget {
               heightSpace(),
               settingSwitchItem(
                   const Icon(Icons.brightness_4_rounded),
-                  'Theme',
+                  isArabic ? 'الاضاءة' : 'Theme',
                   context,
                   const PasswordScreen(),
                   Icons.light_mode_outlined,
                   Icons.dark_mode_outlined),
               heightSpace(),
-              settingItem(const Icon(Icons.info_rounded), 'App info', context,
+              settingItem(
+                  const Icon(Icons.info_rounded),
+                  isArabic ? 'معلومات عن التطبيق' : 'App info',
+                  context,
                   const InfoScreen()),
               const Spacer(),
               TextButton(
@@ -78,23 +92,25 @@ class SettingScreen extends StatelessWidget {
                     borderRadius: BorderRadiusDirectional.circular(10),
                     color: defaultColor,
                   ),*/
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.logout_rounded,
-                          color: defaultColor,
-                        ),
-                        widthSpace(),
-                        Text(
-                          'LOGOUT',
-                          style: titleStyle(size: 20, color: defaultColor),
-                        ),
-                      ],
-                    ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.logout_rounded,
+                        color: defaultColor,
+                      ),
+                      widthSpace(),
+                      Text(
+                        isArabic ? 'تسجيل الخروج' : 'LOGOUT',
+                        style: isArabic
+                            ? arTitleStyle(size: 20, color: defaultColor)
+                            : titleStyle(size: 20, color: defaultColor),
+                      ),
+                    ],
                   ),
+                ),
                 //),
               ),
             ],

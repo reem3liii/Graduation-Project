@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:saas/shared/styles/colors.dart';
 
@@ -6,7 +5,14 @@ class BoardingModel {
   String image;
   String title;
   String body;
-  BoardingModel({required this.image, required this.title, required this.body});
+  String arTitle;
+  String arBody;
+  BoardingModel(
+      {required this.image,
+      required this.title,
+      required this.body,
+      required this.arTitle,
+      required this.arBody});
 }
 
 class PerformanceData {
@@ -16,16 +22,20 @@ class PerformanceData {
   final double gpa;
 }
 
-class CurrentCourses{
+class CurrentCourses {
   String courseName;
+  String arCourseName;
   String courseCode;
   String courseProfessor;
+  String arCourseProfessor;
   String courseAbbreviation;
   Color color;
   CurrentCourses({
     required this.courseName,
+    required this.arCourseName,
     required this.courseCode,
     required this.courseProfessor,
+    required this.arCourseProfessor,
     required this.courseAbbreviation,
     required this.color,
   });
@@ -33,11 +43,13 @@ class CurrentCourses{
 
 List<CurrentCourses> courses = [
   CurrentCourses(
-      courseName: "Mobile Application Development",
-      courseCode: "CSC402",
-      courseProfessor: "Abdelrahman Yasser",
-      courseAbbreviation: "MAD",
-      color: defaultBlueColor,
+    courseName: "Mobile Application Development",
+    arCourseName: "تطوير تطبيقات الهاتف",
+    courseCode: "CSC402",
+    courseProfessor: "Abdelrahman Yasser",
+    arCourseProfessor: "عبدالرحمن ياسر",
+    courseAbbreviation: "MAD",
+    color: defaultBlueColor,
   ),
   CurrentCourses(
     courseName: "Compiler Design",
@@ -45,6 +57,8 @@ List<CurrentCourses> courses = [
     courseProfessor: "Ahmed Mostafa",
     courseAbbreviation: "CD",
     color: defaultGreenColor,
+    arCourseName: 'تصميم المترجمات',
+    arCourseProfessor: 'أحمد مصطفى',
   ),
   CurrentCourses(
     courseName: "Machine Learning",
@@ -52,6 +66,8 @@ List<CurrentCourses> courses = [
     courseProfessor: "Mohamed Ali",
     courseAbbreviation: "ML",
     color: defaultOrangeColor,
+    arCourseName: 'التعلم الآلي',
+    arCourseProfessor: 'محمد علي',
   ),
   CurrentCourses(
     courseName: "Parallel Programming",
@@ -59,6 +75,8 @@ List<CurrentCourses> courses = [
     courseProfessor: "Mohamed Fekry",
     courseAbbreviation: "PP",
     color: defaultGreenColor,
+    arCourseName: 'برمجة متوازية',
+    arCourseProfessor: 'محمد فكري',
   ),
   CurrentCourses(
     courseName: "Artificial Intelligence",
@@ -66,6 +84,8 @@ List<CurrentCourses> courses = [
     courseProfessor: "Ahmed Fouad",
     courseAbbreviation: "AI",
     color: defaultPinkColor,
+    arCourseName: 'الذكاء الاصطناعي',
+    arCourseProfessor: 'أحمد فؤاد',
   ),
   CurrentCourses(
     courseName: "Software Engineering II",
@@ -73,6 +93,8 @@ List<CurrentCourses> courses = [
     courseProfessor: "Amira Ahmed",
     courseAbbreviation: "SE II",
     color: defaultBlueColor,
+    arCourseName: 'هندسة البرمجيات II',
+    arCourseProfessor: 'أمير أحمد',
   ),
 ];
 

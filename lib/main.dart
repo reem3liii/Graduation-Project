@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:saas/modules/splash_screen.dart';
 import 'package:saas/shared/styles/themes.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 //import 'package:flutter/services.dart';
+
+bool isArabic = true;
 
 void main() {
   runApp(const MyApp());
@@ -16,6 +19,14 @@ class MyApp extends StatelessWidget {
       home: const Splash(),
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        isArabic ? const Locale('ar', 'AE') : const Locale('en', ''),
+      ],
     );
   }
 }

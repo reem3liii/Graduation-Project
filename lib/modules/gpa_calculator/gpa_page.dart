@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:saas/main.dart';
 import 'package:saas/shared/components/components.dart';
 import 'package:saas/shared/styles/colors.dart';
 
@@ -20,7 +21,7 @@ class _GPACalculatorState extends State<GPACalculator> {
   int fieldCount = 0;
   int nextIndex = 0;
   double a = 0, a2 = 0;
-  double res=0;
+  double res = 0;
 
   List<TextEditingController> gpaControllers = <TextEditingController>[];
   List<TextEditingController> creditControllers = <TextEditingController>[];
@@ -37,7 +38,9 @@ class _GPACalculatorState extends State<GPACalculator> {
 
     i = 0;
     // cycle through the controllers, and recreate each, one per available controller
-    return gpaControllers.map<Widget>((TextEditingController controller,) {
+    return gpaControllers.map<Widget>((
+      TextEditingController controller,
+    ) {
       int displayNumber = i + 1;
       i++;
       return Row(
@@ -45,12 +48,18 @@ class _GPACalculatorState extends State<GPACalculator> {
           widthSpace(),
           widthSpace(),
           Expanded(
-              child: Text('Course $displayNumber',
-            style: titleStyle(
-              size: 17,
-              color: defaultGreenColor,
+            child: Text(
+              isArabic ? 'مقرر $displayNumber' : 'Course $displayNumber',
+              style: isArabic
+                  ? arTitleStyle(
+                      size: 17,
+                      color: defaultGreenColor,
+                    )
+                  : titleStyle(
+                      size: 17,
+                      color: defaultGreenColor,
+                    ),
             ),
-              ),
           ),
           //const Spacer(),
           widthSpace(),
@@ -60,8 +69,8 @@ class _GPACalculatorState extends State<GPACalculator> {
               controller: controller,
               keyboardType: TextInputType.number,
               maxLength: 6,
-              decoration: const InputDecoration(
-                labelText: "GPA",
+              decoration: InputDecoration(
+                labelText: isArabic ? 'تقدير المقرر' : "GPA",
                 counterText: "",
                 border: InputBorder.none,
               ),
@@ -81,7 +90,9 @@ class _GPACalculatorState extends State<GPACalculator> {
       }
     }
     // cycle through the controllers, and recreate each, one per available controller
-    return creditControllers.map<Widget>((TextEditingController controller1,) {
+    return creditControllers.map<Widget>((
+      TextEditingController controller1,
+    ) {
       return Row(
         children: [
           Expanded(
@@ -89,8 +100,8 @@ class _GPACalculatorState extends State<GPACalculator> {
               controller: controller1,
               keyboardType: TextInputType.number,
               maxLength: 6,
-              decoration: const InputDecoration(
-                labelText: "Credit",
+              decoration: InputDecoration(
+                labelText: isArabic ? 'عدد الساعات' : "Credit",
                 counterText: "",
                 border: InputBorder.none,
               ),
@@ -115,11 +126,16 @@ class _GPACalculatorState extends State<GPACalculator> {
       appBar: AppBar(
         backgroundColor: defaultColor,
         title: Text(
-          'GPA Calculator',
-          style: titleStyle(
-            size: 20,
-            color: Colors.white,
-          ),
+          isArabic ? 'حساب المعدل الاكاديمي' : 'GPA Calculator',
+          style: isArabic
+              ? arTitleStyle(
+                  size: 20,
+                  color: Colors.white,
+                )
+              : titleStyle(
+                  size: 20,
+                  color: Colors.white,
+                ),
         ),
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: defaultColor,
@@ -147,49 +163,70 @@ class _GPACalculatorState extends State<GPACalculator> {
                   widthSpace(),
                   widthSpace(),
                   Expanded(
-                    child: Text('Courses',
-                      style: titleStyle(
-                        size: 18.0,
-                        color: defaultOrangeColor.shade300,
-                        ),),
+                    child: Text(
+                      isArabic ? 'المقرر' : 'Courses',
+                      style: isArabic
+                          ? arTitleStyle(
+                              size: 18.0,
+                              color: defaultOrangeColor.shade300,
+                            )
+                          : titleStyle(
+                              size: 18.0,
+                              color: defaultOrangeColor.shade300,
+                            ),
+                    ),
                   ),
                   widthSpace(),
                   widthSpace(),
                   Expanded(
-                    child: Text('GPA',
-                      style: titleStyle(
-                        size: 18.0,
-                        color: defaultOrangeColor.shade300,
-                      ),),
+                    child: Text(
+                      isArabic ? 'التقدير' : 'GPA',
+                      style: isArabic
+                          ? arTitleStyle(
+                              size: 18.0,
+                              color: defaultOrangeColor.shade300,
+                            )
+                          : titleStyle(
+                              size: 18.0,
+                              color: defaultOrangeColor.shade300,
+                            ),
+                    ),
                   ),
                   Expanded(
-                    child: Text('Credits',
-                      style: titleStyle(
-                        size: 18.0,
-                        color: defaultOrangeColor.shade300,
-                      ),),
+                    child: Text(
+                      isArabic ? 'الساعات' : 'Credits',
+                      style: isArabic
+                          ? arTitleStyle(
+                              size: 18.0,
+                              color: defaultOrangeColor.shade300,
+                            )
+                          : titleStyle(
+                              size: 18.0,
+                              color: defaultOrangeColor.shade300,
+                            ),
+                    ),
                   ),
                 ],
               ),
               SizedBox(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: ListView(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          children: children,
-                        ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: ListView(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: children,
                       ),
-                        SizedBox(
-                          width: 100,
-                          child: ListView(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            children: children2,
-                          ),
-                        ),
-                    ],
+                    ),
+                    SizedBox(
+                      width: 100,
+                      child: ListView(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: children2,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Padding(
@@ -197,31 +234,48 @@ class _GPACalculatorState extends State<GPACalculator> {
                 child: defaultButton(
                   width: 150,
                   function: () {
-
                     for (int j = 0; j < fieldCount; j++) {
                       if (gpaControllers[j].text.toString() != "") {
-                        if (double.parse(gpaControllers[j].text.toString()) >= 1.0) {
-                          a2 += double.parse(creditControllers[j].text.toString());
-                          a += (double.parse(gpaControllers[j].text.toString()) *
-                              double.parse(creditControllers[j].text.toString()));
+                        if (double.parse(gpaControllers[j].text.toString()) >=
+                            1.0) {
+                          a2 += double.parse(
+                              creditControllers[j].text.toString());
+                          a +=
+                              (double.parse(gpaControllers[j].text.toString()) *
+                                  double.parse(
+                                      creditControllers[j].text.toString()));
                         }
                       }
                     }
-                    res=(a/a2);
+                    res = (a / a2);
                     print(a / a2);
                     setState(() {
-                      res=res;
+                      res = res;
                     });
                   },
-                  text: 'CALCULATE',
+                  text: isArabic ? 'احسب' : 'CALCULATE',
                 ),
               ),
               // ignore: unnecessary_string_interpolations
-              Text("Semester GPA: ${res.toStringAsFixed(2)}",
-                style: titleStyle(
-                  size: 20,
-                  color: a==0&&a2==0?   Colors.white.withOpacity(0):defaultOrangeColor,
-                ),
+              heightSpace(),
+              heightSpace(),
+              Text(
+                isArabic
+                    ? "المعدل الاكاديمي : ${res.toStringAsFixed(2)}"
+                    : "Semester GPA: ${res.toStringAsFixed(2)}",
+                style: isArabic
+                    ? arTitleStyle(
+                        size: 20,
+                        color: a == 0 && a2 == 0
+                            ? Colors.white.withOpacity(0)
+                            : defaultOrangeColor,
+                      )
+                    : titleStyle(
+                        size: 20,
+                        color: a == 0 && a2 == 0
+                            ? Colors.white.withOpacity(0)
+                            : defaultOrangeColor,
+                      ),
               ),
             ],
           ),
@@ -251,7 +305,7 @@ class _GPACalculatorState extends State<GPACalculator> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-  }// convert to a list
+  } // convert to a list
 
 }
 
