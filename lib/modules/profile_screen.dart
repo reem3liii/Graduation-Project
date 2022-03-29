@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:saas/main.dart';
 import 'package:saas/modules/for_student/setting_screen.dart';
 import 'package:saas/shared/components/components.dart';
 import 'package:saas/shared/data.dart';
@@ -23,12 +24,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
         backgroundColor: defaultColor,
         actions: [
           IconButton(
-              onPressed: (){
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context)=> const SettingScreen()),
-                );
-              },
-              icon: const Icon(Icons.settings,color: Colors.white,),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SettingScreen()),
+              );
+            },
+            icon: const Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
           ),
         ],
         systemOverlayStyle: SystemUiOverlayStyle(
@@ -55,20 +60,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   CircleAvatar(
                     radius: width / 6,
                     backgroundColor: Colors.transparent,
-                    backgroundImage: const AssetImage('assets/images/student_profile.png'),
+                    backgroundImage:
+                        const AssetImage('assets/images/student_profile.png'),
                   ),
                   SizedBox(
                     height: height / 65,
                   ),
                   Text(
-                    data[data.length - 2].toString(),
-                    style: titleStyle().copyWith(color: Colors.white),
+                    isArabic
+                        ? arData[arData.length - 2].toString()
+                        : data[data.length - 2].toString(),
+                    style: isArabic
+                        ? arTitleStyle().copyWith(color: Colors.white)
+                        : titleStyle().copyWith(color: Colors.white),
                   ),
                   SizedBox(
                     height: height / 65,
                   ),
                   Text(
-                    data[data.length - 1].toString(),
+                    isArabic
+                        ? arData[arData.length - 1].toString()
+                        : data[data.length - 1].toString(),
                     style: Theme.of(context)
                         .textTheme
                         .bodyText1!
@@ -114,33 +126,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     // scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     itemBuilder: (context, index) => SizedBox(
-                      height: height / 15,
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: width / 2.8,
-                            child: Text(labels[index],
+                          height: height / 15,
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: width / 2.8,
+                                child: Text(
+                                    isArabic ? arLabels[index] : labels[index],
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1!
+                                        .copyWith(
+                                            color: defaultColor,
+                                            fontWeight: FontWeight.w600)),
+                              ),
+                              Text(
+                                isArabic
+                                    ? arData[index].toString()
+                                    : data[index].toString(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1!
                                     .copyWith(
-                                    color: defaultColor,
-                                    fontWeight: FontWeight.w600)),
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.normal),
+                              )
+                            ],
                           ),
-                          Text(
-                            data[index].toString(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1!
-                                .copyWith(
-                                color: Colors.black,
-                                fontWeight: FontWeight.normal),
-                          )
-                        ],
-                      ),
-                    ),
+                        ),
                     separatorBuilder: (context, index) => Divider(
-                      //  width: double.infinity,
+                        //  width: double.infinity,
                         thickness: 2,
                         indent: width / 3,
                         color: Colors.grey[300]),

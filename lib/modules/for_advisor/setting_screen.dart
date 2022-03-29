@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:saas/main.dart';
 import 'package:saas/modules/setting_screens/password.dart';
 import 'package:saas/modules/setting_screens/phone.dart';
 import 'package:saas/shared/components/components.dart';
@@ -20,7 +21,9 @@ class SettingScreenAdv extends StatelessWidget {
               color: defaultColor, size: 24, weight: FontWeight.w600),
         ),
         leading: IconButton(
-          icon: defaultBackArrow(),
+          icon: isArabic
+              ? const Icon(Icons.arrow_forward_ios_rounded)
+              : const Icon(Icons.arrow_back_ios_new_rounded),
           onPressed: () {
             Navigator.pop(context);
           },

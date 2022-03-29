@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saas/main.dart';
 import 'package:saas/modules/gpa_calculator/gpa_page.dart';
 import 'package:saas/shared/components/components.dart';
 import 'package:saas/shared/styles/colors.dart';
@@ -16,7 +17,12 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int selectedIndex = 0;
-  final screens = [HomeScreen(), const Details(),GPACalculator(),const ProfileScreen()];
+  final screens = [
+    HomeScreen(),
+    const Details(),
+    GPACalculator(),
+    const ProfileScreen()
+  ];
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -36,13 +42,21 @@ class _MainPageState extends State<MainPage> {
           backgroundColor: Colors.grey.shade100,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-                icon: Icon(Icons.home, size: width / 15), label: 'Home'),
+                icon: Icon(Icons.home, size: width / 15),
+                label: isArabic ? 'الصفحة الرئيسية' : 'Home'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.bar_chart, size: width / 15), label: 'Analysis'),
+                icon: Icon(Icons.bar_chart, size: width / 15),
+                label: isArabic ? 'الدرجات' : 'Degrees'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.calculate, size: width / 15), label: 'Calculator'),
+                icon: Icon(Icons.calculate, size: width / 15),
+                label: isArabic ? 'حساب المعدل' : 'Calculator'),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person, size: width / 15,), label: 'Profile',),
+              icon: Icon(
+                Icons.person,
+                size: width / 15,
+              ),
+              label: isArabic ? 'الصفحة الشخصية' : 'Profile',
+            ),
           ],
           currentIndex: selectedIndex,
           onTap: onItemTapped,

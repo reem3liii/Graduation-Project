@@ -5,6 +5,7 @@ import 'package:saas/shared/styles/colors.dart';
 ThemeData lightTheme = ThemeData(
   primarySwatch: Colors.blueGrey,
   scaffoldBackgroundColor: defaultBackgroundColor,
+  fontFamily: 'regIBM',
   appBarTheme: AppBarTheme(
     titleSpacing: 20,
     //backwardsCompatibility: false,

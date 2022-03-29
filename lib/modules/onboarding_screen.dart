@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:saas/main.dart';
 import 'package:saas/modules/login_screen.dart';
 import 'package:saas/shared/components/components.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -21,17 +22,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         image: 'assets/images/onboarding1.png',
         title: 'Welcome to SAAS',
         body:
-            'It is an acadimic support system for students and acadimic advisors.'),
+            'It is an acadimic support system for students and acadimic advisors.',
+        arTitle: 'مرحباً بك في SAAS',
+        arBody: 'نظام الدعم الأكاديمي للطلاب والمرشدين الأكاديميين.'),
     BoardingModel(
         image: 'assets/images/onboarding2.png',
         title: 'The goal of the application',
         body:
-            'It helps you by suggesting courses that meet your current needs, and at the same time improve the academic performance.'),
+            'It helps you by suggesting courses that meet your current needs, and at the same time improve the academic performance.',
+        arTitle: 'الهدف من التطبيق',
+        arBody:
+            'مساعدتك على اختيار المواد المناسبة لاحتياجاتك، وفي نفس الوقت تحسن من أداءك الأكاديمي.'),
     BoardingModel(
         image: 'assets/images/onboarding3.png',
         title: 'Let\'s get started',
         body:
-            'You are now ready to use the application, you can login or sign up by using your university email.'),
+            'You are now ready to use the application, you can login or sign up by using your university email.',
+        arTitle: 'لنبدأ',
+        arBody:
+            ' أنت الآن مستعد لاستخدام التطبيق، يمكنك تسجيل الدخول أو الاشتراك عبر البريد الالكتروني الجامعي الخاص بك.'),
   ];
 
   bool isLast = false;
@@ -50,9 +59,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(7.0),
                 child: Text(
-                  'SKIP',
-                  style: bodyStyle2(
-                      weight: FontWeight.bold, color: defaultColor, size: 16),
+                  isArabic ? 'تخطي' : 'SKIP',
+                  style: isArabic
+                      ? arBodyStyle(
+                          weight: FontWeight.bold,
+                          color: defaultColor,
+                          size: 16)
+                      : bodyStyle2(
+                          weight: FontWeight.bold,
+                          color: defaultColor,
+                          size: 16),
                 ),
               ),
             ),
@@ -142,15 +158,17 @@ Widget buildBoardingItem(BoardingModel model) => Column(
           ),
         ),
         Text(
-          model.title,
-          style: titleStyle(),
+          isArabic ? model.arTitle : model.title,
+          style: isArabic ? arTitleStyle() : titleStyle(),
         ),
         const SizedBox(
           height: 15,
         ),
         Text(
-          model.body,
-          style: bodyStyle2(weight: FontWeight.w400),
+          isArabic ? model.arBody : model.body,
+          style: isArabic
+              ? arBodyStyle(weight: FontWeight.w400)
+              : bodyStyle2(weight: FontWeight.w400),
         ),
         const SizedBox(
           height: 15,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:saas/main.dart';
 import 'package:saas/shared/components/components.dart';
 import 'package:saas/shared/styles/colors.dart';
 
@@ -14,16 +15,21 @@ class PhoneScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Change Phone Number',
-          style: titleStyle(
-              color: defaultColor, size: 20, weight: FontWeight.w600),
+          isArabic ? 'تغيير رقم الهاتف' : 'Change Phone Number',
+          style: isArabic
+              ? arTitleStyle(
+                  color: defaultColor, size: 20, weight: FontWeight.w600)
+              : titleStyle(
+                  color: defaultColor, size: 20, weight: FontWeight.w600),
         ),
-        leading: IconButton(
-          icon: defaultBackArrow(),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        //leading: IconButton(
+        //  icon: isArabic
+        //      ? const Icon(Icons.arrow_forward_ios_rounded)
+        //      : const Icon(Icons.arrow_back_ios_new_rounded),
+        //  onPressed: () {
+        //    Navigator.pop(context);
+        //  },
+        //),
         backgroundColor: defaultBackgroundColor,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: defaultBackgroundColor,
@@ -44,9 +50,18 @@ class PhoneScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Enter your phone number:',
-                        style: bodyStyle3(
-                            size: 16, color: defaultColor, weight: FontWeight.bold),
+                        isArabic
+                            ? 'أدخل رقم الهاتف :'
+                            : 'Enter your phone number:',
+                        style: isArabic
+                            ? arBodyStyle(
+                                size: 16,
+                                color: defaultColor,
+                                weight: FontWeight.bold)
+                            : bodyStyle3(
+                                size: 16,
+                                color: defaultColor,
+                                weight: FontWeight.bold),
                       ),
                       heightSpace(),
                       defaultTextField(
@@ -55,7 +70,9 @@ class PhoneScreen extends StatelessWidget {
                         preIcon: Icons.phone_android_outlined,
                         validator: (phoneController) {
                           if (phoneController.toString().isEmpty) {
-                            return 'Please enter your phone number!';
+                            return isArabic
+                                ? 'من فضلك أدخل الرقم!'
+                                : 'Please enter your phone number!';
                           } else {
                             return null;
                           }
@@ -64,9 +81,18 @@ class PhoneScreen extends StatelessWidget {
                       heightSpace(),
                       heightSpace(),
                       Text(
-                        'Enter the code sent to you to verify your number:',
-                        style: bodyStyle3(
-                            size: 16, color: defaultColor, weight: FontWeight.bold),
+                        isArabic
+                            ? 'أدخل الكود المرسل إليك لتأكيد رقمك :'
+                            : 'Enter the code sent to you to verify your number:',
+                        style: isArabic
+                            ? arBodyStyle(
+                                size: 16,
+                                color: defaultColor,
+                                weight: FontWeight.bold)
+                            : bodyStyle3(
+                                size: 16,
+                                color: defaultColor,
+                                weight: FontWeight.bold),
                       ),
                       heightSpace(),
                       defaultTextField(
@@ -75,7 +101,9 @@ class PhoneScreen extends StatelessWidget {
                         preIcon: Icons.comment_outlined,
                         validator: (confirmController) {
                           if (confirmController.toString().isEmpty) {
-                            return 'Check your SMS then enter the sent code';
+                            return isArabic
+                                ? 'قم بمراجعة سجل رسائلك ثم أدخل الكود المرسل اليك'
+                                : 'Check your SMS then enter the sent code';
                           } else {
                             return null;
                           }
@@ -89,14 +117,14 @@ class PhoneScreen extends StatelessWidget {
                             print('Phone number changed');
                           }
                         },
-                        text: 'Save Changes',
+                        text: isArabic ? 'حفظ التغييرات' : 'Save Changes',
                       ),
                     ],
                   ),
                 ),
               ),
             ),
-         ),
+          ),
         ],
       ),
     );

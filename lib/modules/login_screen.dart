@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:saas/main.dart';
 import 'package:saas/shared/components/components.dart';
 import 'package:saas/shared/styles/colors.dart';
 import 'main_page.dart';
@@ -21,7 +22,8 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isPassword = true;
 
   bool get isEmail {
-    String p = '[a-z0-9!#\$%&\'*+/=?^_`{|}~-]+(?:.[a-z0-9!#\$%&\'*+/=?^_`{|}~-]+)*@ci.suez.edu.eg';
+    String p =
+        '[a-z0-9!#\$%&\'*+/=?^_`{|}~-]+(?:.[a-z0-9!#\$%&\'*+/=?^_`{|}~-]+)*@ci.suez.edu.eg';
     RegExp regExp = RegExp(p);
     return regExp.hasMatch(emailController.toString());
   }
@@ -74,21 +76,32 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Column(
                           children: [
                             Text(
-                              'Sign In',
-                                style: titleStyle(size: 25,),
+                              isArabic ? 'تسجيل الدخول' : 'Sign In',
+                              style: isArabic
+                                  ? arTitleStyle(
+                                      size: 25,
+                                    )
+                                  : titleStyle(
+                                      size: 25,
+                                    ),
                             ),
                             heightSpace(),
                             heightSpace(),
                             defaultTextField(
                               textEditingController: emailController,
                               textInputType: TextInputType.emailAddress,
-                              hintText: 'E-mail',
+                              hintText:
+                                  isArabic ? 'البريد الإلكتروني' : 'E-mail',
                               preIcon: Icons.email,
                               validator: (emailController) {
                                 if (emailController.toString().isEmpty) {
-                                  return 'Email Field is Empty!';
+                                  return isArabic
+                                      ? 'أدخل البريد الإلكتروني!'
+                                      : 'Email Field is Empty!';
                                 } else if (!isEmail) {
-                                  return 'Check Your Email';
+                                  return isArabic
+                                      ? 'تحقق من بريدك الإلكتروني'
+                                      : 'Check Your Email';
                                 }
                                 return null;
                               },
@@ -97,24 +110,29 @@ class _LoginScreenState extends State<LoginScreen> {
                             defaultTextField(
                               textEditingController: passwordController,
                               textInputType: TextInputType.visiblePassword,
-                              hintText: 'Password',
+                              hintText: isArabic ? 'كلمة المرور' : 'Password',
                               preIcon: Icons.lock,
                               isPassword: isPassword,
                               suffixIcon: isPassword
                                   ? Icons.visibility
                                   : Icons.visibility_off,
-                              suffixPressed: (){
-                                      setState(() {
-                                        isPassword = !isPassword;
-                                      });
-                                    },
+                              suffixPressed: () {
+                                setState(() {
+                                  isPassword = !isPassword;
+                                });
+                              },
                               validator: (passwordController) {
                                 if (passwordController.toString().isEmpty) {
-                                  return 'Password Field is Empty!';
+                                  return isArabic
+                                      ? 'أدخل كلمة المرور!'
+                                      : 'Password Field is Empty!';
                                 } else if (passwordController
                                         .toString()
-                                        .length <= 6) {
-                                  return 'Password must be greater than 6 characters!';
+                                        .length <=
+                                    6) {
+                                  return isArabic
+                                      ? 'يجب أن تكون كلمة المرور أكبر من 6 أحرف '
+                                      : 'Password must be greater than 6 characters!';
                                 }
                                 return null;
                               },
@@ -122,24 +140,27 @@ class _LoginScreenState extends State<LoginScreen> {
                             heightSpace(),
                             heightSpace(),
                             defaultButton(
-                              function: (){
-                                if(formKey.currentState!.validate()){
+                              function: () {
+                                if (formKey.currentState!.validate()) {
                                   Navigator.pushAndRemoveUntil(
                                     context,
-                                    MaterialPageRoute(builder: (context)=> const MainPage()),
-                                        (Route<dynamic> route) => false,
+                                    MaterialPageRoute(
+                                        builder: (context) => const MainPage()),
+                                    (Route<dynamic> route) => false,
                                   );
                                 }
                               },
-                              text: 'login'.toUpperCase(),
+                              text: isArabic ? 'دخول' : 'login'.toUpperCase(),
                             ),
                             Row(
                               children: [
                                 TextButton(
                                   onPressed: () {},
-                                  child: const Text(
-                                    'Forget Your Password?',
-                                    style: TextStyle(
+                                  child: Text(
+                                    isArabic
+                                        ? 'نسيت كلمة المرور؟'
+                                        : 'Forget Your Password?',
+                                    style: const TextStyle(
                                       color: Colors.black87,
                                     ),
                                   ),
