@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:saas/shared/styles/colors.dart';
+import 'package:saas/shared/colors.dart';
 
 ThemeData lightTheme = ThemeData(
   primarySwatch: Colors.blueGrey,

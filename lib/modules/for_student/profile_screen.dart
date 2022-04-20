@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:saas/main.dart';
 import 'package:saas/modules/for_student/setting_screen.dart';
-import 'package:saas/shared/components/components.dart';
+import 'package:saas/shared/components.dart';
 import 'package:saas/shared/data.dart';
-import 'package:saas/shared/styles/colors.dart';
+import 'package:saas/shared/colors.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:saas/main.dart';
 import 'package:saas/modules/login_screen.dart';
-import 'package:saas/shared/components/components.dart';
+import 'package:saas/shared/components.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:saas/models/models.dart';
-import 'package:saas/shared/styles/colors.dart';
+import 'package:saas/shared/models.dart';
+import 'package:saas/shared/colors.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);

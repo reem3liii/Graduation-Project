@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saas/shared/styles/colors.dart';
+import 'package:saas/shared/colors.dart';
 
 class BoardingModel {
   String image;

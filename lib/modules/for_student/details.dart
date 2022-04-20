@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:saas/main.dart';
-import 'package:saas/shared/components/components.dart';
+import 'package:saas/shared/components.dart';
 import 'package:saas/shared/data.dart';
-import 'package:saas/shared/styles/colors.dart';
+import 'package:saas/shared/colors.dart';
 
 class Details extends StatefulWidget {
   const Details({Key? key}) : super(key: key);

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:saas/main.dart';
-import 'package:saas/shared/components/components.dart';
-import 'package:saas/shared/styles/colors.dart';
-import 'main_page.dart';
+import 'package:saas/shared/components.dart';
+import 'package:saas/shared/colors.dart';
+import 'for_student/main_page.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

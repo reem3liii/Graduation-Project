@@ -4,8 +4,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:rolling_switch/rolling_switch.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:saas/main.dart';
-import 'package:saas/models/models.dart';
-import 'package:saas/shared/styles/colors.dart';
+import 'package:saas/shared/models.dart';
+import 'package:saas/shared/colors.dart';
 
 void navigateTo(context, widget) => Navigator.push(
       context,
@@ -404,6 +404,101 @@ Widget coursesList(CurrentCourses course) => containerWithOROutShadow(
             ),
           ],
           crossAxisAlignment: CrossAxisAlignment.start,
+        ),
+      ),
+    );
+
+Widget recCoursesItem(CurrentCourses course) => Padding(
+      padding: const EdgeInsetsDirectional.only(
+        bottom: 14,
+      ),
+      child: Container(
+        height: 100,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Colors.grey.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          children: [
+            widthSpace(),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: Text(
+                course.courseAbbreviation,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 32.0,
+                    color: courses[1].color),
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: courses[1].color.withOpacity(0.2),
+              ),
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+            ),
+            widthSpace(),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  isArabic ? course.arCourseName : course.courseName,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontSize: 16.0,
+                  ),
+                ),
+                Text(
+                  '(${course.courseCode})',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 12.0,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.perm_identity,
+                      color: Colors.grey.shade600,
+                      size: 16,
+                    ),
+                    SizedBox(
+                      width: 3,
+                    ),
+                    Text(
+                      isArabic
+                          ? "دكتور ${course.arCourseProfessor}"
+                          : "Dr.${course.courseProfessor}",
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        color: Colors.grey.shade600,
+                        fontWeight: FontWeight.w800,
+                      ),
+                      //overflow: TextOverflow.fade,
+                      maxLines: 2,
+                      //softWrap: false,
+                    ),
+                  ],
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                ),
+              ],
+            ),
+            Spacer(),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.add_circle),
+              color: defaultColor,
+              iconSize: 40,
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.cancel),
+              color: defaultColor,
+              iconSize: 40,
+            ),
+          ],
         ),
       ),
     );

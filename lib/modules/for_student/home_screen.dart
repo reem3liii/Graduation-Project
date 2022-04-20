@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:saas/main.dart';
-import 'package:saas/models/models.dart';
+import 'package:saas/modules/for_student/recommended_courses.dart';
+import 'package:saas/shared/models.dart';
 import 'package:saas/modules/setting_screens/password.dart';
-import 'package:saas/shared/components/components.dart';
-import 'package:saas/shared/styles/colors.dart';
+import 'package:saas/shared/components.dart';
+import 'package:saas/shared/colors.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -22,46 +23,11 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: defaultColor,
         centerTitle: true,
-        leading: GestureDetector(
-          onTap: () {},
-          child: Padding(
-            padding:
-                const EdgeInsetsDirectional.only(start: 15, top: 8, bottom: 8),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(40),
-              ),
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              child: Image.asset(
-                'assets/images/SAAS Logo 1.png',
-              ),
-            ),
-          ),
+        title: Image.asset(
+          'assets/images/SAAS Logo 1.png',
+          width: 50,
+          height: 50,
         ),
-        title: Text(
-          isArabic ? 'مرحبا، سما 👋' : 'Hi, Sama 👋',
-          style: isArabic
-              ? arTitleStyle(
-                  size: 20,
-                  color: Colors.white,
-                )
-              : titleStyle(
-                  size: 20,
-                  color: Colors.white,
-                ),
-        ),
-        //actions: [
-        //  Padding(
-        //    padding: const EdgeInsets.only(right: 15,top: 8,bottom: 8),
-        //    child: Container(
-        //      decoration: BoxDecoration(
-        //        borderRadius: BorderRadius.circular(40),
-        //      ),
-        //      clipBehavior: Clip.antiAliasWithSaveLayer,
-        //      child: Image.asset('assets/images/student_profile.png',),
-        //    ),
-        //  ),
-        //],
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: defaultColor,
           statusBarIconBrightness: Brightness.light,
@@ -76,13 +42,13 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                isArabic ? 'أداؤك الأكاديمي' : ' Performance',
+                isArabic ? 'أداؤك الأكاديمي' : 'Performance',
                 style: isArabic
                     ? arTitleStyle(
-                        size: 18.0,
+                        size: 20.0,
                       )
                     : titleStyle(
-                        size: 18.0,
+                        size: 20.0,
                       ), //TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),
               ),
               heightSpace(),
@@ -117,6 +83,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ]),
               ),
+              heightSpace(),
               heightSpace(),
               Row(
                 children: [
@@ -155,21 +122,51 @@ class HomeScreen extends StatelessWidget {
               ),
               heightSpace(),
               heightSpace(),
+              heightSpace(),
               Text(
-                isArabic ? 'المواد الحاليه' : '  Current Courses',
+                isArabic ? 'المواد الحاليه' : 'Current Courses',
                 style: isArabic
                     ? arTitleStyle(
-                        size: 18.0,
+                        size: 20.0,
                       )
                     : titleStyle(
-                        size: 18.0,
+                        size: 20.0,
                       ), //TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),
               ),
+              heightSpace(),
               heightSpace(),
               defaultGridViewList(
                 itembuild: (context, index) => coursesList(courses[index]),
                 list: courses,
               ),
+              heightSpace(),
+              heightSpace(),
+              heightSpace(),
+              Text(
+                isArabic ? 'المواد الموصى بها' : 'Recommended courses',
+                style: isArabic
+                    ? arTitleStyle(
+                        size: 20.0,
+                      )
+                    : titleStyle(
+                        size: 20.0,
+                      ), //TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),
+              ),
+              heightSpace(),
+              heightSpace(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  defaultButton(
+                    width: 250,
+                    function: () {
+                      navigateTo(context, const RecommendedScreen());
+                    },
+                    text: isArabic ? 'بدء التوصية' : 'Start recommendation',
+                  ),
+                ],
+              ),
+              heightSpace(),
               heightSpace(),
             ],
             crossAxisAlignment: CrossAxisAlignment.start,
