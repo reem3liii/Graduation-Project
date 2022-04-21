@@ -28,6 +28,12 @@ class _LoginScreenState extends State<LoginScreen> {
     return regExp.hasMatch(emailController.toString());
   }
 
+  bool get ispass{
+    String  pattern = '^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@!%*?&])[A-Za-zd@!%*?&]';
+    RegExp regExp2 = RegExp(pattern);
+    return regExp2.hasMatch(passwordController.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             defaultTextField(
                               textEditingController: emailController,
                               textInputType: TextInputType.emailAddress,
-                              hintText:
+                              labelText:
                                   isArabic ? 'البريد الإلكتروني' : 'E-mail',
                               preIcon: Icons.email,
                               validator: (emailController) {
@@ -110,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             defaultTextField(
                               textEditingController: passwordController,
                               textInputType: TextInputType.visiblePassword,
-                              hintText: isArabic ? 'كلمة المرور' : 'Password',
+                              labelText: isArabic ? 'كلمة المرور' : 'Password',
                               preIcon: Icons.lock,
                               isPassword: isPassword,
                               suffixIcon: isPassword
@@ -126,13 +132,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   return isArabic
                                       ? 'أدخل كلمة المرور!'
                                       : 'Password Field is Empty!';
-                                } else if (passwordController
-                                        .toString()
-                                        .length <=
-                                    6) {
+                                } else if (!ispass) {
                                   return isArabic
-                                      ? 'يجب أن تكون كلمة المرور أكبر من 6 أحرف '
-                                      : 'Password must be greater than 6 characters!';
+                                      ? 'تحقق من كلمة المرور'
+                                      :'Check Your Password, Please!';
                                 }
                                 return null;
                               },

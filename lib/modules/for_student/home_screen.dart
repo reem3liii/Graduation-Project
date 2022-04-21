@@ -11,6 +11,9 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+
     List<PerformanceData> data = [
       PerformanceData('1st', 2.54),
       PerformanceData('2nd', 2.67),
@@ -36,7 +39,7 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: Colors.grey.shade100,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.all(14),
+        padding: const EdgeInsets.all(15),
         child: Form(
           key: formKey,
           child: Column(
@@ -51,20 +54,22 @@ class HomeScreen extends StatelessWidget {
                         size: 20.0,
                       ), //TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),
               ),
-              heightSpace(),
               SizedBox(
-                height: 160,
+                height: height / 120,
+              ),
+              SizedBox(
+                height: height / 3.5,
                 child: SfCartesianChart(
                     plotAreaBorderWidth: 0,
                     primaryXAxis: CategoryAxis(
-                      majorGridLines: MajorGridLines(width: 0),
-                      majorTickLines: MajorTickLines(size: 0),
+                      majorGridLines: const MajorGridLines(width: 0),
+                      majorTickLines: const MajorTickLines(size: 0),
                     ),
                     primaryYAxis: NumericAxis(
                       //labelFormat: '{value}',
                       //axisLine: AxisLine(width: 0),
-                      majorGridLines: MajorGridLines(width: 0),
-                      majorTickLines: MajorTickLines(size: 0),
+                      majorGridLines: const MajorGridLines(width: 0),
+                      majorTickLines: const MajorTickLines(size: 0),
                     ),
                     tooltipBehavior: TooltipBehavior(enable: true),
                     series: <ChartSeries<PerformanceData, String>>[
@@ -77,14 +82,15 @@ class HomeScreen extends StatelessWidget {
                         xValueMapper: (PerformanceData gpa, _) => gpa.semester,
                         yValueMapper: (PerformanceData gpa, _) => gpa.gpa,
                         name: 'GPA',
-                        dataLabelSettings: DataLabelSettings(isVisible: true),
+                        dataLabelSettings: const DataLabelSettings(isVisible: true),
                         opacity: 0.3,
                         animationDuration: 2000,
                       ),
                     ]),
               ),
-              heightSpace(),
-              heightSpace(),
+              SizedBox(
+                height: height / 120,
+              ),
               Row(
                 children: [
                   Expanded(
@@ -93,36 +99,42 @@ class HomeScreen extends StatelessWidget {
                       offsetValue1: 0.2,
                       offsetValue2: 0.2,
                       widget: defaultCircularPercentIndicator(
+                        height: height / 100,
+                        radius: width / 9.5,
                         titleText: isArabic
                             ? 'المعدل الأكاديمي التراكمي الكلي'
                             : 'Total GPA',
                         value: '2.5',
                         color: Colors.green.shade500,
                         percentValue: 0.75,
-                      ),
+                      ), height: height / 3.85,
                     ),
                   ),
-                  widthSpace(),
+                  SizedBox(
+                    width: width / 30,
+                  ),
                   Expanded(
                     child: containerWithOROutShadow(
                       blurRadiusValue: 0,
                       offsetValue1: 0.2,
                       offsetValue2: 0.2,
                       widget: defaultCircularPercentIndicator(
+                        height: height / 100,
+                        radius: width / 9.5,
                         titleText: isArabic
                             ? 'الساعات المعتمده الكليه'
                             : 'Total Hours',
                         value: '73',
                         color: Colors.blue.shade700,
                         percentValue: 0.553,
-                      ),
+                      ), height: height /3.85,
                     ),
                   ),
                 ],
               ),
-              heightSpace(),
-              heightSpace(),
-              heightSpace(),
+              SizedBox(
+                height: height / 30,
+              ),
               Text(
                 isArabic ? 'المواد الحاليه' : 'Current Courses',
                 style: isArabic
@@ -133,15 +145,16 @@ class HomeScreen extends StatelessWidget {
                         size: 20.0,
                       ), //TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),
               ),
-              heightSpace(),
-              heightSpace(),
+              SizedBox(
+                height: height / 100,
+              ),
               defaultGridViewList(
-                itembuild: (context, index) => coursesList(courses[index]),
+                itembuild: (context, index) => coursesList(courses[index], height: height / 3),
                 list: courses,
               ),
-              heightSpace(),
-              heightSpace(),
-              heightSpace(),
+              SizedBox(
+                height: height / 30,
+              ),
               Text(
                 isArabic ? 'المواد الموصى بها' : 'Recommended courses',
                 style: isArabic
@@ -152,13 +165,14 @@ class HomeScreen extends StatelessWidget {
                         size: 20.0,
                       ), //TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),
               ),
-              heightSpace(),
-              heightSpace(),
+              SizedBox(
+                height: height / 30,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   defaultButton(
-                    width: 250,
+                    width: width / 1.3,
                     function: () {
                       navigateTo(context, const RecommendedScreen());
                     },
@@ -166,8 +180,9 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              heightSpace(),
-              heightSpace(),
+              SizedBox(
+                height: height / 20,
+              ),
             ],
             crossAxisAlignment: CrossAxisAlignment.start,
           ),

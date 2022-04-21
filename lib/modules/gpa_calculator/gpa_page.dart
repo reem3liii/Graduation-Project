@@ -9,7 +9,7 @@ class GPACalculator extends StatefulWidget {
 
   //int initialCount;
   GPACalculator({
-    this.initialCount = 5,
+    this.initialCount = 4,
   });
 
   @override
@@ -89,10 +89,13 @@ class _GPACalculatorState extends State<GPACalculator> {
         creditControllers.add(TextEditingController());
       }
     }
+    i = 0;
     // cycle through the controllers, and recreate each, one per available controller
     return creditControllers.map<Widget>((
       TextEditingController controller1,
     ) {
+      int displayNumber = i + 1;
+      i++;
       return Row(
         children: [
           Expanded(
@@ -104,6 +107,18 @@ class _GPACalculatorState extends State<GPACalculator> {
                 labelText: isArabic ? 'عدد الساعات' : "Credit",
                 counterText: "",
                 border: InputBorder.none,
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.clear),
+                  onPressed: () {
+                    setState(() {
+                      if(fieldCount>0){
+                        fieldCount--;
+                        creditControllers.removeAt(displayNumber-1);
+                        gpaControllers.removeAt(displayNumber-1);
+                      }
+                    });
+                  },
+                ),
               ),
             ),
           ),
@@ -117,9 +132,6 @@ class _GPACalculatorState extends State<GPACalculator> {
     // generate the list of TextFields
     final List<Widget> children = _buildList1();
     final List<Widget> children2 = _buildList2();
-
-    // append an 'add player' button to the end of the list
-    //children2.add();
 
     // build the ListView
     return Scaffold(
