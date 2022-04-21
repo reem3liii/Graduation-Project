@@ -26,6 +26,7 @@ class _DetailsState extends State<Details> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     int standard = 2;
     return Scaffold(
       appBar: AppBar(
@@ -49,196 +50,207 @@ class _DetailsState extends State<Details> {
         automaticallyImplyLeading: false,
       ),
       backgroundColor: Colors.grey.shade100,
-      body: Column(
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: ListView.separated(
-                  physics: const BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) => Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          //border: Border.all(color: defaultColor, width: 5),
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: const [
-                            BoxShadow(
-                              blurRadius: 0,
-                              offset: Offset(0.2, 0.2),
-                              color: Colors.grey,
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          children: [
-                            Row(
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+             Padding(
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                ),
+                child: ListView.separated(
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) => Container(
+                          //height: height / 13,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            //border: Border.all(color: defaultColor, width: 5),
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: const [
+                              BoxShadow(
+                                blurRadius: 0,
+                                offset: Offset(0.2, 0.2),
+                                color: Colors.grey,
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
                               children: [
-                                SizedBox(
-                                  width: 90,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: GestureDetector(
-                                      child: Text(
-                                        semesters[index].keys.toList().first,
-                                        style: titleStyle(
-                                          size: 30,
-                                          color: defaultColor,
-                                        ),
-                                        //TextStyle(fontSize: 25, color: defaultColor),
-                                      ),
-                                      onTap: () {
-                                        setState(() {
-                                          arrayOfVisible[index] =
-                                              !arrayOfVisible[index];
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                Column(
+                                Row(
                                   children: [
-                                    Text(
-                                      '  GPA',
-                                      style: titleStyle(
-                                        size: 14,
-                                        //color: Colors.white,
+                                    SizedBox(
+                                      width: width / 5,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5),
+                                        child: GestureDetector(
+                                          child: Text(
+                                            semesters[index].keys.toList().first,
+                                            style: titleStyle(
+                                              size: width/15,
+                                              color: defaultColor,
+                                            ),
+                                            //TextStyle(fontSize: 25, color: defaultColor),
+                                          ),
+                                          onTap: () {
+                                            setState(() {
+                                              arrayOfVisible[index] =
+                                                  !arrayOfVisible[index];
+                                            });
+                                          },
+                                        ),
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 2,
-                                    ),
-                                    Stack(
+                                    Column(
                                       children: [
-                                        LinearPercentIndicator(
-                                          width: 170,
-                                          animation: true,
-                                          lineHeight: 15.0,
-                                          animationDuration: 750,
-                                          percent: semesters[index]
-                                                  .values
-                                                  .last
-                                                  .toDouble() /
-                                              4,
-                                          //linearStrokeCap: LinearStrokeCap.roundAll,
-                                          progressColor: semesters[index]
-                                                      .values
-                                                      .last
-                                                      .toDouble() >
-                                                  standard
-                                              ? defaultGreenColor.shade300
-                                              : Colors.red.shade400,
-                                          backgroundColor: Colors.grey.shade200,
-                                          curve: Curves.easeIn,
-                                        ),
-                                        Positioned(
-                                          top: -2,
-                                          left: 10,
-                                          child: Text(
-                                            semesters[index]
-                                                .values
-                                                .last
-                                                .toString(),
-                                            style: bodyStyle(
-                                              size: 15,
-                                              weight: FontWeight.w600,
-                                              color: Colors.white,
-                                            ),
+                                        Text(
+                                          '   GPA',
+                                          style: titleStyle(
+                                            size: width/30,
+                                            //color: Colors.white,
                                           ),
                                         ),
+                                        SizedBox(
+                                          height: height / 200,
+                                        ),
+                                        Stack(
+                                          children: [
+                                            LinearPercentIndicator(
+                                              width: width / 2,
+                                              animation: true,
+                                              animationDuration: 750,
+                                              lineHeight: height / 35,
+                                              percent: semesters[index]
+                                                      .values
+                                                      .last
+                                                      .toDouble() / 4,
+                                              progressColor: semesters[index]
+                                                          .values
+                                                          .last
+                                                          .toDouble() > standard
+                                                  ? defaultGreenColor.shade300
+                                                  : Colors.red.shade400,
+                                              backgroundColor: Colors.grey.shade200,
+                                              barRadius: const Radius.circular(12),
+                                              curve: Curves.easeInOut,
+                                            ),
+                                            Positioned(
+                                              top: 1,
+                                              left: 14,
+                                              child: Text(
+                                                semesters[index]
+                                                    .values
+                                                    .last
+                                                    .toString(),
+                                                style: bodyStyle(
+                                                  size: width / 30,
+                                                  weight: FontWeight.w600,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ],
-                                      //alignment: Alignment.topLeft,
-                                    ),
-                                  ],
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                ),
-                              ],
-                            ),
-                            Visibility(
-                              visible: arrayOfVisible[index],
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      blurRadius: 0,
-                                      offset: Offset(0.2, 0.2),
-                                      color: Colors.grey,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                     ),
                                   ],
                                 ),
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 20),
-                                child: Column(
-                                  children: [
-                                    ListView.separated(
-                                        physics: const BouncingScrollPhysics(),
-                                        shrinkWrap: true,
-                                        itemBuilder: (context, sub) => Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    isArabic
-                                                        ? arSubjects[index]
-                                                            .keys
-                                                            .toList()[sub]
-                                                        : subjects[index]
-                                                            .keys
-                                                            .toList()[sub],
-                                                    style: const TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: Colors.black),
-                                                  ),
-                                                  Text(
-                                                    subjects[index][
-                                                            subjects[index]
+                                Visibility(
+                                  visible: arrayOfVisible[index],
+                                  child: Container(
+                                    /*decoration: BoxDecoration(
+                                      //color: Colors.white,
+                                      //borderRadius: BorderRadius.circular(10),
+                                      /*boxShadow: const [
+                                        BoxShadow(
+                                          blurRadius: 0,
+                                          offset: Offset(0.2, 0.2),
+                                          color: Colors.grey,
+                                        ),
+                                      ],*/
+                                    ),*/
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10, horizontal: 20),
+                                    child: Column(
+                                      children: [
+                                        ListView.separated(
+                                            physics: const ScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemBuilder: (context, sub) => Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        isArabic
+                                                            ? arSubjects[index]
                                                                 .keys
-                                                                .toList()[sub]]
-                                                        .toString(),
-                                                    style: bodyStyle(
-                                                        //weight: FontWeight.w600,
-                                                        size: 16,
-                                                        weight: FontWeight.w600,
-                                                        color: double.parse(subjects[
-                                                                        index][subjects[
-                                                                            index]
-                                                                        .keys
-                                                                        .toList()[sub]]
-                                                                    .toString()) >
-                                                                standard
-                                                            ? Colors.green
-                                                            : Colors.red),
-                                                  ),
-                                                  /*TextStyle(
-                                                fontSize: 16,
-                                                color:double.parse( subjects[index][
-                                                subjects[index]
-                                                    .keys
-                                                    .toList()[sub]].toString())>standard? Colors.green:Colors.red) ,*/
-                                                ]),
-                                        separatorBuilder: (context, sub) =>
-                                            const SizedBox(height: 10),
-                                        itemCount: subjects[index].length)
-                                  ],
-                                ),
-                              ),
-                            )
-                          ],
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                                .toList()[sub]
+                                                            : subjects[index]
+                                                                .keys
+                                                                .toList()[sub],
+                                                        style: const TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            color: Colors.black),
+                                                      ),
+                                                      Text(
+                                                        subjects[index][
+                                                                subjects[index]
+                                                                    .keys
+                                                                    .toList()[sub]]
+                                                            .toString(),
+                                                        style: bodyStyle(
+                                                            //weight: FontWeight.w600,
+                                                            size: 16,
+                                                            weight: FontWeight.w600,
+                                                            color: double.parse(subjects[
+                                                                            index][subjects[
+                                                                                index]
+                                                                            .keys
+                                                                            .toList()[sub]]
+                                                                        .toString()) >
+                                                                    standard
+                                                                ? Colors.green
+                                                                : Colors.red),
+                                                      ),
+                                                      /*TextStyle(
+                                                    fontSize: 16,
+                                                    color:double.parse( subjects[index][
+                                                    subjects[index]
+                                                        .keys
+                                                        .toList()[sub]].toString())>standard? Colors.green:Colors.red) ,*/
+                                                    ]),
+                                            separatorBuilder: (context, sub) =>
+                                                const SizedBox(height: 10),
+                                            itemCount: subjects[index].length)
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                            ),
+                          ),
                         ),
-                      ),
-                  separatorBuilder: (context, index) => SizedBox(
-                        height: height / 50,
-                      ),
-                  itemCount: int.parse(data[5].toString())),
+                    separatorBuilder: (context, index) => SizedBox(
+                          height: height / 50,
+                        ),
+                    itemCount: int.parse(data[5].toString())),
+              ),
+            const SizedBox(
+              height: 20,
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

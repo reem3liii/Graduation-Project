@@ -49,7 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             clipper: CustomClipPath(),
             child: Container(
               width: double.infinity,
-              height: height / 2.35,
+              height: height / 2.15,
               decoration: BoxDecoration(
                 color: defaultColor,
               ),
@@ -130,7 +130,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: Row(
                             children: [
                               SizedBox(
-                                width: width / 2.8,
+                                width: width / 3,
                                 child: Text(
                                     isArabic ? arLabels[index] : labels[index],
                                     style: Theme.of(context)
@@ -138,7 +138,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         .bodyText1!
                                         .copyWith(
                                             color: defaultColor,
-                                            fontWeight: FontWeight.w600)),
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 15,
+                                    )),
                               ),
                               Text(
                                 isArabic
@@ -149,14 +151,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     .bodyText1!
                                     .copyWith(
                                         color: Colors.black,
-                                        fontWeight: FontWeight.normal),
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 15,
+                                ),
                               )
                             ],
                           ),
                         ),
                     separatorBuilder: (context, index) => Divider(
                         //  width: double.infinity,
-                        thickness: 2,
+                        thickness: 1,
                         indent: width / 3,
                         color: Colors.grey[300]),
                     itemCount: data.length - 2),
