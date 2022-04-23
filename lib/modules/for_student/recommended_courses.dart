@@ -10,28 +10,45 @@ class RecommendedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
         title: Text(
           isArabic ? 'المواد الموصى بها' : 'Recommended Courses',
           style: isArabic
               ? arTitleStyle(
-                  color: defaultColor, size: 20, weight: FontWeight.w600)
+                  color: Colors.white, size: 20, weight: FontWeight.w600)
               : titleStyle(
-                  color: defaultColor, size: 20, weight: FontWeight.w600),
-        ),
-        backgroundColor: defaultBackgroundColor,
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: defaultBackgroundColor,
-          statusBarIconBrightness: Brightness.dark,
+                  color: Colors.white,),
         ),
       ),
-      backgroundColor: Colors.grey.shade100,
-      body: Padding(
-        padding: const EdgeInsets.all(14.0),
-        child: ListView.builder(
-          itemBuilder: (context, index) => recCoursesItem(courses[index]),
-          itemCount: courses.length,
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 15,
+                right: 15,
+              ),
+              child: ListView.builder(
+                physics: const ScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (context, index) => recCoursesItem(courses[index],height: height / 5.75,width: width),
+                itemCount: courses.length,
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+          ],
         ),
       ),
     );

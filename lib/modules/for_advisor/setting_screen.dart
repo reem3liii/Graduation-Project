@@ -93,7 +93,7 @@ class SettingScreenAdv extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  navigateToThenRemove(context, const LoginScreen());
+                  navigateToThenRemove(context, LoginScreen());
                   print('Logout');
                 },
                 child: Container(

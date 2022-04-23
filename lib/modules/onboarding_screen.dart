@@ -54,7 +54,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           actions: [
             TextButton(
               onPressed: () {
-                navigateToThenRemove(context, const LoginScreen());
+                navigateToThenRemove(context, LoginScreen());
               },
               child: Padding(
                 padding: const EdgeInsets.all(7.0),
@@ -124,7 +124,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   FloatingActionButton(
                     onPressed: () {
                       if (isLast) {
-                        navigateToThenRemove(context, const LoginScreen());
+                        navigateToThenRemove(context, LoginScreen());
                       } else {
                         boardController.nextPage(
                           duration: const Duration(
