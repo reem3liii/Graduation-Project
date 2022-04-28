@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:saas/shared/colors.dart';
 
+import 'components.dart';
+
 ThemeData lightTheme = ThemeData(
   primarySwatch: Colors.blueGrey,
   scaffoldBackgroundColor: defaultBackgroundColor,
@@ -10,15 +12,14 @@ ThemeData lightTheme = ThemeData(
     titleSpacing: 20,
     //backwardsCompatibility: false,
     systemOverlayStyle: SystemUiOverlayStyle(
-      statusBarColor: defaultBackgroundColor,
-      statusBarIconBrightness: Brightness.dark,
+      statusBarColor: defaultColor,
+      statusBarIconBrightness: Brightness.light,
     ),
-    backgroundColor: defaultBackgroundColor,
+    backgroundColor: defaultColor,
     elevation: 0,
-    titleTextStyle: TextStyle(
+    titleTextStyle: titleStyle(
       color: defaultColor,
-      fontWeight: FontWeight.bold,
-      fontSize: 20,
+      size: 20,
     ),
     iconTheme: IconThemeData(
       color: defaultColor,
@@ -40,39 +41,38 @@ ThemeData lightTheme = ThemeData(
   ),
 );
 
-//ThemeData darkTheme = ThemeData(
-//  primarySwatch: Colors.teal,
-//  scaffoldBackgroundColor: defaultDarkBackgroundColor,
-// appBarTheme: AppBarTheme(
-//    titleSpacing: 20,
+ThemeData darkTheme = ThemeData(
+  primarySwatch: Colors.teal,
+  scaffoldBackgroundColor: defaultDarkBackgroundColor,
+ appBarTheme: AppBarTheme(
+    titleSpacing: 20,
     //backwardsCompatibility: false,
-//    systemOverlayStyle: const SystemUiOverlayStyle(
-//      statusBarColor: defaultDarkBackgroundColor,
-//      statusBarIconBrightness: Brightness.light,
-//    ),
-//    backgroundColor: defaultDarkBackgroundColor,
-//    elevation: 0,
-//    titleTextStyle: TextStyle(
-//      color: defaultLightColor,
-//      fontWeight: FontWeight.bold,
-//      fontSize: 20,
-//    ),
-//    iconTheme: IconThemeData(
-//      color: defaultLightColor,
-//    ),
-//  ),
-//  bottomNavigationBarTheme: BottomNavigationBarThemeData(
-//    type: BottomNavigationBarType.fixed,
-//    unselectedItemColor: Colors.grey,
-//    selectedItemColor: defaultLightColor,
-//    elevation: 20,
-//    backgroundColor: defaultDarkBackgroundColor,
-//  ),
-//  textTheme: TextTheme(
-//    bodyText1: TextStyle(
-//      fontSize: 18,
-//      fontWeight: FontWeight.w600,
-//      color: defaultLightColor,
-//    ),
-//  ),
-//);
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor: darkPrimaryColor,
+      statusBarIconBrightness: Brightness.light,
+    ),
+    backgroundColor: darkPrimaryColor,
+    elevation: 0,
+    titleTextStyle: titleStyle(
+      color: Colors.white,
+      size: 20,
+    ),
+    iconTheme: const IconThemeData(
+      color: Colors.white,
+    ),
+  ),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    type: BottomNavigationBarType.fixed,
+    unselectedItemColor: Colors.grey,
+    selectedItemColor: Colors.white,
+    elevation: 20,
+    backgroundColor: defaultDarkBackgroundColor,
+  ),
+  textTheme: TextTheme(
+    bodyText1: TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.w600,
+      color: defaultLightColor,
+    ),
+  ),
+);

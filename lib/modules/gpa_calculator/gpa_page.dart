@@ -136,7 +136,6 @@ class _GPACalculatorState extends State<GPACalculator> {
     // build the ListView
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: defaultColor,
         title: Text(
           isArabic ? 'حساب المعدل الاكاديمي' : 'GPA Calculator',
           style: isArabic
@@ -145,13 +144,8 @@ class _GPACalculatorState extends State<GPACalculator> {
                   color: Colors.white,
                 )
               : titleStyle(
-                  size: 20,
                   color: Colors.white,
                 ),
-        ),
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: defaultColor,
-          statusBarIconBrightness: Brightness.light,
         ),
         automaticallyImplyLeading: false,
       ),
@@ -299,8 +293,6 @@ class _GPACalculatorState extends State<GPACalculator> {
   @override
   void initState() {
     super.initState();
-
-    // upon creation, copy the starting count to the current count
     fieldCount = widget.initialCount;
   }
 
@@ -318,7 +310,6 @@ class _GPACalculatorState extends State<GPACalculator> {
   void didChangeDependencies() {
     super.didChangeDependencies();
   } // convert to a list
-
 }
 
 

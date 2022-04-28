@@ -23,15 +23,9 @@ class RecommendedScreen extends StatelessWidget {
               ? arTitleStyle(
                   color: Colors.white, size: 20, weight: FontWeight.w600)
               : titleStyle(
-                  color: Colors.white, size: 20, weight: FontWeight.w600),
-        ),
-        backgroundColor: defaultColor,
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: defaultColor,
-          statusBarIconBrightness: Brightness.light,
+                  color: Colors.white,),
         ),
       ),
-      backgroundColor: Colors.grey.shade100,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(

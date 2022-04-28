@@ -141,14 +141,22 @@ Widget defaultButton({
 }) =>
     Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadiusDirectional.circular(30.0),
-        boxShadow: const [
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              defaultColor,
+              defaultColor1,
+            ],
+          ),
+        borderRadius: BorderRadiusDirectional.circular(25.0),
+        /*boxShadow: [
           BoxShadow(
             blurRadius: 5,
             offset: Offset(1, 3),
-            color: Colors.grey,
+            color: Colors.grey.shade700,
           ),
-        ],
+        ],*/
       ),
       height: height,
       width: width,
@@ -159,7 +167,7 @@ Widget defaultButton({
           text,
           style: TextStyle(color: textColor, fontSize: 17),
         ),
-        color: HexColor('064B68'),
+        //color: HexColor('064B68'),
       ),
     );
 
@@ -374,7 +382,7 @@ Widget coursesList(CurrentCourses course, {
             ),
             Text(
               isArabic ? course.arCourseName : course.courseName,
-              maxLines: 3,
+              maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 fontWeight: FontWeight.w500,
