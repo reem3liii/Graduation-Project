@@ -111,10 +111,10 @@ class _GPACalculatorState extends State<GPACalculator> {
                   icon: const Icon(Icons.clear),
                   onPressed: () {
                     setState(() {
-                      if(fieldCount>0){
+                      if (fieldCount > 0) {
                         fieldCount--;
-                        creditControllers.removeAt(displayNumber-1);
-                        gpaControllers.removeAt(displayNumber-1);
+                        creditControllers.removeAt(displayNumber - 1);
+                        gpaControllers.removeAt(displayNumber - 1);
                       }
                     });
                   },
@@ -140,12 +140,9 @@ class _GPACalculatorState extends State<GPACalculator> {
           isArabic ? 'حساب المعدل الاكاديمي' : 'GPA Calculator',
           style: isArabic
               ? arTitleStyle(
-                  size: 20,
-                  color: Colors.white,
-                )
+                  size: 20, color: Colors.white, weight: FontWeight.w600)
               : titleStyle(
-                  color: Colors.white,
-                ),
+                  color: Colors.white, size: 24, weight: FontWeight.w600),
         ),
         automaticallyImplyLeading: false,
       ),

@@ -23,7 +23,7 @@ class RecommendedScreen extends StatelessWidget {
               ? arTitleStyle(
                   color: Colors.white, size: 20, weight: FontWeight.w600)
               : titleStyle(
-                  color: Colors.white,),
+                  color: Colors.white, size: 22, weight: FontWeight.w600),
         ),
       ),
       body: SingleChildScrollView(
@@ -41,7 +41,8 @@ class RecommendedScreen extends StatelessWidget {
               child: ListView.builder(
                 physics: const ScrollPhysics(),
                 shrinkWrap: true,
-                itemBuilder: (context, index) => recCoursesItem(courses[index],height: height / 5.75,width: width),
+                itemBuilder: (context, index) => recCoursesItem(courses[index],
+                    height: height / 5.75, width: width),
                 itemCount: courses.length,
               ),
             ),
