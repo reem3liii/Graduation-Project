@@ -15,6 +15,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
       child: BlocConsumer<AppCubit,AppStates>(
@@ -38,6 +39,7 @@ class ProfileScreen extends StatelessWidget {
               ],
               automaticallyImplyLeading: false,
             ),
+
             body: Column(
               children: [
                 ClipPath(
@@ -83,25 +85,7 @@ class ProfileScreen extends StatelessWidget {
                               .bodyText1!
                               .copyWith(color: lightDefaultColor),
                         ),
-                        // Text(
-                        //   data[3],
-                        //   style: TextStyle(
-                        //       color: Colors.white,
-                        //       fontSize: 30,
-                        //       fontWeight: FontWeight.bold),
-                        // ),
-                        // Text(
-                        //   data[4],
-                        //   style: TextStyle(
-                        //       color: Colors.grey[200],
-                        //       fontSize: 20),
-                        // ),
-                        //  Text(
-                        //   data[5],
-                        //   style: TextStyle(
-                        //    color: Colors.grey[200],
-                        //       fontSize: 20),
-                        // )
+                       
                       ],
                     ),
                   ),
