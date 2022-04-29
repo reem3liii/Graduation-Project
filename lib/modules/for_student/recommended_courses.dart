@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:saas/main.dart';
+import 'package:saas/shared/bloc/cubit.dart';
 import 'package:saas/shared/models.dart';
 import 'package:saas/shared/components.dart';
 import 'package:saas/shared/colors.dart';
@@ -22,8 +23,7 @@ class RecommendedScreen extends StatelessWidget {
           style: isArabic
               ? arTitleStyle(
                   color: Colors.white, size: 20, weight: FontWeight.w600)
-              : titleStyle(
-                  color: Colors.white,),
+              : AppBarTheme.of(context).titleTextStyle,
         ),
       ),
       body: SingleChildScrollView(
@@ -41,7 +41,14 @@ class RecommendedScreen extends StatelessWidget {
               child: ListView.builder(
                 physics: const ScrollPhysics(),
                 shrinkWrap: true,
-                itemBuilder: (context, index) => recCoursesItem(courses[index],height: height / 5.75,width: width),
+                itemBuilder: (context, index) => recCoursesItem(
+                  courses[index],height: height / 5.75,width: width,
+                  color: AppCubit.get(context).isLightTheme?
+                  Colors.white.withOpacity(0.7)
+                      :
+                  Colors.black.withOpacity(0.4),
+                  titleColor: AppCubit.get(context).isLightTheme? Colors.black : Colors.white, context: context,
+                ),
                 itemCount: courses.length,
               ),
             ),

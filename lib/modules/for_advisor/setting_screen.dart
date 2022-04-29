@@ -47,15 +47,15 @@ class SettingScreenAdv extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      settingSectionName('Account'),
+                      settingSectionName('Account',context),
                       heightSpace(),
                       settingItem(const Icon(Icons.lock_outline_rounded),
-                          'Password', context, const PasswordScreen()),
+                        'Password', context, const PasswordScreen(),),
                       heightSpace(),
                       settingItem(const Icon(Icons.phone_android_outlined),
                           'Phone number', context, const PhoneScreen()),
                       heightSpace(),
-                      settingSectionName('General'),
+                      settingSectionName('General',context),
                       heightSpace(),
                       settingSwitchItem(
                           const Icon(Icons.language_rounded),
@@ -76,7 +76,7 @@ class SettingScreenAdv extends StatelessWidget {
                       settingItem(const Icon(Icons.info_outline_rounded),
                           'App info', context, const InfoScreen()),
                       heightSpace(),
-                      settingSectionName('Advanced'),
+                      settingSectionName('Advanced',context),
                       heightSpace(),
                       settingItem(const Icon(Icons.account_box_outlined),
                           'Students', context, const PasswordScreen()),

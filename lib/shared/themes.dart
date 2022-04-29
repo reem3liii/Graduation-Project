@@ -18,7 +18,7 @@ ThemeData lightTheme = ThemeData(
     backgroundColor: defaultColor,
     elevation: 0,
     titleTextStyle: titleStyle(
-      color: defaultColor,
+      color: Colors.white,
       size: 20,
     ),
     iconTheme: IconThemeData(
@@ -33,18 +33,29 @@ ThemeData lightTheme = ThemeData(
     backgroundColor: defaultBackgroundColor,
   ),
   textTheme: TextTheme(
-    bodyText1: TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.w600,
-      color: defaultColor,
+    bodyText1: titleStyle(
+      color: Colors.black,
+      size: 20,
+      weight: FontWeight.w600,
     ),
+    bodyText2: const TextStyle(
+      fontWeight: FontWeight.w500,
+      fontSize: 13.0,
+      height: 1.25,
+      color: Colors.black,
+      //letterSpacing: -0.5,
+    ),
+  ),
+  iconTheme: const IconThemeData(
+    color: Colors.black,
   ),
 );
 
 ThemeData darkTheme = ThemeData(
-  primarySwatch: Colors.teal,
+  primarySwatch: Colors.blueGrey,
   scaffoldBackgroundColor: defaultDarkBackgroundColor,
- appBarTheme: AppBarTheme(
+  fontFamily: 'regIBM',
+  appBarTheme: AppBarTheme(
     titleSpacing: 20,
     //backwardsCompatibility: false,
     systemOverlayStyle: SystemUiOverlayStyle(
@@ -69,10 +80,21 @@ ThemeData darkTheme = ThemeData(
     backgroundColor: defaultDarkBackgroundColor,
   ),
   textTheme: TextTheme(
-    bodyText1: TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.w600,
-      color: defaultLightColor,
+    bodyText1: titleStyle(
+      color: Colors.white,
+      size: 20,
+      weight: FontWeight.w600,
     ),
+    bodyText2: const TextStyle(
+      fontWeight: FontWeight.w500,
+      fontSize: 13.0,
+      height: 1.25,
+      color: Colors.white,
+      //letterSpacing: -0.5,
+    ),
+    /* */
+  ),
+  iconTheme: const IconThemeData(
+    color: Colors.white,
   ),
 );

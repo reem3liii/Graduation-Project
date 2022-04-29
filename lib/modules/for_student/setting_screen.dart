@@ -13,6 +13,7 @@ import '../setting_screens/app_info.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -27,102 +28,107 @@ class SettingScreen extends StatelessWidget {
                 style: isArabic
                     ? arTitleStyle(
                     color: defaultColor, size: 24, weight: FontWeight.w600)
-                    : titleStyle(
-                    color: defaultColor, size: 24, weight: FontWeight.w600),
+                    : AppBarTheme.of(context).titleTextStyle?.copyWith(
+                  color: AppCubit.get(context).isLightTheme? defaultColor: defaultLightColor,
+                ),
               ),
-              //leading: IconButton(
-              //  icon: isArabic
-              //      ? const Icon(Icons.arrow_forward_ios_rounded)
-              //      : const Icon(Icons.arrow_back_ios_new_rounded),
-              //  onPressed: () {
-              //    Navigator.pop(context);
-              //  },
-              //),
-              backgroundColor: defaultBackgroundColor,
+              backgroundColor: AppCubit.get(context).isLightTheme? defaultBackgroundColor:defaultDarkBackgroundColor,
               systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor: defaultBackgroundColor,
-                statusBarIconBrightness: Brightness.dark,
+                statusBarColor: AppCubit.get(context).isLightTheme? defaultBackgroundColor:defaultDarkBackgroundColor,
+                statusBarIconBrightness: AppCubit.get(context).isLightTheme? Brightness.dark:Brightness.light,
               ),
             ),
-            body: Container(
-              color: defaultBackgroundColor,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    settingSectionName(isArabic ? 'الملف الشخصي' : 'Account'),
-                    heightSpace(),
-                    settingItem(
-                        const Icon(Icons.lock),
-                        isArabic ? 'كلمة المرور' : 'Password',
-                        context,
-                        const PasswordScreen()),
-                    heightSpace(),
-                    settingItem(
-                        const Icon(Icons.phone_android_rounded),
-                        isArabic ? 'رقم الهاتف' : 'Phone number',
-                        context,
-                        const PhoneScreen()),
-                    heightSpace(),
-                    settingSectionName(isArabic ? 'عام' : 'General'),
-                    heightSpace(),
-                    settingSwitchItem(
-                        const Icon(Icons.language_rounded),
-                        isArabic ? 'اللغة' : 'Language',
-                        context,
-                        const PasswordScreen(),
-                        Icons.change_circle_outlined,
-                        Icons.change_circle_outlined),
-                    heightSpace(),
-                    settingSwitchItem(
-                        const Icon(Icons.brightness_4_rounded),
-                        isArabic ? 'الاضاءة' : 'Theme',
-                        context,
-                        const PasswordScreen(),
-                        Icons.light_mode_outlined,
-                        Icons.dark_mode_outlined),
-                    heightSpace(),
-                    settingItem(
-                        const Icon(Icons.info_rounded),
-                        isArabic ? 'معلومات عن التطبيق' : 'App info',
-                        context,
-                        const InfoScreen()),
-                    const Spacer(),
-                    TextButton(
-                      onPressed: () {
-                        navigateToThenRemove(context, LoginScreen());
-                        print('Logout');
-                      },
-                      /*child: Container(
+            body: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  settingSectionName(
+                      isArabic ? 'الملف الشخصي' : 'Account',
+                      context
+                  ),
+                  heightSpace(),
+                  settingItem(
+                    const Icon(Icons.lock),
+                    isArabic ? 'كلمة المرور' : 'Password',
+                    context,
+                    const PasswordScreen(),
+                  ),
+                  heightSpace(),
+                  settingItem(
+                    const Icon(Icons.phone_android_rounded,),
+                    isArabic ? 'رقم الهاتف' : 'Phone number',
+                    context,
+                    const PhoneScreen(),
+                  ),
+                  heightSpace(),
+                  settingSectionName(
+                    isArabic ? 'عام' : 'General',
+                    context,
+                  ),
+                  heightSpace(),
+                  settingSwitchItem(
+                    const Icon(Icons.language_rounded,),
+                    isArabic ? 'اللغة' : 'Language',
+                    context,
+                    //const PasswordScreen(),
+                    Icons.change_circle_outlined,
+                    Icons.change_circle_outlined,
+                        (bool state){},
+                  ),
+                  heightSpace(),
+                  settingSwitchItem(
+                    const Icon(Icons.brightness_4_rounded,),
+                    isArabic ? 'الاضاءة' : 'Theme',
+                    context,
+                    //const PasswordScreen(),
+                    Icons.light_mode_outlined,
+                    Icons.dark_mode_outlined,
+                        (bool state){
+                      AppCubit.get(context).ChangeMode(state);
+                    },
+                  ),
+                  heightSpace(),
+                  settingItem(
+                    const Icon(Icons.info_rounded,),
+                    isArabic ? 'معلومات عن التطبيق' : 'App info',
+                    context,
+                    const InfoScreen(),
+                  ),
+                  const Spacer(),
+                  TextButton(
+                    onPressed: () {
+                      navigateToThenRemove(context, LoginScreen());
+                      print('Logout');
+                    },
+                    /*child: Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadiusDirectional.circular(10),
                         color: defaultColor,
                       ),*/
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.logout_rounded,
-                              color: defaultColor,
-                            ),
-                            widthSpace(),
-                            Text(
-                              isArabic ? 'تسجيل الخروج' : 'LOGOUT',
-                              style: isArabic
-                                  ? arTitleStyle(size: 20, color: defaultColor)
-                                  : titleStyle(size: 20, color: defaultColor),
-                            ),
-                          ],
-                        ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.logout_rounded,
+                            color:  AppCubit.get(context).isLightTheme? defaultColor: defaultLightColor,
+                          ),
+                          widthSpace(),
+                          Text(
+                            isArabic ? 'تسجيل الخروج' : 'LOGOUT',
+                            style: isArabic
+                                ? arTitleStyle(size: 20, color: defaultColor)
+                                : titleStyle(size: 20, color:  AppCubit.get(context).isLightTheme? defaultColor: defaultLightColor,),
+                          ),
+                        ],
                       ),
-                      //),
                     ),
-                  ],
-                ),
+                    //),
+                  ),
+                ],
               ),
             ),
           );

@@ -1,30 +1,30 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:rolling_switch/rolling_switch.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:saas/main.dart';
 import 'package:saas/shared/models.dart';
 import 'package:saas/shared/colors.dart';
 
+import 'bloc/cubit.dart';
+
 void navigateTo(context, widget) => Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => widget,
-      ),
-    );
+  context,
+  MaterialPageRoute(
+    builder: (context) => widget,
+  ),
+);
 
 void navigateToThenRemove(context, widget) => Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(
-        builder: (context) => widget,
-      ),
+  context,
+  MaterialPageRoute(
+    builder: (context) => widget,
+  ),
       (route) => false,
-    );
+);
 
 TextStyle titleStyle(
-        {color = Colors.black, double size = 30, weight = FontWeight.bold}) =>
+    {color = Colors.black, double size = 30, weight = FontWeight.bold}) =>
     GoogleFonts.jost(
       textStyle: TextStyle(
         fontSize: size,
@@ -34,7 +34,7 @@ TextStyle titleStyle(
     );
 
 TextStyle arTitleStyle(
-        {color = Colors.black, double size = 30, weight = FontWeight.bold}) =>
+    {color = Colors.black, double size = 30, weight = FontWeight.bold}) =>
     TextStyle(
       fontFamily: 'IBM',
       fontSize: size,
@@ -43,9 +43,9 @@ TextStyle arTitleStyle(
     );
 
 TextStyle arBodyStyle(
-        {color = Colors.black,
-        double size = 20.0,
-        weight = FontWeight.normal}) =>
+    {color = Colors.black,
+      double size = 20.0,
+      weight = FontWeight.normal}) =>
     TextStyle(
       fontFamily: 'IBM',
       fontSize: size,
@@ -54,9 +54,9 @@ TextStyle arBodyStyle(
     );
 
 TextStyle bodyStyle(
-        {color = Colors.black,
-        double size = 20.0,
-        weight = FontWeight.normal}) =>
+    {color = Colors.black,
+      double size = 20.0,
+      weight = FontWeight.normal}) =>
     GoogleFonts.abel(
       textStyle: TextStyle(
         fontSize: size,
@@ -65,9 +65,9 @@ TextStyle bodyStyle(
       ),
     );
 TextStyle bodyStyle2(
-        {color = Colors.black,
-        double size = 20.0,
-        weight = FontWeight.normal}) =>
+    {color = Colors.black,
+      double size = 20.0,
+      weight = FontWeight.normal}) =>
     GoogleFonts.lato(
       textStyle: TextStyle(
         fontSize: size,
@@ -76,9 +76,9 @@ TextStyle bodyStyle2(
       ),
     );
 TextStyle bodyStyle3(
-        {color = Colors.black,
-        double size = 20.0,
-        weight = FontWeight.normal}) =>
+    {color = Colors.black,
+      double size = 20.0,
+      weight = FontWeight.normal}) =>
     GoogleFonts.actor(
       textStyle: TextStyle(
         fontSize: size,
@@ -114,9 +114,9 @@ Widget defaultTextField({
         ),
         suffixIcon: suffixIcon != null
             ? IconButton(
-                icon: Icon(suffixIcon),
-                onPressed: suffixPressed,
-              )
+          icon: Icon(suffixIcon),
+          onPressed: suffixPressed,
+        )
             : null,
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(
@@ -141,14 +141,14 @@ Widget defaultButton({
 }) =>
     Container(
       decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              defaultColor,
-              defaultColor1,
-            ],
-          ),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            defaultColor,
+            defaultColor1,
+          ],
+        ),
         borderRadius: BorderRadiusDirectional.circular(25.0),
         /*boxShadow: [
           BoxShadow(
@@ -174,50 +174,56 @@ Widget defaultButton({
 //Widget defaultBackArrow() => const Icon(Icons.arrow_back_ios_new_rounded);
 
 Widget defaultForwardArrow() => const Icon(
-      Icons.arrow_forward_ios_rounded,
-      size: 20,
-    );
+  Icons.arrow_forward_ios_rounded,
+  size: 20,
+);
 
-Widget settingSectionName(name) => Text(
-      name,
-      style: isArabic
-          ? arTitleStyle(color: defaultColor, size: 20)
-          : titleStyle(color: defaultColor, size: 20),
-    );
+Widget settingSectionName(name,context) => Text(
+  name,
+  style: isArabic
+      ? arTitleStyle(size: 20)
+      : Theme.of(context).textTheme.bodyText1?.copyWith(
+    fontWeight: FontWeight.w700,
+    color: AppCubit.get(context).isLightTheme? defaultColor:defaultLightColor,
+  ),
+);
 
 Widget settingItem(icon, title, context, screen) => InkWell(
-      onTap: () {
-        navigateTo(context, screen);
-      },
-      child: Container(
-        height: 60,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadiusDirectional.circular(10),
-          //color: defaultLightColor.withOpacity(0.5),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            children: [
-              icon,
-              widthSpace(),
-              Text(
-                title,
-                style: isArabic ? arBodyStyle(size: 18) : bodyStyle3(size: 18),
-              ),
-              const Spacer(),
-              defaultForwardArrow(),
-            ],
+  onTap: () {
+    navigateTo(context, screen);
+  },
+  child: Container(
+    height: 60,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadiusDirectional.circular(10),
+      //color: defaultLightColor.withOpacity(0.5),
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Row(
+        children: [
+          icon,
+          widthSpace(),
+          Text(
+            title,
+            style: isArabic ? arBodyStyle(size: 18) : Theme.of(context).textTheme.bodyText1?.copyWith(
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+            ),
           ),
-        ),
+          const Spacer(),
+          defaultForwardArrow(),
+        ],
       ),
-    );
+    ),
+  ),
+);
 
-Widget settingSwitchItem(icon, title, context, screen, leftIcon, rightIcon) =>
+Widget settingSwitchItem(icon, title, context, leftIcon, rightIcon,function) =>
     InkWell(
-      onTap: () {
+      /*onTap: () {
         navigateTo(context, screen);
-      },
+      },*/
       child: Container(
         height: 60,
         decoration: BoxDecoration(
@@ -232,13 +238,16 @@ Widget settingSwitchItem(icon, title, context, screen, leftIcon, rightIcon) =>
               widthSpace(),
               Text(
                 title,
-                style: isArabic ? arBodyStyle(size: 18) : bodyStyle3(size: 18),
+                style: isArabic ? arBodyStyle(size: 18) : Theme.of(context).textTheme.bodyText1?.copyWith(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
               const Spacer(),
               RollingSwitch.icon(
-                onChanged: (bool state) {
+                onChanged: function,/*(bool state) {
                   print('turned ${(state) ? 'on' : 'off'}');
-                },
+                },*/
                 rollingInfoLeft: RollingIconInfo(
                   icon: leftIcon,
                   backgroundColor: defaultColor,
@@ -247,7 +256,7 @@ Widget settingSwitchItem(icon, title, context, screen, leftIcon, rightIcon) =>
                   icon: rightIcon,
                   backgroundColor: defaultColor,
                 ),
-                width: 85,
+                width: 80,
                 //h//eight: 30,
                 //innerSize: 20,
               )
@@ -258,11 +267,11 @@ Widget settingSwitchItem(icon, title, context, screen, leftIcon, rightIcon) =>
     );
 
 Widget heightSpace() => const SizedBox(
-      height: 10,
-    );
+  height: 10,
+);
 Widget widthSpace() => const SizedBox(
-      width: 10,
-    );
+  width: 10,
+);
 
 Widget containerWithOROutShadow({
   required widget,
@@ -270,12 +279,13 @@ Widget containerWithOROutShadow({
   double offsetValue1 = 1,
   double offsetValue2 = 2,
   required height,
+  required  Color color,
 
 }) =>
     Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: Colors.white.withOpacity(0.98),
+        color: color,
         boxShadow: [
           BoxShadow(
             blurRadius: blurRadiusValue,
@@ -293,9 +303,12 @@ Widget defaultCircularPercentIndicator({
   required String titleText,
   required String value,
   required Color color,
+  required Color titlecolor,
+  required Color backgroundcolor,
   required double percentValue,
   required double radius,
   required double height,
+  required BuildContext context,
 }) =>
     Padding(
       padding: const EdgeInsets.all(10.0),
@@ -303,7 +316,7 @@ Widget defaultCircularPercentIndicator({
         children: [
           Text(
             titleText,
-            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14.0),
+            style: Theme.of(context).textTheme.bodyText2,
           ),
           SizedBox(
             height: height,
@@ -326,7 +339,8 @@ Widget defaultCircularPercentIndicator({
               ),
               circularStrokeCap: CircularStrokeCap.round,
               progressColor: color,
-              backgroundColor: Colors.grey.shade100,
+              //backgroundColor: Colors.grey.shade100,
+              backgroundColor: backgroundcolor,
             ),
           ),
         ],
@@ -354,185 +368,184 @@ Widget defaultGridViewList({
 
 Widget coursesList(CurrentCourses course, {
   required double height,
+  required Color color,
+  required Color titleColor,
+  required BuildContext context,
 }) => containerWithOROutShadow(
-      blurRadiusValue: 0,
-      offsetValue1: 0,
-      offsetValue2: 0.2,
-      widget: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
+  blurRadiusValue: 0,
+  offsetValue1: 0,
+  offsetValue2: 0.2,
+  widget: Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(8),
+          child: Text(
+            course.courseAbbreviation,
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+                color: course.color
+            ),
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: course.color.withOpacity(0.2),
+          ),
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+        ),
+        SizedBox(
+          height: height / 20,
+        ),
+        Text(
+          isArabic ? course.arCourseName : course.courseName,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style:Theme.of(context).textTheme.bodyText2,
+        ),
+        Text(
+          '(${course.courseCode})',
+          style: Theme.of(context).textTheme.bodyText2,
+        ),
+        SizedBox(
+          height: height / 120,
+        ),
+        Row(
           children: [
-            Container(
-              padding: const EdgeInsets.all(8),
+            Icon(
+              Icons.perm_identity,
+              color: Colors.grey.shade600,
+              size: 12,
+            ),
+            const SizedBox(
+              width: 4,
+            ),
+            Expanded(
               child: Text(
-                course.courseAbbreviation,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20.0,
-                    color: course.color),
+                isArabic
+                    ? "دكتور ${course.arCourseProfessor}"
+                    : "Dr. ${course.courseProfessor}",
+                style:
+                TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                //softWrap: false,
               ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: course.color.withOpacity(0.2),
-              ),
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-            ),
-            SizedBox(
-              height: height / 20,
-            ),
-            Text(
-              isArabic ? course.arCourseName : course.courseName,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 13.0,
-                height: 1.25,
-                //letterSpacing: -0.5,
-              ),
-            ),
-            Text(
-              '(${course.courseCode})',
-              style: const TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 11.0,
-              ),
-            ),
-            SizedBox(
-              height: height / 120,
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.perm_identity,
-                  color: Colors.grey.shade600,
-                  size: 12,
-                ),
-                const SizedBox(
-                  width: 4,
-                ),
-                Expanded(
-                  child: Text(
-                    isArabic
-                        ? "دكتور ${course.arCourseProfessor}"
-                        : "Dr. ${course.courseProfessor}",
-                    style:
-                        TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                    //softWrap: false,
-                  ),
-                ),
-              ],
-              crossAxisAlignment: CrossAxisAlignment.start,
             ),
           ],
           crossAxisAlignment: CrossAxisAlignment.start,
         ),
-      ), height: height,
-    );
+      ],
+      crossAxisAlignment: CrossAxisAlignment.start,
+    ),
+  ),
+  height: height,
+  color: color,
+);
 
 Widget recCoursesItem(CurrentCourses course,{
   required double height,
   required double width,
+  required Color color,
+  required Color titleColor,
+  required BuildContext context,
 }) => Padding(
-      padding: const EdgeInsetsDirectional.only(
-        bottom: 12,
-      ),
-      child: Container(
-        height: height,
-        width: width,
-        decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.7),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                child: Text(
-                  course.courseAbbreviation,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30.0,
-                      color: courses[1].color),
+  padding: const EdgeInsetsDirectional.only(
+    bottom: 12,
+  ),
+  child: Container(
+    height: height,
+    width: width,
+    decoration: BoxDecoration(
+      color: color,
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(10),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            child: Text(
+              course.courseAbbreviation,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30.0,
+                  color: courses[1].color),
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: courses[1].color.withOpacity(0.2),
+            ),
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+          ),
+          const Spacer(),
+          SizedBox(
+            width: width/3,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  isArabic ? course.arCourseName : course.courseName,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                    fontSize: 18,
+                  ),
                 ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: courses[1].color.withOpacity(0.2),
+                Text(
+                  '(${course.courseCode})',
+                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                    fontSize: 18,
+                  ),
                 ),
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-              ),
-              const Spacer(),
-              SizedBox(
-                width: width/3,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
                   children: [
-                    Text(
-                      isArabic ? course.arCourseName : course.courseName,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 15.0,
-                      ),
+                    Icon(
+                      Icons.perm_identity,
+                      color: Colors.grey.shade600,
+                      size: 15,
                     ),
-                    Text(
-                      '(${course.courseCode})',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w800,
-                        fontSize: 12.0,
-                      ),
+                    SizedBox(
+                      width: width/100,
                     ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.perm_identity,
-                          color: Colors.grey.shade600,
-                          size: 15,
+                    Flexible(
+                      child: RichText(
+                        overflow: TextOverflow.ellipsis,
+                        //strutStyle: StrutStyle(fontSize: 12.0),
+                        text: TextSpan(
+                          style: TextStyle(fontSize: 12.0,
+                            color: Colors.grey.shade600,
+                            fontWeight: FontWeight.w800,),
+                          text: isArabic
+                              ? "دكتور  ${course.arCourseProfessor}"
+                              : "Dr. ${course.courseProfessor}",
                         ),
-                        SizedBox(
-                          width: width/100,
-                        ),
-                        Flexible(
-                          child: RichText(
-                            overflow: TextOverflow.ellipsis,
-                            //strutStyle: StrutStyle(fontSize: 12.0),
-                            text: TextSpan(
-                                style: TextStyle(fontSize: 12.0,
-                                  color: Colors.grey.shade600,
-                                  fontWeight: FontWeight.w800,),
-                                text: isArabic
-                                    ? "دكتور  ${course.arCourseProfessor}"
-                                    : "Dr. ${course.courseProfessor}",
-                            ),
-                          ),
-                        ),
-                      ],
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      ),
                     ),
                   ],
+                  crossAxisAlignment: CrossAxisAlignment.start,
                 ),
-              ),
-              const Spacer(),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.add_circle_rounded),
-                color: defaultColor,
-                iconSize: 30,
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.cancel_rounded),
-                color: Colors.red.shade600,
-                iconSize: 30,
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
+          const Spacer(),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.add_circle_rounded),
+            color: defaultColor,
+            iconSize: 30,
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.cancel_rounded),
+            color: Colors.red.shade600,
+            iconSize: 30,
+          ),
+        ],
       ),
-    );
+    ),
+  ),
+);

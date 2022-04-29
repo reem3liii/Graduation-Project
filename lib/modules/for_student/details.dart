@@ -8,9 +8,14 @@ import 'package:saas/shared/components.dart';
 import 'package:saas/shared/data.dart';
 import 'package:saas/shared/colors.dart';
 
-class Details extends StatelessWidget {
+class Details extends StatefulWidget {
    Details({Key? key}) : super(key: key);
 
+  @override
+  State<Details> createState() => _DetailsState();
+}
+
+class _DetailsState extends State<Details> {
    @override
    Widget build(BuildContext context) {
      double height = MediaQuery.of(context).size.height;
@@ -32,9 +37,7 @@ class Details extends StatelessWidget {
                    size: 20,
                    color: Colors.white,
                  )
-                     : titleStyle(
-                   color: Colors.white,
-                 ),
+                     : AppBarTheme.of(context).titleTextStyle,
                ),
                automaticallyImplyLeading: false,
              ),
@@ -56,7 +59,10 @@ class Details extends StatelessWidget {
                          shrinkWrap: true,
                          itemBuilder: (context, index) => Container(
                            decoration: BoxDecoration(
-                             color: Colors.white,
+                             color: AppCubit.get(context).isLightTheme?
+                             Colors.white
+                                 :
+                             Colors.black.withOpacity(0.8),
                              borderRadius: BorderRadius.circular(10),
                              boxShadow: const [
                                BoxShadow(
@@ -79,14 +85,16 @@ class Details extends StatelessWidget {
                                          child: GestureDetector(
                                            child: Text(
                                              semesters[index].keys.toList().first,
-                                             style: titleStyle(
-                                               size: width/15,
-                                               color: defaultColor,
+                                             style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                                               fontSize: width/15,
+                                               fontWeight: FontWeight.w500,
+                                               color: AppCubit.get(context).isLightTheme? defaultColor : defaultLightColor,
                                              ),
-                                             //TextStyle(fontSize: 25, color: defaultColor),
                                            ),
                                            onTap: () {
-                                             cubitDegrees.visible(index);
+                                             setState(() {
+                                               cubitDegrees.visible(index);
+                                             });
                                              /*setState(() {
                                              arrayOfVisible[index] =
                                              !arrayOfVisible[index];
@@ -99,9 +107,8 @@ class Details extends StatelessWidget {
                                        children: [
                                          Text(
                                            '   GPA',
-                                           style: titleStyle(
-                                             size: width/30,
-                                             //color: Colors.white,
+                                           style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                                             fontSize: width/30,
                                            ),
                                          ),
                                          SizedBox(
@@ -124,7 +131,7 @@ class Details extends StatelessWidget {
                                                    .toDouble() > standard
                                                    ? defaultGreenColor.shade300
                                                    : Colors.red.shade400,
-                                               backgroundColor: Colors.grey.shade200,
+                                               backgroundColor: AppCubit.get(context).isLightTheme? Colors.grey.shade200 : Colors.grey.shade800,
                                                barRadius: const Radius.circular(12),
                                                curve: Curves.easeInOut,
                                              ),
@@ -173,11 +180,10 @@ class Details extends StatelessWidget {
                                                          : subjects[index]
                                                          .keys
                                                          .toList()[sub],
-                                                     style: const TextStyle(
-                                                         fontSize: 16,
-                                                         fontWeight:
-                                                         FontWeight.w500,
-                                                         color: Colors.black),
+                                                     style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                                                       fontSize: 16,
+                                                       fontWeight: FontWeight.w500,
+                                                     ),
                                                    ),
                                                    Text(
                                                      subjects[index][

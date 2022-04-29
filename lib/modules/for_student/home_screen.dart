@@ -52,9 +52,7 @@ class HomeScreen extends StatelessWidget {
                             ? arTitleStyle(
                           size: 20.0,
                         )
-                            : titleStyle(
-                          size: 20.0,
-                        ), //TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),
+                            : Theme.of(context).textTheme.bodyText1,
                       ),
                       SizedBox(
                         height: height / 120,
@@ -74,18 +72,24 @@ class HomeScreen extends StatelessWidget {
                               majorTickLines: const MajorTickLines(size: 0),
                             ),
                             tooltipBehavior: TooltipBehavior(enable: true),
-                            series: <ChartSeries<PerformanceData, String>>[
-                              SplineAreaSeries<PerformanceData, String>(
+                            series: <ColumnSeries<PerformanceData, String>>[
+                              ColumnSeries<PerformanceData, String>(
+                                //series: <ChartSeries<PerformanceData, String>>[
+                                //SplineAreaSeries<PerformanceData, String>(
                                 //color: const Color.fromRGBO(75, 135, 185, 0.6),
                                 //markerSettings: MarkerSettings(isVisible: true),
-                                borderColor: const Color.fromRGBO(75, 135, 185, 1),
-                                borderWidth: 2,
+                                //borderColor: const Color.fromRGBO(75, 135, 185, 1),
+                                //borderWidth: 2,
                                 dataSource: data,
                                 xValueMapper: (PerformanceData gpa, _) => gpa.semester,
                                 yValueMapper: (PerformanceData gpa, _) => gpa.gpa,
                                 name: 'GPA',
-                                dataLabelSettings: const DataLabelSettings(isVisible: true),
-                                opacity: 0.3,
+                                dataLabelSettings: DataLabelSettings(
+                                  isVisible: true,
+                                  color: AppCubit.get(context).isLightTheme? Colors.white : Colors.black,
+                                ),
+                                opacity: 0.55,
+                                //opacity: 0.3,
                                 animationDuration: 2000,
                               ),
                             ]),
@@ -109,7 +113,18 @@ class HomeScreen extends StatelessWidget {
                                 value: '2.5',
                                 color: Colors.green.shade500,
                                 percentValue: 0.75,
-                              ), height: height / 4.75,
+                                titlecolor: AppCubit.get(context).isLightTheme? Colors.black : Colors.white,
+                                backgroundcolor:
+                                AppCubit.get(context).isLightTheme?
+                                Colors.grey.shade100
+                                    :
+                                Colors.grey.shade700, context: context,
+                              ),
+                              height: height / 4.75,
+                              color: AppCubit.get(context).isLightTheme?
+                              Colors.white.withOpacity(0.98)
+                                  :
+                              Colors.black.withOpacity(0.8),
                             ),
                           ),
                           SizedBox(
@@ -129,7 +144,17 @@ class HomeScreen extends StatelessWidget {
                                 value: '73',
                                 color: Colors.blue.shade700,
                                 percentValue: 0.553,
-                              ), height: height /4.75,
+                                titlecolor: AppCubit.get(context).isLightTheme? Colors.black : Colors.white,
+                                backgroundcolor: AppCubit.get(context).isLightTheme?
+                                Colors.grey.shade100
+                                    :
+                                Colors.grey.shade700, context: context,
+                              ),
+                              height: height /4.75,
+                              color: AppCubit.get(context).isLightTheme?
+                              Colors.white.withOpacity(0.98)
+                                  :
+                              Colors.black.withOpacity(0.8),
                             ),
                           ),
                         ],
@@ -143,15 +168,22 @@ class HomeScreen extends StatelessWidget {
                             ? arTitleStyle(
                           size: 20.0,
                         )
-                            : titleStyle(
-                          size: 20.0,
-                        ), //TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),
+                            : Theme.of(context).textTheme.bodyText1,
+                        //TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),
                       ),
                       SizedBox(
                         height: height / 100,
                       ),
                       defaultGridViewList(
-                        itembuild: (context, index) => coursesList(courses[index], height: height / 3),
+                        itembuild: (context, index) => coursesList(
+                            courses[index],
+                            height: height / 3,
+                            color: AppCubit.get(context).isLightTheme?
+                                Colors.white.withOpacity(0.98)
+                                  :
+                                Colors.black.withOpacity(0.8),
+                            titleColor: AppCubit.get(context).isLightTheme? Colors.black : Colors.white, context: context,
+                        ),
                         list: courses,
                       ),
                       SizedBox(
@@ -163,9 +195,8 @@ class HomeScreen extends StatelessWidget {
                             ? arTitleStyle(
                           size: 20.0,
                         )
-                            : titleStyle(
-                          size: 20.0,
-                        ), //TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),
+                            : Theme.of(context).textTheme.bodyText1,
+                        //TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),
                       ),
                       SizedBox(
                         height: height / 30,
