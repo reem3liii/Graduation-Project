@@ -71,6 +71,9 @@ class _GPACalculatorState extends State<GPACalculator> {
               maxLength: 6,
               decoration: InputDecoration(
                 labelText: isArabic ? 'تقدير المقرر' : "GPA",
+                labelStyle: const TextStyle(
+                  color: Colors.grey,
+                ),
                 counterText: "",
                 border: InputBorder.none,
               ),
@@ -105,10 +108,13 @@ class _GPACalculatorState extends State<GPACalculator> {
               maxLength: 6,
               decoration: InputDecoration(
                 labelText: isArabic ? 'عدد الساعات' : "Credit",
+                labelStyle: const TextStyle(
+                  color: Colors.grey,
+                ),
                 counterText: "",
                 border: InputBorder.none,
                 suffixIcon: IconButton(
-                  icon: const Icon(Icons.clear),
+                  icon: const Icon(Icons.clear,color: Colors.grey,),
                   onPressed: () {
                     setState(() {
                       if (fieldCount > 0) {

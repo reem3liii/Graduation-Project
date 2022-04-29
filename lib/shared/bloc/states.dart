@@ -7,3 +7,5 @@ class AppIsPasswordState extends AppStates {}
 class AppChangeBottomNavBarState extends AppStates {}
 
 class AppIsVisibleState extends AppStates {}
+
+class AppChangeModeThemeState extends AppStates {}

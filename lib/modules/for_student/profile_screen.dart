@@ -49,8 +49,11 @@ class ProfileScreen extends StatelessWidget {
                     height: height / 2.3,
                     decoration: BoxDecoration(
                       color:
-                      //darkPrimaryColor,
-                      defaultColor,
+                      AppCubit.get(context).isLightTheme?
+                      defaultColor
+                          :
+                      darkPrimaryColor,
+                      //defaultColor,
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -112,17 +115,12 @@ class ProfileScreen extends StatelessWidget {
                                 SizedBox(
                                   width: width / 3,
                                   child: Text(
-                                      isArabic ? arLabels[index] : labels[index],
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1!
-                                          .copyWith(
-                                        color:
-                                        //defaultLightColor,
-                                        defaultColor,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 15,
-                                      )),
+                                    isArabic ? arLabels[index] : labels[index],
+                                    style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w700,
+                                      color: AppCubit.get(context).isLightTheme? defaultColor : defaultLightColor,
+                                    ),),
                                 ),
                                 Text(
                                   isArabic
@@ -132,9 +130,7 @@ class ProfileScreen extends StatelessWidget {
                                       .textTheme
                                       .bodyText1!
                                       .copyWith(
-                                    color:
-                                    //Colors.white,
-                                    Colors.black,
+                                    //Colors.black,
                                     fontWeight: FontWeight.normal,
                                     fontSize: 15,
                                   ),
@@ -144,11 +140,14 @@ class ProfileScreen extends StatelessWidget {
                           ),
                           separatorBuilder: (context, index) => Divider(
                             //  width: double.infinity,
-                              thickness: 0.5,
-                              indent: width / 3,
-                              color:
-                              //Colors.grey[800],
-                              Colors.grey[300],
+                            thickness: 0.5,
+                            indent: width / 3,
+                            color:
+                            AppCubit.get(context).isLightTheme?
+                            Colors.grey[300]
+                                :
+                            Colors.grey[800],
+                            //Colors.grey[300],
                           ),
                           itemCount: data.length - 2),
                     ),

@@ -5,6 +5,7 @@ import 'package:saas/modules/for_student/profile_screen.dart';
 import 'package:saas/modules/gpa_calculator/gpa_page.dart';
 import 'package:saas/shared/bloc/states.dart';
 
+import '../cache_helper.dart';
 import '../data.dart';
 
 class AppCubit extends Cubit<AppStates>{
@@ -37,6 +38,13 @@ class AppCubit extends Cubit<AppStates>{
   void visible(int index){
     arrayOfVisible[index] =! arrayOfVisible[index];
     emit(AppIsVisibleState());
+  }
+
+  bool isLightTheme = true;
+  void ChangeMode(bool state){
+    isLightTheme =! state;
+    emit(AppChangeModeThemeState());
+
   }
 
 }
