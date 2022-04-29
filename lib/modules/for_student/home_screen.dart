@@ -27,17 +27,17 @@ class HomeScreen extends StatelessWidget {
 
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
-      child: BlocConsumer<AppCubit,AppStates>(
-        listener: (BuildContext context,AppStates state){},
-        builder: (BuildContext context,AppStates state){
-            return Scaffold(
-              appBar: AppBar(
-                centerTitle: true,
-                title: Image.asset(
-                  'assets/images/SAAS Logo 1.png',
-                  width: 50,
-                  height: 50,
-                ),
+      child: BlocConsumer<AppCubit, AppStates>(
+        listener: (BuildContext context, AppStates state) {},
+        builder: (BuildContext context, AppStates state) {
+          return Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              title: Image.asset(
+                'assets/images/SAAS Logo 1.png',
+                width: 50,
+                height: 50,
+              ),
               ),
               body: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
@@ -126,10 +126,10 @@ class HomeScreen extends StatelessWidget {
                                   :
                               Colors.black.withOpacity(0.8),
                             ),
-                          ),
-                          SizedBox(
+                            ),
+                           SizedBox(
                             width: width / 30,
-                          ),
+                          ), 
                           Expanded(
                             child: containerWithOROutShadow(
                               blurRadiusValue: 0,
@@ -156,7 +156,7 @@ class HomeScreen extends StatelessWidget {
                                   :
                               Colors.black.withOpacity(0.8),
                             ),
-                          ),
+                           ),
                         ],
                       ),
                       SizedBox(
@@ -210,18 +210,18 @@ class HomeScreen extends StatelessWidget {
                               navigateTo(context, const RecommendedScreen());
                             },
                             text: isArabic ? 'بدء التوصية' : 'Start recommendation',
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: height / 20,
-                      ),
-                    ],
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                  ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: height / 30,
+                    ),
+                  ],
+                  crossAxisAlignment: CrossAxisAlignment.start,
                 ),
               ),
-            );
+            ),
+          );
         },
       ),
     );
