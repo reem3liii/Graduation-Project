@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:saas/main.dart';
-import 'package:saas/shared/models.dart';
-import 'package:saas/shared/components.dart';
-import 'package:saas/shared/colors.dart';
+import 'package:saas/shared/items/models.dart';
+import 'package:saas/shared/items/components.dart';
+import 'package:saas/shared/design/colors.dart';
 
 class RecommendedScreen extends StatelessWidget {
   const RecommendedScreen({Key? key}) : super(key: key);

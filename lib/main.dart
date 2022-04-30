@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saas/modules/splash_screen.dart';
-import 'package:saas/shared/themes.dart';
+import 'package:saas/shared/design/themes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/services.dart';
 

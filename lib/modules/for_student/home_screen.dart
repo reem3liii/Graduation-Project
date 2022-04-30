@@ -5,10 +5,10 @@ import 'package:saas/main.dart';
 import 'package:saas/modules/for_student/recommended_courses.dart';
 import 'package:saas/shared/bloc/cubit.dart';
 import 'package:saas/shared/bloc/states.dart';
-import 'package:saas/shared/models.dart';
+import 'package:saas/shared/items/models.dart';
 import 'package:saas/modules/setting_screens/password.dart';
-import 'package:saas/shared/components.dart';
-import 'package:saas/shared/colors.dart';
+import 'package:saas/shared/items/components.dart';
+import 'package:saas/shared/design/colors.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class HomeScreen extends StatelessWidget {

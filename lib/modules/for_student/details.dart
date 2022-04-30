@@ -4,9 +4,9 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:saas/main.dart';
 import 'package:saas/shared/bloc/cubit.dart';
 import 'package:saas/shared/bloc/states.dart';
-import 'package:saas/shared/components.dart';
-import 'package:saas/shared/data.dart';
-import 'package:saas/shared/colors.dart';
+import 'package:saas/shared/items/components.dart';
+import 'package:saas/shared/items/data.dart';
+import 'package:saas/shared/design/colors.dart';
 
 class Details extends StatelessWidget {
   Details({Key? key}) : super(key: key);

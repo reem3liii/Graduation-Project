@@ -4,9 +4,9 @@ import 'package:saas/main.dart';
 import 'package:saas/modules/for_student/setting_screen.dart';
 import 'package:saas/shared/bloc/cubit.dart';
 import 'package:saas/shared/bloc/states.dart';
-import 'package:saas/shared/components.dart';
-import 'package:saas/shared/data.dart';
-import 'package:saas/shared/colors.dart';
+import 'package:saas/shared/items/components.dart';
+import 'package:saas/shared/items/data.dart';
+import 'package:saas/shared/design/colors.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);

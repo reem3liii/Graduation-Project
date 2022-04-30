@@ -5,8 +5,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:rolling_switch/rolling_switch.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:saas/main.dart';
-import 'package:saas/shared/models.dart';
-import 'package:saas/shared/colors.dart';
+import 'package:saas/shared/items/models.dart';
+import 'package:saas/shared/design/colors.dart';
 
 void navigateTo(context, widget) => Navigator.push(
       context,
@@ -141,14 +141,14 @@ Widget defaultButton({
 }) =>
     Container(
       decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              defaultColor,
-              defaultColor1,
-            ],
-          ),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            defaultColor,
+            defaultColor1,
+          ],
+        ),
         borderRadius: BorderRadiusDirectional.circular(25.0),
         /*boxShadow: [
           BoxShadow(
@@ -183,6 +183,33 @@ Widget settingSectionName(name) => Text(
       style: isArabic
           ? arTitleStyle(color: defaultColor, size: 20)
           : titleStyle(color: defaultColor, size: 20),
+    );
+
+Widget adminSectionName(name, icon) => Padding(
+      padding: const EdgeInsetsDirectional.only(
+        bottom: 8,
+        start: 8,
+      ),
+      child: Row(
+        children: [
+          Text(
+            name,
+            style: isArabic
+                ? arTitleStyle(color: defaultColor, size: 20)
+                : titleStyle(color: defaultColor, size: 20),
+          ),
+
+          //widthSpace(),
+
+          //Icon(
+
+          //  icon,
+
+          //  color: defaultColor,
+
+          //),
+        ],
+      ),
     );
 
 Widget settingItem(icon, title, context, screen) => InkWell(
@@ -270,7 +297,6 @@ Widget containerWithOROutShadow({
   double offsetValue1 = 1,
   double offsetValue2 = 2,
   required height,
-
 }) =>
     Container(
       decoration: BoxDecoration(
@@ -352,9 +378,11 @@ Widget defaultGridViewList({
       itemBuilder: itembuild,
     );
 
-Widget coursesList(CurrentCourses course, {
+Widget coursesList(
+  CurrentCourses course, {
   required double height,
-}) => containerWithOROutShadow(
+}) =>
+    containerWithOROutShadow(
       blurRadiusValue: 0,
       offsetValue1: 0,
       offsetValue2: 0.2,
@@ -429,13 +457,16 @@ Widget coursesList(CurrentCourses course, {
           ],
           crossAxisAlignment: CrossAxisAlignment.start,
         ),
-      ), height: height,
+      ),
+      height: height,
     );
 
-Widget recCoursesItem(CurrentCourses course,{
+Widget recCoursesItem(
+  CurrentCourses course, {
   required double height,
   required double width,
-}) => Padding(
+}) =>
+    Padding(
       padding: const EdgeInsetsDirectional.only(
         bottom: 12,
       ),
@@ -467,7 +498,7 @@ Widget recCoursesItem(CurrentCourses course,{
               ),
               const Spacer(),
               SizedBox(
-                width: width/3,
+                width: width / 3,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -496,19 +527,21 @@ Widget recCoursesItem(CurrentCourses course,{
                           size: 15,
                         ),
                         SizedBox(
-                          width: width/100,
+                          width: width / 100,
                         ),
                         Flexible(
                           child: RichText(
                             overflow: TextOverflow.ellipsis,
                             //strutStyle: StrutStyle(fontSize: 12.0),
                             text: TextSpan(
-                                style: TextStyle(fontSize: 12.0,
-                                  color: Colors.grey.shade600,
-                                  fontWeight: FontWeight.w800,),
-                                text: isArabic
-                                    ? "دكتور  ${course.arCourseProfessor}"
-                                    : "Dr. ${course.courseProfessor}",
+                              style: TextStyle(
+                                fontSize: 12.0,
+                                color: Colors.grey.shade600,
+                                fontWeight: FontWeight.w800,
+                              ),
+                              text: isArabic
+                                  ? "دكتور  ${course.arCourseProfessor}"
+                                  : "Dr. ${course.courseProfessor}",
                             ),
                           ),
                         ),
@@ -532,6 +565,109 @@ Widget recCoursesItem(CurrentCourses course,{
                 iconSize: 30,
               ),
             ],
+          ),
+        ),
+      ),
+    );
+
+Widget adminButtons(
+        {addIcon = Icons.person_add,
+        editIcon = Icons.edit,
+        deleteIcon = Icons.delete}) =>
+    Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.green.shade300,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: TextButton.icon(
+              onPressed: () {},
+              icon: Icon(
+                addIcon, //Icons.person_add
+                color: Colors.black,
+                size: 20,
+              ),
+              label: const Text(
+                'ADD',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+          ),
+          widthSpace(),
+          Container(
+            decoration: BoxDecoration(
+              color: defaultLightColor,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: TextButton.icon(
+              onPressed: () {},
+              icon: Icon(
+                editIcon, //Icons.person_add
+                color: Colors.black,
+                size: 20,
+              ),
+              label: const Text(
+                'EDIT',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+          ),
+          widthSpace(),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.red.shade300,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: TextButton.icon(
+              onPressed: () {},
+              icon: Icon(
+                deleteIcon,
+                color: Colors.black,
+                size: 20,
+              ),
+              label: const Text(
+                'DELETE',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+Widget adminButton(icon, label) => Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: defaultLightColor,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: TextButton.icon(
+          onPressed: () {},
+          icon: Icon(
+            icon,
+            color: Colors.black,
+            size: 22,
+          ),
+          label: Text(
+            label,
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 18,
+            ),
           ),
         ),
       ),

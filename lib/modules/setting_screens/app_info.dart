@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:saas/main.dart';
-import 'package:saas/shared/components.dart';
-import 'package:saas/shared/colors.dart';
+import 'package:saas/shared/items/components.dart';
+import 'package:saas/shared/design/colors.dart';
 
 class InfoScreen extends StatelessWidget {
   const InfoScreen({Key? key}) : super(key: key);

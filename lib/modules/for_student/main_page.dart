@@ -4,8 +4,8 @@ import 'package:saas/main.dart';
 import 'package:saas/modules/gpa_calculator/gpa_page.dart';
 import 'package:saas/shared/bloc/cubit.dart';
 import 'package:saas/shared/bloc/states.dart';
-import 'package:saas/shared/components.dart';
-import 'package:saas/shared/colors.dart';
+import 'package:saas/shared/items/components.dart';
+import 'package:saas/shared/design/colors.dart';
 
 import 'details.dart';
 import 'home_screen.dart';
