@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/main.dart';
@@ -29,23 +30,23 @@ class MainPage extends StatelessWidget {
                 showSelectedLabels: true,
                 showUnselectedLabels: false,
                 selectedLabelStyle:
-                isArabic ? arTitleStyle(size: 10) : titleStyle(size: 12),
+                cubitScreens.isArabic ? arTitleStyle(size: 10) : titleStyle(size: 12),
                 items: <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
                       icon: Icon(Icons.home, size: width / 15),
-                      label: isArabic ? 'الصفحة الرئيسية' : 'Home'),
+                      label: cubitScreens.isArabic ? 'الصفحة الرئيسية' : 'Home'),
                   BottomNavigationBarItem(
                       icon: Icon(Icons.bar_chart, size: width / 15),
-                      label: isArabic ? 'الدرجات' : 'Degrees'),
+                      label: cubitScreens.isArabic ? 'الدرجات' : 'Degrees'),
                   BottomNavigationBarItem(
                       icon: Icon(Icons.calculate, size: width / 15),
-                      label: isArabic ? 'حساب المعدل' : 'Calculator'),
+                      label: cubitScreens.isArabic ? 'حساب المعدل' : 'Calculator'),
                   BottomNavigationBarItem(
                     icon: Icon(
                       Icons.person,
                       size: width / 15,
                     ),
-                    label: isArabic ? 'الصفحة الشخصية' : 'Profile',
+                    label: cubitScreens.isArabic ? 'الصفحة الشخصية' : 'Profile',
                   ),
                 ],
                 currentIndex: cubitScreens.selectedIndex,
@@ -62,3 +63,4 @@ class MainPage extends StatelessWidget {
 
 }
 
+*/

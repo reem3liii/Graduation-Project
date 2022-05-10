@@ -20,19 +20,22 @@ class PasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
-      child: BlocConsumer<AppCubit,AppStates>(
-        listener: (BuildContext context,AppStates state){},
-        builder: (BuildContext context,AppStates state){
+      child: BlocConsumer<AppCubit, AppStates>(
+        listener: (BuildContext context, AppStates state) {},
+        builder: (BuildContext context, AppStates state) {
+          AppCubit cubit = AppCubit.get(context);
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                isArabic ? 'تغيير كلمة المرور' : 'Change Password',
-                style: isArabic
+                cubit.isArabic() ? 'تغيير كلمة المرور' : 'Change Password',
+                style: cubit.isArabic()
                     ? arTitleStyle(
-                    color: defaultColor, size: 20, weight: FontWeight.w600)
+                        color: defaultColor, size: 20, weight: FontWeight.w600)
                     : AppBarTheme.of(context).titleTextStyle?.copyWith(
-                  color: AppCubit.get(context).isLightTheme? defaultColor: defaultLightColor,
-                ),
+                          color: AppCubit.get(context).isLightTheme
+                              ? defaultColor
+                              : defaultLightColor,
+                        ),
               ),
 
               //leading: IconButton(
@@ -43,10 +46,16 @@ class PasswordScreen extends StatelessWidget {
               //    Navigator.pop(context);
               //  },
               // ),
-              backgroundColor: AppCubit.get(context).isLightTheme? defaultBackgroundColor:defaultDarkBackgroundColor,
+              backgroundColor: AppCubit.get(context).isLightTheme
+                  ? defaultBackgroundColor
+                  : defaultDarkBackgroundColor,
               systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor: AppCubit.get(context).isLightTheme? defaultBackgroundColor:defaultDarkBackgroundColor,
-                statusBarIconBrightness: AppCubit.get(context).isLightTheme? Brightness.dark:Brightness.light,
+                statusBarColor: AppCubit.get(context).isLightTheme
+                    ? defaultBackgroundColor
+                    : defaultDarkBackgroundColor,
+                statusBarIconBrightness: AppCubit.get(context).isLightTheme
+                    ? Brightness.dark
+                    : Brightness.light,
               ),
             ),
             body: CustomScrollView(
@@ -61,16 +70,18 @@ class PasswordScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            isArabic ? 'أدخل كلمة مرورك :' : 'Enter your password:',
-                            style: isArabic
+                            cubit.isArabic()
+                                ? 'أدخل كلمة مرورك :'
+                                : 'Enter your password:',
+                            style: cubit.isArabic()
                                 ? arBodyStyle(
-                                size: 16,
-                                color: defaultColor,
-                                weight: FontWeight.bold)
+                                    size: 16,
+                                    color: defaultColor,
+                                    weight: FontWeight.bold)
                                 : bodyStyle3(
-                                size: 16,
-                                color: defaultColor,
-                                weight: FontWeight.bold),
+                                    size: 16,
+                                    color: defaultColor,
+                                    weight: FontWeight.bold),
                           ),
                           heightSpace(),
                           defaultTextField(
@@ -86,7 +97,7 @@ class PasswordScreen extends StatelessWidget {
                                             },*/
                             validator: (passwordController) {
                               if (passwordController.toString().isEmpty) {
-                                return isArabic
+                                return cubit.isArabic()
                                     ? 'أدخل كلمة المرور السابقة!'
                                     : 'Enter the old password!';
                               } else {
@@ -97,18 +108,18 @@ class PasswordScreen extends StatelessWidget {
                           heightSpace(),
                           heightSpace(),
                           Text(
-                            isArabic
+                            cubit.isArabic()
                                 ? 'أدخل كلمة المرور الجديدة :'
                                 : 'Enter a new password:',
-                            style: isArabic
+                            style: cubit.isArabic()
                                 ? arBodyStyle(
-                                size: 16,
-                                color: defaultColor,
-                                weight: FontWeight.bold)
+                                    size: 16,
+                                    color: defaultColor,
+                                    weight: FontWeight.bold)
                                 : bodyStyle3(
-                                size: 16,
-                                color: defaultColor,
-                                weight: FontWeight.bold),
+                                    size: 16,
+                                    color: defaultColor,
+                                    weight: FontWeight.bold),
                           ),
                           heightSpace(),
                           defaultTextField(
@@ -124,12 +135,14 @@ class PasswordScreen extends StatelessWidget {
                                             },*/
                             validator: (newPasswordController) {
                               if (newPasswordController.toString().isEmpty) {
-                                return isArabic
+                                return cubit.isArabic()
                                     ? 'حقل كلمة المرور فارغ!'
                                     : 'Your password is empty!';
-                              } else if (newPasswordController.toString().length <=
+                              } else if (newPasswordController
+                                      .toString()
+                                      .length <=
                                   6) {
-                                return isArabic
+                                return cubit.isArabic()
                                     ? 'كلمة المرور يجب أن تكون أكبر من 6 أحرف'
                                     : 'Password must be greater than 6 characters';
                               }
@@ -139,18 +152,18 @@ class PasswordScreen extends StatelessWidget {
                           heightSpace(),
                           heightSpace(),
                           Text(
-                            isArabic
+                            cubit.isArabic()
                                 ? 'تأكيد كلمة المرور الجديدة :'
                                 : 'Confirm the new password:',
-                            style: isArabic
+                            style: cubit.isArabic()
                                 ? arBodyStyle(
-                                size: 16,
-                                color: defaultColor,
-                                weight: FontWeight.bold)
+                                    size: 16,
+                                    color: defaultColor,
+                                    weight: FontWeight.bold)
                                 : bodyStyle3(
-                                size: 16,
-                                color: defaultColor,
-                                weight: FontWeight.bold),
+                                    size: 16,
+                                    color: defaultColor,
+                                    weight: FontWeight.bold),
                           ),
                           heightSpace(),
                           defaultTextField(
@@ -181,7 +194,9 @@ class PasswordScreen extends StatelessWidget {
                                 print('Password changed');
                               }
                             },
-                            text: isArabic ? 'حفظ التغييرات' : 'Save Changes',
+                            text: cubit.isArabic()
+                                ? 'حفظ التغييرات'
+                                : 'Save Changes',
                           ),
                         ],
                       ),

@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:saas/main.dart';
@@ -175,3 +176,5 @@ Widget buildBoardingItem(BoardingModel model) => Column(
         ),
       ],
     );
+
+*/

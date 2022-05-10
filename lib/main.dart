@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saas/modules/for_student/setting_screen.dart';
 import 'package:saas/modules/splash_screen.dart';
 import 'package:saas/shared/bloc/cubit.dart';
 import 'package:saas/shared/bloc/states.dart';
@@ -7,7 +8,7 @@ import 'package:saas/shared/themes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/services.dart';
 
-bool isArabic = false;
+
 
 
 void main() {
@@ -26,19 +27,20 @@ class MyApp extends StatelessWidget {
       child: BlocConsumer<AppCubit,AppStates>(
         listener: (BuildContext context,AppStates state){},
         builder: (BuildContext context,AppStates state){
+          AppCubit cubit = AppCubit.get(context);
           return MaterialApp(
-            themeMode: AppCubit.get(context).isLightTheme? ThemeMode.light:ThemeMode.dark,
+            themeMode: cubit.isLightTheme? ThemeMode.light:ThemeMode.dark,
             theme: lightTheme,
             darkTheme: darkTheme,
             debugShowCheckedModeBanner: false,
-            home: const Splash(),
+            home: const SettingScreen(),
             localizationsDelegates: const [
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
             supportedLocales: [
-              isArabic ? const Locale('ar', 'AE') : const Locale('en', ''),
+              cubit.isArabic()? const Locale('ar', 'AE') : const Locale('en', ''),
             ],
           );
         },

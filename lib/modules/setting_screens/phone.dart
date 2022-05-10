@@ -17,19 +17,22 @@ class PhoneScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
-      child: BlocConsumer<AppCubit,AppStates>(
-        listener: (BuildContext context,AppStates state){},
-        builder: (BuildContext context,AppStates state){
+      child: BlocConsumer<AppCubit, AppStates>(
+        listener: (BuildContext context, AppStates state) {},
+        builder: (BuildContext context, AppStates state) {
+          AppCubit cubit = AppCubit.get(context);
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                isArabic ? 'تغيير رقم الهاتف' : 'Change Phone Number',
-                style: isArabic
+                cubit.isArabic() ? 'تغيير رقم الهاتف' : 'Change Phone Number',
+                style: cubit.isArabic()
                     ? arTitleStyle(
-                    color: defaultColor, size: 20, weight: FontWeight.w600)
+                        color: defaultColor, size: 20, weight: FontWeight.w600)
                     : AppBarTheme.of(context).titleTextStyle?.copyWith(
-                  color: AppCubit.get(context).isLightTheme? defaultColor: defaultLightColor,
-                ),
+                          color: AppCubit.get(context).isLightTheme
+                              ? defaultColor
+                              : defaultLightColor,
+                        ),
               ),
               //leading: IconButton(
               //  icon: isArabic
@@ -57,18 +60,18 @@ class PhoneScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            isArabic
+                            cubit.isArabic()
                                 ? 'أدخل رقم الهاتف :'
                                 : 'Enter your phone number:',
-                            style: isArabic
+                            style: cubit.isArabic()
                                 ? arBodyStyle(
-                                size: 16,
-                                color: defaultColor,
-                                weight: FontWeight.bold)
+                                    size: 16,
+                                    color: defaultColor,
+                                    weight: FontWeight.bold)
                                 : bodyStyle3(
-                                size: 16,
-                                color: defaultColor,
-                                weight: FontWeight.bold),
+                                    size: 16,
+                                    color: defaultColor,
+                                    weight: FontWeight.bold),
                           ),
                           heightSpace(),
                           defaultTextField(
@@ -77,7 +80,7 @@ class PhoneScreen extends StatelessWidget {
                             preIcon: Icons.phone_android_outlined,
                             validator: (phoneController) {
                               if (phoneController.toString().isEmpty) {
-                                return isArabic
+                                return cubit.isArabic()
                                     ? 'من فضلك أدخل الرقم!'
                                     : 'Please enter your phone number!';
                               } else {
@@ -88,18 +91,18 @@ class PhoneScreen extends StatelessWidget {
                           heightSpace(),
                           heightSpace(),
                           Text(
-                            isArabic
+                            cubit.isArabic()
                                 ? 'أدخل الكود المرسل إليك لتأكيد رقمك :'
                                 : 'Enter the code sent to you to verify your number:',
-                            style: isArabic
+                            style: cubit.isArabic()
                                 ? arBodyStyle(
-                                size: 16,
-                                color: defaultColor,
-                                weight: FontWeight.bold)
+                                    size: 16,
+                                    color: defaultColor,
+                                    weight: FontWeight.bold)
                                 : bodyStyle3(
-                                size: 16,
-                                color: defaultColor,
-                                weight: FontWeight.bold),
+                                    size: 16,
+                                    color: defaultColor,
+                                    weight: FontWeight.bold),
                           ),
                           heightSpace(),
                           defaultTextField(
@@ -108,7 +111,7 @@ class PhoneScreen extends StatelessWidget {
                             preIcon: Icons.comment_outlined,
                             validator: (confirmController) {
                               if (confirmController.toString().isEmpty) {
-                                return isArabic
+                                return cubit.isArabic()
                                     ? 'قم بمراجعة سجل رسائلك ثم أدخل الكود المرسل اليك'
                                     : 'Check your SMS then enter the sent code';
                               } else {
@@ -124,7 +127,9 @@ class PhoneScreen extends StatelessWidget {
                                 print('Phone number changed');
                               }
                             },
-                            text: isArabic ? 'حفظ التغييرات' : 'Save Changes',
+                            text: cubit.isArabic()
+                                ? 'حفظ التغييرات'
+                                : 'Save Changes',
                           ),
                         ],
                       ),

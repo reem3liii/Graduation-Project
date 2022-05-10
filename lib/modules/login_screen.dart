@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,8 +23,9 @@ class LoginScreen extends StatelessWidget {
     return regExp.hasMatch(emailController.toString());
   }
 
-  bool get ispass{
-    String  pattern = '^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@!%*?&])[A-Za-zd@!%*?&]';
+  bool get ispass {
+    String pattern =
+        '^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@!%*?&])[A-Za-zd@!%*?&]';
     RegExp regExp2 = RegExp(pattern);
     return regExp2.hasMatch(passwordController.toString());
   }
@@ -33,9 +35,9 @@ class LoginScreen extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
-      child: BlocConsumer<AppCubit,AppStates>(
-        listener: (BuildContext context,AppStates state){},
-        builder: (BuildContext context,AppStates state){
+      child: BlocConsumer<AppCubit, AppStates>(
+        listener: (BuildContext context, AppStates state) {},
+        builder: (BuildContext context, AppStates state) {
           AppCubit cubit = AppCubit.get(context);
 
           return Scaffold(
@@ -59,7 +61,9 @@ class LoginScreen extends StatelessWidget {
                     key: formKey,
                     child: Column(
                       children: [
-                        SizedBox(height: height/22,),
+                        SizedBox(
+                          height: height / 22,
+                        ),
                         Center(
                           child: Image.asset(
                             'assets/images/login.png',
@@ -67,7 +71,9 @@ class LoginScreen extends StatelessWidget {
                             height: 175,
                           ),
                         ),
-                        SizedBox(height: height/22,),
+                        SizedBox(
+                          height: height / 22,
+                        ),
                         Expanded(
                           child: Container(
                             width: double.infinity,
@@ -84,40 +90,48 @@ class LoginScreen extends StatelessWidget {
                               child: Column(
                                 children: [
                                   Text(
-                                    isArabic ? 'تسجيل الدخول' : 'Sign In',
-                                    style: isArabic
+                                    cubit.isArabic ? 'تسجيل الدخول' : 'Sign In',
+                                    style: cubit.isArabic
                                         ? arTitleStyle(
-                                      size: 25,
-                                    )
+                                            size: 25,
+                                          )
                                         : titleStyle(
-                                      size: 25,
-                                    ),
+                                            size: 25,
+                                          ),
                                   ),
-                                  SizedBox(height: height/45,),
+                                  SizedBox(
+                                    height: height / 45,
+                                  ),
                                   defaultTextField(
                                     textEditingController: emailController,
                                     textInputType: TextInputType.emailAddress,
-                                    labelText:
-                                    isArabic ? 'البريد الإلكتروني' : 'E-mail',
+                                    labelText: cubit.isArabic
+                                        ? 'البريد الإلكتروني'
+                                        : 'E-mail',
                                     preIcon: Icons.email,
                                     validator: (emailController) {
                                       if (emailController.toString().isEmpty) {
-                                        return isArabic
+                                        return cubit.isArabic
                                             ? 'أدخل البريد الإلكتروني!'
                                             : 'Email Field is Empty!';
                                       } else if (!isEmail) {
-                                        return isArabic
+                                        return cubit.isArabic
                                             ? 'تحقق من بريدك الإلكتروني'
                                             : 'Check Your Email';
                                       }
                                       return null;
                                     },
                                   ),
-                                  SizedBox(height: height/65,),
+                                  SizedBox(
+                                    height: height / 65,
+                                  ),
                                   defaultTextField(
                                     textEditingController: passwordController,
-                                    textInputType: TextInputType.visiblePassword,
-                                    labelText: isArabic ? 'كلمة المرور' : 'Password',
+                                    textInputType:
+                                        TextInputType.visiblePassword,
+                                    labelText: cubit.isArabic
+                                        ? 'كلمة المرور'
+                                        : 'Password',
                                     preIcon: Icons.lock,
                                     isPassword: cubit.isPassword,
                                     suffixIcon: cubit.isPassword
@@ -127,19 +141,23 @@ class LoginScreen extends StatelessWidget {
                                       cubit.ispassword();
                                     },
                                     validator: (passwordController) {
-                                      if (passwordController.toString().isEmpty) {
-                                        return isArabic
+                                      if (passwordController
+                                          .toString()
+                                          .isEmpty) {
+                                        return cubit.isArabic
                                             ? 'أدخل كلمة المرور!'
                                             : 'Password Field is Empty!';
                                       } else if (!ispass) {
-                                        return isArabic
+                                        return cubit.isArabic
                                             ? 'تحقق من كلمة المرور'
-                                            :'Check Your Password, Please!';
+                                            : 'Check Your Password, Please!';
                                       }
                                       return null;
                                     },
                                   ),
-                                  SizedBox(height: height/30,),
+                                  SizedBox(
+                                    height: height / 30,
+                                  ),
                                   defaultButton(
                                     function: () {
                                       if (formKey.currentState!.validate()) {
@@ -147,18 +165,20 @@ class LoginScreen extends StatelessWidget {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) => MainPage()),
-                                              (Route<dynamic> route) => false,
+                                          (Route<dynamic> route) => false,
                                         );
                                       }
                                     },
-                                    text: isArabic ? 'دخول' : 'login'.toUpperCase(),
+                                    text: cubit.isArabic
+                                        ? 'دخول'
+                                        : 'login'.toUpperCase(),
                                   ),
                                   Row(
                                     children: [
                                       TextButton(
                                         onPressed: () {},
                                         child: Text(
-                                          isArabic
+                                          cubit.isArabic
                                               ? 'نسيت كلمة المرور؟'
                                               : 'Forget Your Password?',
                                           style: const TextStyle(
@@ -187,4 +207,4 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
-
+*/

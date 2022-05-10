@@ -13,19 +13,22 @@ class InfoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
-      child: BlocConsumer<AppCubit,AppStates>(
-        listener: (BuildContext context,AppStates state){},
-        builder: (BuildContext context,AppStates state){
+      child: BlocConsumer<AppCubit, AppStates>(
+        listener: (BuildContext context, AppStates state) {},
+        builder: (BuildContext context, AppStates state) {
+          AppCubit cubit = AppCubit.get(context);
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                isArabic ? 'عن التطبيق' : 'About SAAS',
-                style: isArabic
+                cubit.isArabic() ? 'عن التطبيق' : 'About SAAS',
+                style: cubit.isArabic()
                     ? arTitleStyle(
-                    color: defaultColor, size: 22, weight: FontWeight.w600)
+                        color: defaultColor, size: 22, weight: FontWeight.w600)
                     : AppBarTheme.of(context).titleTextStyle?.copyWith(
-                  color: AppCubit.get(context).isLightTheme? defaultColor: defaultLightColor,
-                ),
+                          color: AppCubit.get(context).isLightTheme
+                              ? defaultColor
+                              : defaultLightColor,
+                        ),
               ),
               //leading: IconButton(
               // icon: isArabic
@@ -35,13 +38,19 @@ class InfoScreen extends StatelessWidget {
               //   Navigator.pop(context);
               // },
               //),
-              backgroundColor: AppCubit.get(context).isLightTheme? defaultBackgroundColor:defaultDarkBackgroundColor,
+              backgroundColor: AppCubit.get(context).isLightTheme
+                  ? defaultBackgroundColor
+                  : defaultDarkBackgroundColor,
               systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor: AppCubit.get(context).isLightTheme? defaultBackgroundColor:defaultDarkBackgroundColor,
-                statusBarIconBrightness: AppCubit.get(context).isLightTheme? Brightness.dark:Brightness.light,
+                statusBarColor: AppCubit.get(context).isLightTheme
+                    ? defaultBackgroundColor
+                    : defaultDarkBackgroundColor,
+                statusBarIconBrightness: AppCubit.get(context).isLightTheme
+                    ? Brightness.dark
+                    : Brightness.light,
               ),
             ),
-            body:  Padding(
+            body: Padding(
               padding: const EdgeInsets.all(16),
               child: Container(
                 height: double.infinity,
@@ -57,10 +66,10 @@ class InfoScreen extends StatelessWidget {
                       height: 250,
                     ),
                     Text(
-                      isArabic
+                      cubit.isArabic()
                           ? 'تطبيق SAAS هو نظام دعم أكاديمي للطلاب والمرشدين الأكادميين. \nيساعدك من خلال اقتراح المقررات التي تلبي احتياجاتك الحالية، وفي نفس الوقت تحسن الأداء الأكاديمي.'
                           : 'SAAS is an acadimic support system for students and acadimic advisors.\nIt helps you by suggesting courses that meet your current needs, and at the same time improve the academic performance.',
-                      style: isArabic
+                      style: cubit.isArabic()
                           ? arBodyStyle(size: 20, weight: FontWeight.bold)
                           : bodyStyle3(size: 20, weight: FontWeight.bold),
                     ),
@@ -72,6 +81,5 @@ class InfoScreen extends StatelessWidget {
         },
       ),
     );
-
   }
 }

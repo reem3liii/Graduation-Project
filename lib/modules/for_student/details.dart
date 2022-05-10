@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -8,8 +9,7 @@ import 'package:saas/shared/components.dart';
 import 'package:saas/shared/data.dart';
 import 'package:saas/shared/colors.dart';
 
-
-class Details extends StatefulWidget {
+/*class Details extends StatefulWidget {
    Details({Key? key}) : super(key: key);
 
   @override
@@ -235,6 +235,7 @@ class _DetailsState extends State<Details> {
      );
    }
 =======
+*/
 class Details extends StatelessWidget {
   Details({Key? key}) : super(key: key);
 
@@ -472,3 +473,5 @@ class Details extends StatelessWidget {
     );
   }
 }
+
+*/
