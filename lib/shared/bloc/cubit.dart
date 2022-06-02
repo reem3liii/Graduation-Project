@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saas/modules/for_admin/main_admin_screen.dart';
 import 'package:saas/modules/for_admin/admin_home_screen.dart';
 import 'package:saas/modules/for_student/details.dart';
 import 'package:saas/modules/for_student/home_screen.dart';
@@ -7,9 +6,6 @@ import 'package:saas/modules/for_student/main_page.dart';
 import 'package:saas/modules/for_student/profile_screen.dart';
 import 'package:saas/modules/gpa_calculator/gpa_page.dart';
 import 'package:saas/shared/bloc/states.dart';
-
-import '../../modules/for_admin/admin_profile_screen.dart';
-import '../../modules/for_admin/admin_setting_screen.dart';
 import '../items/data.dart';
 
 class AppCubit extends Cubit<AppStates> {
@@ -35,7 +31,7 @@ class AppCubit extends Cubit<AppStates> {
     if (selectedMode == 0) {
       selectedModeMainPage = MainPage();
     } else if (selectedMode == 2) {
-      selectedModeMainPage = const MainAdminScreen();
+      selectedModeMainPage = const HomeAdminScreen();
     }
     emit(AccessTheCurrentModeState());
   }
@@ -48,21 +44,22 @@ class AppCubit extends Cubit<AppStates> {
     const ProfileScreen(),
   ];
 
-   int selectedAdminIndex = 0;
+  /* selectedAdminIndex = 0;
   final adminScreens = [
     const HomeAdminScreen(),
-    SettingAdminScreen(),
+    StudentSettingAdminScreen(),
     const AdminProfileScreen(),
-  ];
+    const AdminProfileScreen(),
+  ];*/
 
   void changeIndex(int index) {
     selectedIndex = index;
     emit(AppChangeBottomNavBarState());
   }
-  void changeAdminIndex(int index) {
+  /*void changeAdminIndex(int index) {
     selectedAdminIndex = index;
     emit(AppChangeBottomNavBarAdminState());
-  }
+  }*/
 
   var arrayOfVisible =
       List<bool>.generate(int.parse(data[5].toString()), (i) => false);
@@ -71,5 +68,13 @@ class AppCubit extends Cubit<AppStates> {
   void visible(int index) {
     arrayOfVisible[index] = !arrayOfVisible[index];
     emit(AppIsVisibleState());
+  }
+
+  List<bool> visibilAdvisors = [false];
+  List<bool> upAdvisors = [false];
+  void showAdvisor(int index) {
+    visibilAdvisors[index] = !visibilAdvisors[index];
+    upAdvisors[index] = !upAdvisors[index];
+    emit(AdvisorShowState());
   }
 }

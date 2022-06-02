@@ -13,3 +13,5 @@ class AppChangeModeState extends AppStates {}
 class AccessTheCurrentModeState extends AppStates {}
 
 class AppChangeBottomNavBarAdminState extends AppStates {}
+
+class AdvisorShowState extends AppStates {}
