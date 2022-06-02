@@ -234,6 +234,8 @@ class _DetailsState extends State<Details> {
        ),
      );
    }
+
+/*
 =======
 class Details extends StatelessWidget {
   Details({Key? key}) : super(key: key);
@@ -470,5 +472,6 @@ class Details extends StatelessWidget {
         },
       ),
     );
-  }
+  }*/
 }
+
