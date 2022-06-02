@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/main.dart';
 import 'package:saas/shared/bloc/cubit.dart';
 import 'package:saas/shared/bloc/states.dart';
-import 'package:saas/shared/components.dart';
-import 'package:saas/shared/colors.dart';
+import 'package:saas/shared/items/components.dart';
+import 'package:saas/shared/design/colors.dart';
 import 'for_student/main_page.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -22,8 +22,9 @@ class LoginScreen extends StatelessWidget {
     return regExp.hasMatch(emailController.toString());
   }
 
-  bool get ispass{
-    String  pattern = '^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@!%*?&])[A-Za-zd@!%*?&]';
+  bool get ispass {
+    String pattern =
+        '^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@!%*?&])[A-Za-zd@!%*?&]';
     RegExp regExp2 = RegExp(pattern);
     return regExp2.hasMatch(passwordController.toString());
   }
@@ -31,11 +32,12 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
-      child: BlocConsumer<AppCubit,AppStates>(
-        listener: (BuildContext context,AppStates state){},
-        builder: (BuildContext context,AppStates state){
+      child: BlocConsumer<AppCubit, AppStates>(
+        listener: (BuildContext context, AppStates state) {},
+        builder: (BuildContext context, AppStates state) {
           AppCubit cubit = AppCubit.get(context);
 
           return Scaffold(
@@ -59,7 +61,9 @@ class LoginScreen extends StatelessWidget {
                     key: formKey,
                     child: Column(
                       children: [
-                        SizedBox(height: height/22,),
+                        SizedBox(
+                          height: height / 150,
+                        ),
                         Center(
                           child: Image.asset(
                             'assets/images/login.png',
@@ -67,7 +71,9 @@ class LoginScreen extends StatelessWidget {
                             height: 175,
                           ),
                         ),
-                        SizedBox(height: height/22,),
+                        SizedBox(
+                          height: height / 40,
+                        ),
                         Expanded(
                           child: Container(
                             width: double.infinity,
@@ -87,18 +93,21 @@ class LoginScreen extends StatelessWidget {
                                     isArabic ? 'تسجيل الدخول' : 'Sign In',
                                     style: isArabic
                                         ? arTitleStyle(
-                                      size: 25,
-                                    )
+                                            size: 25,
+                                          )
                                         : titleStyle(
-                                      size: 25,
-                                    ),
+                                            size: 25,
+                                          ),
                                   ),
-                                  SizedBox(height: height/45,),
+                                  SizedBox(
+                                    height: height / 45,
+                                  ),
                                   defaultTextField(
                                     textEditingController: emailController,
                                     textInputType: TextInputType.emailAddress,
-                                    labelText:
-                                    isArabic ? 'البريد الإلكتروني' : 'E-mail',
+                                    labelText: isArabic
+                                        ? 'البريد الإلكتروني'
+                                        : 'E-mail',
                                     preIcon: Icons.email,
                                     validator: (emailController) {
                                       if (emailController.toString().isEmpty) {
@@ -113,11 +122,15 @@ class LoginScreen extends StatelessWidget {
                                       return null;
                                     },
                                   ),
-                                  SizedBox(height: height/65,),
+                                  SizedBox(
+                                    height: height / 65,
+                                  ),
                                   defaultTextField(
                                     textEditingController: passwordController,
-                                    textInputType: TextInputType.visiblePassword,
-                                    labelText: isArabic ? 'كلمة المرور' : 'Password',
+                                    textInputType:
+                                        TextInputType.visiblePassword,
+                                    labelText:
+                                        isArabic ? 'كلمة المرور' : 'Password',
                                     preIcon: Icons.lock,
                                     isPassword: cubit.isPassword,
                                     suffixIcon: cubit.isPassword
@@ -127,31 +140,63 @@ class LoginScreen extends StatelessWidget {
                                       cubit.ispassword();
                                     },
                                     validator: (passwordController) {
-                                      if (passwordController.toString().isEmpty) {
+                                      if (passwordController
+                                          .toString()
+                                          .isEmpty) {
                                         return isArabic
                                             ? 'أدخل كلمة المرور!'
                                             : 'Password Field is Empty!';
                                       } else if (!ispass) {
                                         return isArabic
                                             ? 'تحقق من كلمة المرور'
-                                            :'Check Your Password, Please!';
+                                            : 'Check Your Password, Please!';
                                       }
                                       return null;
                                     },
                                   ),
-                                  SizedBox(height: height/30,),
+                                  SizedBox(
+                                    height: height / 150,
+                                  ),
+                                  RadioListTile<int>(
+                                      title: const Text('Student'),
+                                      activeColor: defaultColor,
+                                      value: 0,
+                                      groupValue: cubit.selectedMode,
+                                      onChanged: (value) =>
+                                          cubit.changeMode(0)),
+                                  RadioListTile<int>(
+                                      title: const Text('Advisor'),
+                                      activeColor: defaultColor,
+                                      value: 1,
+                                      groupValue: cubit.selectedMode,
+                                      onChanged: (value) =>
+                                          cubit.changeMode(1)),
+                                  RadioListTile<int>(
+                                      title: const Text('Administrator'),
+                                      activeColor: defaultColor,
+                                      value: 2,
+                                      groupValue: cubit.selectedMode,
+                                      onChanged: (value) =>
+                                          cubit.changeMode(2)),
+                                  SizedBox(
+                                    height: height / 150,
+                                  ),
                                   defaultButton(
                                     function: () {
                                       if (formKey.currentState!.validate()) {
+                                        cubit.enterSelectedMode();
                                         Navigator.pushAndRemoveUntil(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => MainPage()),
-                                              (Route<dynamic> route) => false,
+                                              builder: (context) =>
+                                                  cubit.selectedModeMainPage ),
+                                          (Route<dynamic> route) => false,
                                         );
                                       }
                                     },
-                                    text: isArabic ? 'دخول' : 'login'.toUpperCase(),
+                                    text: isArabic
+                                        ? 'دخول'
+                                        : 'login'.toUpperCase(),
                                   ),
                                   Row(
                                     children: [
@@ -187,4 +232,3 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
-

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:saas/main.dart';
@@ -8,245 +9,26 @@ import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/items/data.dart';
 import 'package:saas/shared/design/colors.dart';
 
+import 'insert_degrees.dart';
 
-class Details extends StatefulWidget {
-   Details({Key? key}) : super(key: key);
+var arrayOfVisible =
+    List<bool>.generate(int.parse(data[5].toString()), (i) => false);
+
+class Degrees extends StatefulWidget {
+  const Degrees({Key? key}) : super(key: key);
 
   @override
-  State<Details> createState() => _DetailsState();
+  State<Degrees> createState() => _DegreesState();
 }
 
-class _DetailsState extends State<Details> {
-   @override
-   Widget build(BuildContext context) {
-     double height = MediaQuery.of(context).size.height;
-     double width = MediaQuery.of(context).size.width;
-     int standard = 2;
-
-     AppCubit cubitDegrees = AppCubit.get(context);
-     return BlocProvider(
-       create: (BuildContext context) => AppCubit(),
-       child: BlocConsumer<AppCubit,AppStates>(
-         listener: (BuildContext context,AppStates state){},
-         builder: (BuildContext context,AppStates state){
-           return Scaffold(
-             appBar: AppBar(
-               title: Text(
-                 isArabic ? 'تقرير الدرجات' : 'Degrees Report',
-                 style: isArabic
-                     ? arTitleStyle(
-                   size: 20,
-                   color: Colors.white,
-                 )
-                     : AppBarTheme.of(context).titleTextStyle,
-               ),
-               automaticallyImplyLeading: false,
-             ),
-             //backgroundColor: Colors.grey.shade100,
-             body: SingleChildScrollView(
-               physics: const BouncingScrollPhysics(),
-               child: Column(
-                 children: [
-                   const SizedBox(
-                     height: 20,
-                   ),
-                   Padding(
-                     padding: const EdgeInsets.only(
-                       left: 20,
-                       right: 20,
-                     ),
-                     child: ListView.separated(
-                         physics: const BouncingScrollPhysics(),
-                         shrinkWrap: true,
-                         itemBuilder: (context, index) => Container(
-                           decoration: BoxDecoration(
-                             color: AppCubit.get(context).isLightTheme?
-                             Colors.white
-                                 :
-                             Colors.black.withOpacity(0.8),
-                             borderRadius: BorderRadius.circular(10),
-                             boxShadow: const [
-                               BoxShadow(
-                                 blurRadius: 0,
-                                 offset: Offset(0.2, 0.2),
-                                 color: Colors.grey,
-                               ),
-                             ],
-                           ),
-                           child: Padding(
-                             padding: const EdgeInsets.all(8.0),
-                             child: Column(
-                               children: [
-                                 Row(
-                                   children: [
-                                     SizedBox(
-                                       width: width / 5,
-                                       child: Padding(
-                                         padding: const EdgeInsets.all(5),
-                                         child: GestureDetector(
-                                           child: Text(
-                                             semesters[index].keys.toList().first,
-                                             style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                                               fontSize: width/15,
-                                               fontWeight: FontWeight.w500,
-                                               color: AppCubit.get(context).isLightTheme? defaultColor : defaultLightColor,
-                                             ),
-                                           ),
-                                           onTap: () {
-                                             setState(() {
-                                               cubitDegrees.visible(index);
-                                             });
-                                             /*setState(() {
-                                             arrayOfVisible[index] =
-                                             !arrayOfVisible[index];
-                                           });*/
-                                           },
-                                         ),
-                                       ),
-                                     ),
-                                     Column(
-                                       children: [
-                                         Text(
-                                           '   GPA',
-                                           style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                                             fontSize: width/30,
-                                           ),
-                                         ),
-                                         SizedBox(
-                                           height: height / 200,
-                                         ),
-                                         Stack(
-                                           children: [
-                                             LinearPercentIndicator(
-                                               width: width / 2,
-                                               animation: true,
-                                               animationDuration: 750,
-                                               lineHeight: height / 35,
-                                               percent: semesters[index]
-                                                   .values
-                                                   .last
-                                                   .toDouble() / 4,
-                                               progressColor: semesters[index]
-                                                   .values
-                                                   .last
-                                                   .toDouble() > standard
-                                                   ? defaultGreenColor.shade300
-                                                   : Colors.red.shade400,
-                                               backgroundColor: AppCubit.get(context).isLightTheme? Colors.grey.shade200 : Colors.grey.shade800,
-                                               barRadius: const Radius.circular(12),
-                                               curve: Curves.easeInOut,
-                                             ),
-                                             Positioned(
-                                               top: 1,
-                                               left: 14,
-                                               child: Text(
-                                                 semesters[index]
-                                                     .values
-                                                     .last
-                                                     .toString(),
-                                                 style: bodyStyle(
-                                                   size: width / 30,
-                                                   weight: FontWeight.w600,
-                                                   color: Colors.white,
-                                                 ),
-                                               ),
-                                             ),
-                                           ],
-                                         ),
-                                       ],
-                                       crossAxisAlignment: CrossAxisAlignment.start,
-                                     ),
-                                   ],
-                                 ),
-                                 Visibility(
-                                   visible: cubitDegrees.arrayOfVisible[index],
-                                   child: Container(
-                                     padding: const EdgeInsets.symmetric(
-                                         vertical: 10, horizontal: 20),
-                                     child: Column(
-                                       children: [
-                                         ListView.separated(
-                                             physics: const ScrollPhysics(),
-                                             shrinkWrap: true,
-                                             itemBuilder: (context, sub) => Row(
-                                                 mainAxisAlignment:
-                                                 MainAxisAlignment
-                                                     .spaceBetween,
-                                                 children: [
-                                                   Text(
-                                                     isArabic
-                                                         ? arSubjects[index]
-                                                         .keys
-                                                         .toList()[sub]
-                                                         : subjects[index]
-                                                         .keys
-                                                         .toList()[sub],
-                                                     style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                                                       fontSize: 16,
-                                                       fontWeight: FontWeight.w500,
-                                                     ),
-                                                   ),
-                                                   Text(
-                                                     subjects[index][
-                                                     subjects[index]
-                                                         .keys
-                                                         .toList()[sub]]
-                                                         .toString(),
-                                                     style: bodyStyle(
-                                                         size: 16,
-                                                         weight: FontWeight.w600,
-                                                         color: double.parse(subjects[
-                                                         index][subjects[
-                                                         index]
-                                                             .keys
-                                                             .toList()[sub]]
-                                                             .toString()) >
-                                                             standard
-                                                             ? Colors.green
-                                                             : Colors.red),
-                                                   ),
-                                                 ]),
-                                             separatorBuilder: (context, sub) =>
-                                             const SizedBox(height: 10),
-                                             itemCount: subjects[index].length)
-                                       ],
-                                     ),
-                                   ),
-                                 )
-                               ],
-                               crossAxisAlignment: CrossAxisAlignment.start,
-                             ),
-                           ),
-                         ),
-                         separatorBuilder: (context, index) => SizedBox(
-                           height: height / 50,
-                         ),
-                         itemCount: int.parse(data[5].toString())),
-                   ),
-                   const SizedBox(
-                     height: 20,
-                   ),
-                 ],
-               ),
-             ),
-           );
-         },
-       ),
-     );
-   }
-
-/*
-=======
-class Details extends StatelessWidget {
-  Details({Key? key}) : super(key: key);
-
+class _DegreesState extends State<Degrees> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     int standard = 2;
 
-    AppCubit cubitDegrees = AppCubit.get(context);
+    //AppCubit cubitDegrees = AppCubit.get(context);
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
       child: BlocConsumer<AppCubit, AppStates>(
@@ -255,14 +37,18 @@ class Details extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                isArabic ? 'تقرير الدرجات' : 'Degrees Report',
+                isArabic ? 'تقرير الدرجات' : 'Degrees report',
                 style: isArabic
                     ? arTitleStyle(
-                        size: 20, color: Colors.white, weight: FontWeight.w600)
+                        color: defaultColor, size: 20, weight: FontWeight.w600)
                     : titleStyle(
-                        color: Colors.white, size: 24, weight: FontWeight.w600),
+                        color: defaultColor, size: 20, weight: FontWeight.w600),
               ),
-              automaticallyImplyLeading: false,
+              backgroundColor: defaultBackgroundColor,
+              systemOverlayStyle: SystemUiOverlayStyle(
+                statusBarColor: defaultBackgroundColor,
+                statusBarIconBrightness: Brightness.dark,
+              ),
             ),
             //backgroundColor: Colors.grey.shade100,
             body: SingleChildScrollView(
@@ -315,11 +101,11 @@ class Details extends StatelessWidget {
                                                 //TextStyle(fontSize: 25, color: defaultColor),
                                               ),
                                               onTap: () {
-                                                cubitDegrees.visible(index);
-                                                /*setState(() {
-                                             arrayOfVisible[index] =
-                                             !arrayOfVisible[index];
-                                           });*/
+                                                //cubitDegrees.visible(index);
+                                                setState(() {
+                                                  arrayOfVisible[index] =
+                                                      !arrayOfVisible[index];
+                                                });
                                               },
                                             ),
                                           ),
@@ -387,8 +173,7 @@ class Details extends StatelessWidget {
                                       ],
                                     ),
                                     Visibility(
-                                      visible:
-                                          cubitDegrees.arrayOfVisible[index],
+                                      visible: arrayOfVisible[index],
                                       child: Container(
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 10, horizontal: 20),
@@ -465,6 +250,25 @@ class Details extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
+                  Text(
+                    'Insert the degrees of\nthe current semester?',
+                    style: titleStyle(size: 18),
+                  ),
+                  heightSpace(),
+                  heightSpace(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 75),
+                    child: defaultButton(
+                      function: () {
+                        setState(() {
+                          navigateTo(context, const InsertDegrees());
+                        });
+                      },
+                      text: isArabic ? 'ادخال' : 'INSERT',
+                    ),
+                  ),
+                  heightSpace(),
+                  heightSpace(),
                 ],
               ),
             ),
@@ -472,6 +276,5 @@ class Details extends StatelessWidget {
         },
       ),
     );
-  }*/
+  }
 }
-

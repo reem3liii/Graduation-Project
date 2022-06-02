@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/modules/splash_screen.dart';
 import 'package:saas/shared/bloc/cubit.dart';
 import 'package:saas/shared/bloc/states.dart';
-import 'package:saas/shared/themes.dart';
+//import 'package:saas/shared/themes.dart';
+import 'package:saas/shared/design/themes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/services.dart';
 
