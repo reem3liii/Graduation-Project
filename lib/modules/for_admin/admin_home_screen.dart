@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/main.dart';
 import 'package:saas/modules/for_admin/select_course_category.dart';
@@ -30,7 +31,17 @@ class HomeAdminScreen extends StatelessWidget {
         builder: (BuildContext context, AppStates state) {
           return Scaffold(
             backgroundColor: defaultColor,
-            //appBar: AppBar(),
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(0.0),
+              child: AppBar(
+                backgroundColor: defaultColor,
+                systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarColor: defaultColor,
+                  statusBarIconBrightness: Brightness.light,
+                ),
+                automaticallyImplyLeading: false,
+              ),
+            ),
             body: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Column(
@@ -102,13 +113,15 @@ class HomeAdminScreen extends StatelessWidget {
                               labels: const ['Off', 'On'],
                               fontSize: 18,
                               activeBgColors: [
-                                [Colors.red.shade400],
-                                [Colors.green.shade400]
+                                [Colors.redAccent.shade700],
+                                [Colors.greenAccent.shade700]
                               ],
-                              inactiveBgColor: Colors.grey,
-                              activeFgColor: Colors.black,
-                              inactiveFgColor: Colors.black,
-                              cornerRadius: 10,
+                              inactiveBgColor: defaultBackgroundColor,
+                              activeFgColor: Colors.white,
+                              inactiveFgColor: Colors.grey.shade500,
+                              borderColor: const [Colors.grey],
+                              borderWidth: 0.7,
+                              cornerRadius: 30,
                               initialLabelIndex: 0,
                               minWidth: 100,
                               minHeight: 50,
@@ -120,16 +133,16 @@ class HomeAdminScreen extends StatelessWidget {
                         ),
                         heightSpace(),
                         heightSpace(),
-                        adminSectionName(isArabic ? 'المرشدين' : 'Advisors',
+                        adminSectionName(isArabic ? 'المرشدين' : 'Advisers',
                             Icons.account_circle_outlined),
                         settingItem(
                             const Icon(Icons.list_rounded),
-                            isArabic ? 'عرض المرشدين' : 'List current advisors',
+                            isArabic ? 'عرض المرشدين' : 'List current advisers',
                             context,
                             const GetAdvisors()),
                         settingItem(
                             const Icon(Icons.person_add),
-                            isArabic ? 'اضافة مرشد جديد' : 'Add new advisor',
+                            isArabic ? 'اضافة مرشد جديد' : 'Add new adviser',
                             context,
                             const AddAdvisor()),
                         heightSpace(),
@@ -141,7 +154,7 @@ class HomeAdminScreen extends StatelessWidget {
                             context,
                             const SelectCourseCategory()),
                         settingItem(
-                            const Icon(Icons.add_card_rounded),
+                            const Icon(Icons.add_chart_rounded),
                             isArabic ? 'اضافة مادة جديدة' : 'Add new course',
                             context,
                             const AddCourse()),

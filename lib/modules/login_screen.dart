@@ -6,6 +6,7 @@ import 'package:saas/shared/bloc/cubit.dart';
 import 'package:saas/shared/bloc/states.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 import 'for_student/main_page.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -29,9 +30,12 @@ class LoginScreen extends StatelessWidget {
     return regExp2.hasMatch(passwordController.toString());
   }
 
+  int initialValue = 0;
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
 
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
@@ -61,18 +65,19 @@ class LoginScreen extends StatelessWidget {
                     key: formKey,
                     child: Column(
                       children: [
+
                         SizedBox(
                           height: height / 150,
                         ),
                         Center(
                           child: Image.asset(
-                            'assets/images/login.png',
-                            width: 175,
-                            height: 175,
+                            'assets/images/SAAS Logo 1.png',
+                            width: 160,
+                            height: 160,
                           ),
                         ),
                         SizedBox(
-                          height: height / 40,
+                          height: height / 35,
                         ),
                         Expanded(
                           child: Container(
@@ -101,6 +106,38 @@ class LoginScreen extends StatelessWidget {
                                   ),
                                   SizedBox(
                                     height: height / 45,
+                                  ),
+                                  /*Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ToggleSwitch(
+                                        totalSwitches: 3,
+                                        labels: const ['Student','Adviser', 'Admin'],
+                                        fontSize: 16,
+                                        activeBgColors: [
+                                          [defaultColor1],
+                                          [defaultColor1],
+                                          [defaultColor1],
+                                        ],
+                                        inactiveBgColor: Colors.white,
+                                        activeFgColor: Colors.white,
+                                        inactiveFgColor: Colors.grey.shade600,
+                                        borderColor: const [Colors.grey],
+                                        borderWidth: 0.7,
+                                        cornerRadius: 30,
+                                        initialLabelIndex: cubit.selectedMode,
+                                        minWidth: 112,
+                                        minHeight: 63,
+                                        onToggle: (index) {
+                                          // = index!;
+                                          cubit.changeMode(index!);
+                                          print('switched to $index ');
+                                        },
+                                      ),
+                                    ],
+                                  ),*/
+                                  SizedBox(
+                                    height: height / 65,
                                   ),
                                   defaultTextField(
                                     textEditingController: emailController,
@@ -155,9 +192,9 @@ class LoginScreen extends StatelessWidget {
                                     },
                                   ),
                                   SizedBox(
-                                    height: height / 150,
+                                    height: height / 65,
                                   ),
-                                  RadioListTile<int>(
+                                  /*RadioListTile<int>(
                                       title: const Text('Student'),
                                       activeColor: defaultColor,
                                       value: 0,
@@ -165,7 +202,7 @@ class LoginScreen extends StatelessWidget {
                                       onChanged: (value) =>
                                           cubit.changeMode(0)),
                                   RadioListTile<int>(
-                                      title: const Text('Advisor'),
+                                      title: const Text('Adviser'),
                                       activeColor: defaultColor,
                                       value: 1,
                                       groupValue: cubit.selectedMode,
@@ -177,7 +214,7 @@ class LoginScreen extends StatelessWidget {
                                       value: 2,
                                       groupValue: cubit.selectedMode,
                                       onChanged: (value) =>
-                                          cubit.changeMode(2)),
+                                          cubit.changeMode(2)),*/
                                   SizedBox(
                                     height: height / 150,
                                   ),
