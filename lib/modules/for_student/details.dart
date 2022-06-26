@@ -60,7 +60,7 @@ class _DetailsState extends State<Details> {
                          shrinkWrap: true,
                          itemBuilder: (context, index) => Container(
                            decoration: BoxDecoration(
-                             color: AppCubit.get(context).isLightTheme?
+                             color: MyApp.themeNotifier.value == ThemeMode.light?
                              Colors.white
                                  :
                              Colors.black.withOpacity(0.8),
@@ -89,7 +89,7 @@ class _DetailsState extends State<Details> {
                                              style: Theme.of(context).textTheme.bodyText1?.copyWith(
                                                fontSize: width/15,
                                                fontWeight: FontWeight.w500,
-                                               color: AppCubit.get(context).isLightTheme? defaultColor : defaultLightColor,
+                                               color: MyApp.themeNotifier.value == ThemeMode.light? defaultColor : defaultLightColor,
                                              ),
                                            ),
                                            onTap: () {
@@ -132,7 +132,7 @@ class _DetailsState extends State<Details> {
                                                    .toDouble() > standard
                                                    ? defaultGreenColor.shade300
                                                    : Colors.red.shade400,
-                                               backgroundColor: AppCubit.get(context).isLightTheme? Colors.grey.shade200 : Colors.grey.shade800,
+                                               backgroundColor: MyApp.themeNotifier.value == ThemeMode.light? Colors.grey.shade200 : Colors.grey.shade800,
                                                barRadius: const Radius.circular(12),
                                                curve: Curves.easeInOut,
                                              ),

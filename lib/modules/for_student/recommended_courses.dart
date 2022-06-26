@@ -43,10 +43,12 @@ class RecommendedScreen extends StatelessWidget {
                   courses[index],
                   height: height / 5.75,
                   width: width,
-                  color: AppCubit.get(context).isLightTheme
-                      ? Colors.white.withOpacity(0.7)
-                      : Colors.black.withOpacity(0.4),
-                  titleColor: AppCubit.get(context).isLightTheme
+                  color: MyApp.themeNotifier.value == ThemeMode.light?
+                  Colors.white.withOpacity(0.85)
+                      :
+                  Colors.grey.withOpacity(0.15),
+
+                  titleColor: MyApp.themeNotifier.value == ThemeMode.light
                       ? Colors.black
                       : Colors.white,
                   context: context,

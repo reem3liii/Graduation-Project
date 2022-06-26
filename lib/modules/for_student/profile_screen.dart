@@ -47,7 +47,7 @@ class ProfileScreen extends StatelessWidget {
                     height: height / 2.3,
                     decoration: BoxDecoration(
                       color:
-                      AppCubit.get(context).isLightTheme?
+                      MyApp.themeNotifier.value == ThemeMode.light?
                       defaultColor
                           :
                       darkPrimaryColor,
@@ -115,7 +115,7 @@ class ProfileScreen extends StatelessWidget {
                 Expanded(
                   child: RawScrollbar(
                     isAlwaysShown: true,
-                    thumbColor: AppCubit.get(context).isLightTheme? defaultColor:defaultLightColor,
+                    thumbColor: MyApp.themeNotifier.value == ThemeMode.light? defaultColor:defaultLightColor,
                     radius: const Radius.circular(20),
                     interactive: true,
                     thickness: 5,
@@ -136,7 +136,7 @@ class ProfileScreen extends StatelessWidget {
                                       fontSize: 15,
                                       fontWeight: FontWeight.w700,
                                       color:
-                                      AppCubit.get(context).isLightTheme?
+                                      MyApp.themeNotifier.value == ThemeMode.light?
                                       defaultColor
                                           :
                                       defaultLightColor,
@@ -163,7 +163,7 @@ class ProfileScreen extends StatelessWidget {
                             thickness: 0.5,
                             indent: width / 3,
                             color:
-                            AppCubit.get(context).isLightTheme?
+                            MyApp.themeNotifier.value == ThemeMode.light?
                             Colors.grey[300]
                                 :
                             Colors.grey[800],

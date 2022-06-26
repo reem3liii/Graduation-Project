@@ -33,7 +33,7 @@ class PasswordScreen extends StatelessWidget {
                     ? arTitleStyle(
                     color: defaultColor, size: 20, weight: FontWeight.w600)
                     : AppBarTheme.of(context).titleTextStyle?.copyWith(
-                  color: AppCubit.get(context).isLightTheme? defaultColor: defaultLightColor,
+                  color: MyApp.themeNotifier.value == ThemeMode.light? defaultColor: defaultLightColor,
                 ),
               ),
 
@@ -45,10 +45,10 @@ class PasswordScreen extends StatelessWidget {
               //    Navigator.pop(context);
               //  },
               // ),
-              backgroundColor: AppCubit.get(context).isLightTheme? defaultBackgroundColor:defaultDarkBackgroundColor,
+              backgroundColor: MyApp.themeNotifier.value == ThemeMode.light? defaultBackgroundColor:defaultDarkBackgroundColor,
               systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor: AppCubit.get(context).isLightTheme? defaultBackgroundColor:defaultDarkBackgroundColor,
-                statusBarIconBrightness: AppCubit.get(context).isLightTheme? Brightness.dark:Brightness.light,
+                statusBarColor: MyApp.themeNotifier.value == ThemeMode.light? defaultBackgroundColor:defaultDarkBackgroundColor,
+                statusBarIconBrightness: MyApp.themeNotifier.value == ThemeMode.light? Brightness.dark:Brightness.light,
               ),
             ),
             body: CustomScrollView(

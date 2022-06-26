@@ -29,13 +29,13 @@ class SettingScreen extends StatelessWidget {
                     ? arTitleStyle(
                     color: defaultColor, size: 24, weight: FontWeight.w600)
                     : AppBarTheme.of(context).titleTextStyle?.copyWith(
-                  color: AppCubit.get(context).isLightTheme? defaultColor: defaultLightColor,
+                  color: MyApp.themeNotifier.value == ThemeMode.light? defaultColor: defaultLightColor,
                 ),
               ),
-              backgroundColor: AppCubit.get(context).isLightTheme? defaultBackgroundColor:defaultDarkBackgroundColor,
+              backgroundColor: MyApp.themeNotifier.value == ThemeMode.light? defaultBackgroundColor:defaultDarkBackgroundColor,
               systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor: AppCubit.get(context).isLightTheme? defaultBackgroundColor:defaultDarkBackgroundColor,
-                statusBarIconBrightness: AppCubit.get(context).isLightTheme? Brightness.dark:Brightness.light,
+                statusBarColor: MyApp.themeNotifier.value == ThemeMode.light? defaultBackgroundColor:defaultDarkBackgroundColor,
+                statusBarIconBrightness: MyApp.themeNotifier.value == ThemeMode.light? Brightness.dark:Brightness.light,
               ),
             ),
             body: Padding(
@@ -85,7 +85,10 @@ class SettingScreen extends StatelessWidget {
                     Icons.light_mode_outlined,
                     Icons.dark_mode_outlined,
                         (bool state){
-                      AppCubit.get(context).ChangeMode(state);
+                          MyApp.themeNotifier.value =
+                          MyApp.themeNotifier.value == ThemeMode.light
+                              ? ThemeMode.dark
+                              : ThemeMode.light;
                     },
                   ),
                   heightSpace(),
@@ -114,14 +117,14 @@ class SettingScreen extends StatelessWidget {
                         children: [
                           Icon(
                             Icons.logout_rounded,
-                            color:  AppCubit.get(context).isLightTheme? defaultColor: defaultLightColor,
+                            color:  MyApp.themeNotifier.value == ThemeMode.light? defaultColor: defaultLightColor,
                           ),
                           widthSpace(),
                           Text(
                             isArabic ? 'تسجيل الخروج' : 'LOGOUT',
                             style: isArabic
                                 ? arTitleStyle(size: 20, color: defaultColor)
-                                : titleStyle(size: 20, color:  AppCubit.get(context).isLightTheme? defaultColor: defaultLightColor,),
+                                : titleStyle(size: 20, color:  MyApp.themeNotifier.value == ThemeMode.light? defaultColor: defaultLightColor,),
                           ),
                         ],
                       ),
