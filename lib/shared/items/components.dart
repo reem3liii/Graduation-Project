@@ -233,7 +233,10 @@ Widget settingItem(icon, title, context, screen) => InkWell(
               widthSpace(),
               Text(
                 title,
-                style: isArabic ? arBodyStyle(size: 18) : bodyStyle3(size: 18),
+                style: isArabic ? arBodyStyle(size: 18) : bodyStyle3(size: 18,
+                    color: MyApp.themeNotifier.value == ThemeMode.light?
+                    Colors.black:Colors.white
+                ),
               ),
               const Spacer(),
               defaultForwardArrow(),

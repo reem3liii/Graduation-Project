@@ -30,7 +30,7 @@ class PhoneScreen extends StatelessWidget {
                     ? arTitleStyle(
                     color: defaultColor, size: 20, weight: FontWeight.w600)
                     : AppBarTheme.of(context).titleTextStyle?.copyWith(
-                  color: AppCubit.get(context).isLightTheme? defaultColor: defaultLightColor,
+                  color: MyApp.themeNotifier.value == ThemeMode.light? defaultColor: defaultLightColor,
                 ),
               ),
               //leading: IconButton(
@@ -41,10 +41,10 @@ class PhoneScreen extends StatelessWidget {
               //    Navigator.pop(context);
               //  },
               //),
-              backgroundColor: defaultBackgroundColor,
+              backgroundColor: MyApp.themeNotifier.value == ThemeMode.light? defaultBackgroundColor:defaultDarkBackgroundColor,
               systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor: defaultBackgroundColor,
-                statusBarIconBrightness: Brightness.dark,
+                statusBarColor: MyApp.themeNotifier.value == ThemeMode.light? defaultBackgroundColor:defaultDarkBackgroundColor,
+                statusBarIconBrightness: MyApp.themeNotifier.value == ThemeMode.light? Brightness.dark:Brightness.light,
               ),
             ),
             body: CustomScrollView(

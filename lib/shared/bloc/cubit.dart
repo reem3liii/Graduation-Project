@@ -73,12 +73,12 @@ class AppCubit extends Cubit<AppStates> {
     emit(AppIsVisibleState());
   }
 
-  bool isLightTheme = true;
+  /*bool isLightTheme = true;
   void ChangeMode(bool state){
     isLightTheme =! state;
     emit(AppChangeModeThemeState());
 
-  }
+  }*/
 
   List<bool> visibilAdvisors = [false];
   List<bool> upAdvisors = [false];

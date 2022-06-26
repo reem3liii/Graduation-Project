@@ -86,7 +86,7 @@ class HomeScreen extends StatelessWidget {
                                 name: 'GPA',
                                 dataLabelSettings: DataLabelSettings(
                                   isVisible: true,
-                                  color: AppCubit.get(context).isLightTheme? Colors.white : Colors.black,
+                                  color: MyApp.themeNotifier.value == ThemeMode.light? Colors.white : Colors.black,
                                 ),
                                 opacity: 0.55,
                                 //opacity: 0.3,
@@ -113,15 +113,15 @@ class HomeScreen extends StatelessWidget {
                                 value: '2.5',
                                 color: Colors.green.shade500,
                                 percentValue: 0.75,
-                                titleColor: AppCubit.get(context).isLightTheme? Colors.black : Colors.white,
+                                titleColor: MyApp.themeNotifier.value == ThemeMode.light? Colors.black : Colors.white,
                                 backgroundColor:
-                                AppCubit.get(context).isLightTheme?
+                                MyApp.themeNotifier.value == ThemeMode.light?
                                 Colors.grey.shade100
                                     :
                                 Colors.grey.shade700, context: context, 
                               ),
                               height: height / 4.75,
-                              color: AppCubit.get(context).isLightTheme?
+                              color: MyApp.themeNotifier.value == ThemeMode.light?
                               Colors.white.withOpacity(0.98)
                                   :
                               Colors.black.withOpacity(0.8),
@@ -144,14 +144,14 @@ class HomeScreen extends StatelessWidget {
                                 value: '73',
                                 color: Colors.blue.shade700,
                                 percentValue: 0.553,
-                                titleColor: AppCubit.get(context).isLightTheme? Colors.black : Colors.white,
-                                backgroundColor: AppCubit.get(context).isLightTheme?
+                                titleColor: MyApp.themeNotifier.value == ThemeMode.light? Colors.black : Colors.white,
+                                backgroundColor: MyApp.themeNotifier.value == ThemeMode.light?
                                 Colors.grey.shade100
                                     :
                                 Colors.grey.shade700, context: context,
                               ),
                               height: height /4.75,
-                              color: AppCubit.get(context).isLightTheme?
+                              color: MyApp.themeNotifier.value == ThemeMode.light?
                               Colors.white.withOpacity(0.98)
                                   :
                               Colors.black.withOpacity(0.8),
@@ -178,11 +178,11 @@ class HomeScreen extends StatelessWidget {
                         itembuild: (context, index) => coursesList(
                             courses[index],
                             height: height / 3,
-                            color: AppCubit.get(context).isLightTheme?
+                            color: MyApp.themeNotifier.value == ThemeMode.light?
                                 Colors.white.withOpacity(0.98)
                                   :
                                 Colors.black.withOpacity(0.8),
-                            titleColor: AppCubit.get(context).isLightTheme? Colors.black : Colors.white, context: context, 
+                            titleColor: MyApp.themeNotifier.value == ThemeMode.light? Colors.black : Colors.white, context: context,
                         ),
                         list: courses,
                       ),
