@@ -113,12 +113,12 @@ class HomeScreen extends StatelessWidget {
                                 value: '2.5',
                                 color: Colors.green.shade500,
                                 percentValue: 0.75,
-                                titlecolor: AppCubit.get(context).isLightTheme? Colors.black : Colors.white,
-                                backgroundcolor:
+                                titleColor: AppCubit.get(context).isLightTheme? Colors.black : Colors.white,
+                                backgroundColor:
                                 AppCubit.get(context).isLightTheme?
                                 Colors.grey.shade100
                                     :
-                                Colors.grey.shade700, context: context,
+                                Colors.grey.shade700, context: context, 
                               ),
                               height: height / 4.75,
                               color: AppCubit.get(context).isLightTheme?
@@ -144,8 +144,8 @@ class HomeScreen extends StatelessWidget {
                                 value: '73',
                                 color: Colors.blue.shade700,
                                 percentValue: 0.553,
-                                titlecolor: AppCubit.get(context).isLightTheme? Colors.black : Colors.white,
-                                backgroundcolor: AppCubit.get(context).isLightTheme?
+                                titleColor: AppCubit.get(context).isLightTheme? Colors.black : Colors.white,
+                                backgroundColor: AppCubit.get(context).isLightTheme?
                                 Colors.grey.shade100
                                     :
                                 Colors.grey.shade700, context: context,
@@ -182,7 +182,7 @@ class HomeScreen extends StatelessWidget {
                                 Colors.white.withOpacity(0.98)
                                   :
                                 Colors.black.withOpacity(0.8),
-                            titleColor: AppCubit.get(context).isLightTheme? Colors.black : Colors.white, context: context,
+                            titleColor: AppCubit.get(context).isLightTheme? Colors.black : Colors.white, context: context, 
                         ),
                         list: courses,
                       ),

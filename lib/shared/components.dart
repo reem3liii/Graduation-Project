@@ -3,12 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rolling_switch/rolling_switch.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:saas/main.dart';
-import 'package:saas/shared/models.dart';
-import 'package:saas/shared/colors.dart';
 
 import 'bloc/cubit.dart';
+import 'design/colors.dart';
+import 'items/models.dart';
 
-void navigateTo(context, widget) => Navigator.push(
+/*void navigateTo(context, widget) => Navigator.push(
   context,
   MaterialPageRoute(
     builder: (context) => widget,
@@ -303,8 +303,8 @@ Widget defaultCircularPercentIndicator({
   required String titleText,
   required String value,
   required Color color,
-  required Color titlecolor,
-  required Color backgroundcolor,
+  required Color titleColor,
+  required Color backgroundColor,
   required double percentValue,
   required double radius,
   required double height,
@@ -340,7 +340,7 @@ Widget defaultCircularPercentIndicator({
               circularStrokeCap: CircularStrokeCap.round,
               progressColor: color,
               //backgroundColor: Colors.grey.shade100,
-              backgroundColor: backgroundcolor,
+              backgroundColor: backgroundColor,
             ),
           ),
         ],
@@ -548,4 +548,4 @@ Widget recCoursesItem(CurrentCourses course,{
       ),
     ),
   ),
-);
+);*/

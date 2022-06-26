@@ -45,7 +45,7 @@ class SettingScreen extends StatelessWidget {
                 children: [
                   settingSectionName(
                       isArabic ? 'الملف الشخصي' : 'Account',
-                      context
+                      //context
                   ),
                   heightSpace(),
                   settingItem(
@@ -64,7 +64,7 @@ class SettingScreen extends StatelessWidget {
                   heightSpace(),
                   settingSectionName(
                     isArabic ? 'عام' : 'General',
-                    context,
+                    //context,
                   ),
                   heightSpace(),
                   settingSwitchItem(
