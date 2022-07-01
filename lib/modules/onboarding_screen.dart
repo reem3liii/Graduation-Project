@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:saas/main.dart';
 import 'package:saas/modules/login_screen.dart';
+import 'package:saas/shared/cache_helper.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:saas/shared/items/models.dart';
@@ -45,6 +46,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   bool isLast = false;
 
+  void submit() {
+    CacheHelper.putData(key: 'onboarding', value: true).then(
+      (value) {
+        if(value!){
+            navigateToThenRemove(context, LoginScreen());
+        }
+      },
+    );
+    
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,9 +65,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           elevation: 0,
           actions: [
             TextButton(
-              onPressed: () {
-                navigateToThenRemove(context, LoginScreen());
-              },
+              onPressed: submit,
               child: Padding(
                 padding: const EdgeInsets.all(7.0),
                 child: Text(
@@ -124,7 +134,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   FloatingActionButton(
                     onPressed: () {
                       if (isLast) {
-                        navigateToThenRemove(context, LoginScreen());
+                        submit();
                       } else {
                         boardController.nextPage(
                           duration: const Duration(

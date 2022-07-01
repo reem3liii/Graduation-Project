@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:saas/modules/onboarding_screen.dart';
+import 'package:saas/shared/cache_helper.dart';
 import 'package:saas/shared/design/colors.dart';
 import 'package:saas/shared/items/components.dart';
 
@@ -21,6 +22,7 @@ class _SplashState extends State<Splash> {
 
   _navigateToHome() async {
     await Future.delayed(const Duration(seconds: 5));
+    CacheHelper.putData(key: 'splash', value: true);
     Navigator.pushReplacement(context,
         MaterialPageRoute(builder: (context) => const OnboardingScreen()));
   }
@@ -44,29 +46,28 @@ class _SplashState extends State<Splash> {
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                defaultColor,
-                defaultColor,
-                defaultColor1,
-                defaultLightColor,
-              ],
-            )
-        ),
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            defaultColor,
+            defaultColor,
+            defaultColor1,
+            defaultLightColor,
+          ],
+        )),
         padding: const EdgeInsets.all(30),
         width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              height: height/4,
+              height: height / 4,
             ),
             const Image(
-                image: AssetImage('assets/images/SAAS Logo 1.png'),
-                width: 185,
-                height: 185,
-              ),
+              image: AssetImage('assets/images/SAAS Logo 1.png'),
+              width: 185,
+              height: 185,
+            ),
             //Text('SAAS',style: titleStyle(color: Colors.white),),
             const Spacer(),
             LinearProgressIndicator(
