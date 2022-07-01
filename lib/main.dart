@@ -6,17 +6,19 @@ import 'package:saas/shared/bloc/states.dart';
 import 'package:saas/shared/design/themes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/services.dart';
+import 'package:saas/shared/dio_helper.dart';
 
 bool isArabic = false;
 
-
 void main() {
   //Bloc.observer = MyBlocObserver();
+  DioHelper.init();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  static final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.light);
+  static final ValueNotifier<ThemeMode> themeNotifier =
+      ValueNotifier(ThemeMode.light);
   //final bool lightMode;
   const MyApp({Key? key}) : super(key: key);
   @override
@@ -64,7 +66,7 @@ class MyApp extends StatelessWidget {
           );
         },
       ),
-    );*//*MaterialApp(
+    );*/ /*MaterialApp(
       home: const Splash(),
       debugShowCheckedModeBanner: false,
       theme: darkTheme,

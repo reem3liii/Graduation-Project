@@ -105,3 +105,57 @@ List<PerformanceData> performancedata = [
   PerformanceData('4th', 2.7),
   PerformanceData('5th', 2.9),
 ];
+
+class CurrentUser {
+  String? message;
+  String? status;
+  UserLogin? userLogin;
+
+  CurrentUser({this.message, this.status, this.userLogin});
+
+  CurrentUser.fromJson(Map<String, dynamic> json) {
+    message = json['message'];
+    status = json['status'];
+    userLogin = json['userLogin'] != null
+        ? new UserLogin.fromJson(json['userLogin'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['message'] = this.message;
+    data['status'] = this.status;
+    if (this.userLogin != null) {
+      data['userLogin'] = this.userLogin!.toJson();
+    }
+    return data;
+  }
+}
+
+class UserLogin {
+  String? id;
+  String? username;
+  String? email;
+  List<String>? roles;
+  String? token;
+
+  UserLogin({this.id, this.username, this.email, this.roles, this.token});
+
+  UserLogin.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    username = json['username'];
+    email = json['email'];
+    roles = json['roles'].cast<String>();
+    token = json['token'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['username'] = this.username;
+    data['email'] = this.email;
+    data['roles'] = this.roles;
+    data['token'] = this.token;
+    return data;
+  }
+}

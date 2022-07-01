@@ -6,11 +6,13 @@ import 'package:saas/modules/for_student/main_page.dart';
 import 'package:saas/modules/for_student/profile_screen.dart';
 import 'package:saas/modules/gpa_calculator/gpa_page.dart';
 import 'package:saas/shared/bloc/states.dart';
+import 'package:saas/shared/dio_helper.dart';
+import 'package:saas/shared/items/end_points.dart';
+import 'package:saas/shared/items/models.dart';
 import '../items/data.dart';
 import '../cache_helper.dart';
-//import '../data.dart';
 
-//class AppCubit extends Cubit<AppStates>{
+//import '../data.dart';
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(AppInitialState());
 
@@ -22,21 +24,29 @@ class AppCubit extends Cubit<AppStates> {
     emit(AppIsPasswordState());
   }
 
-  int selectedMode = 0;
-  void changeMode(int mode) {
-    selectedMode = mode;
-    emit(AppChangeModeState());
+  //late String selectedRole;
+
+  String selectedRole = "Instructor";
+  //String selectedRole ="Student";
+
+  /*void changeRole(String role) {
+    selectedRole = role;
+    emit(AppChangeRoleState());
   }
+  Future selectRole(String role) async {
+    return currentUser.userLogin!.roles![0];
+  }*/
 
-  var selectedModeMainPage;
+  var selectedRoleMainPage;
 
-  void enterSelectedMode() {
-    if (selectedMode == 0) {
-      selectedModeMainPage = MainPage();
-    } else if (selectedMode == 2) {
-      selectedModeMainPage = const HomeAdminScreen();
+  void enterSelectedRole() {
+    if (selectedRole == "Student") {
+      selectedRoleMainPage = MainPage();
+    } else if (/*selectedRole == "Coordinator" ||*/ selectedRole ==
+        "Instructor") {
+      selectedRoleMainPage = const HomeAdminScreen();
     }
-    emit(AccessTheCurrentModeState());
+    emit(AccessTheCurrentRoleState());
   }
 
   int selectedIndex = 0;
@@ -47,22 +57,10 @@ class AppCubit extends Cubit<AppStates> {
     const ProfileScreen(),
   ];
 
-  /* selectedAdminIndex = 0;
-  final adminScreens = [
-    const HomeAdminScreen(),
-    StudentSettingAdminScreen(),
-    const AdminProfileScreen(),
-    const AdminProfileScreen(),
-  ];*/
-
   void changeIndex(int index) {
     selectedIndex = index;
     emit(AppChangeBottomNavBarState());
   }
-  /*void changeAdminIndex(int index) {
-    selectedAdminIndex = index;
-    emit(AppChangeBottomNavBarAdminState());
-  }*/
 
   var arrayOfVisible =
       List<bool>.generate(int.parse(data[5].toString()), (i) => false);
@@ -86,5 +84,23 @@ class AppCubit extends Cubit<AppStates> {
     visibilAdvisors[index] = !visibilAdvisors[index];
     upAdvisors[index] = !upAdvisors[index];
     emit(AdvisorShowState());
+  }
+
+  late CurrentUser currentUser;
+
+  void userLogin(String email, String password) {
+    emit(LoginLoadingState());
+
+    DioHelper.postUserData(LOGIN, {
+      'email': email,
+      'password': password,
+    }).then((value) {
+      print(value.data);
+      currentUser = CurrentUser.fromJson(value.data);
+      emit(LoginSuccessState(currentUser));
+    }).catchError((error) {
+      print(error.toString());
+      emit(LoginErrorState(error.toString()));
+    });
   }
 }
