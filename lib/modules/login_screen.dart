@@ -6,8 +6,8 @@ import 'package:saas/shared/bloc/cubit.dart';
 import 'package:saas/shared/bloc/states.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
-import 'package:toggle_switch/toggle_switch.dart';
-import 'for_student/main_page.dart';
+//import 'package:toggle_switch/toggle_switch.dart';
+//import 'for_student/main_page.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -16,6 +16,7 @@ class LoginScreen extends StatelessWidget {
   var passwordController = TextEditingController();
   var formKey = GlobalKey<FormState>();
 
+  /*
   bool get isEmail {
     String p =
         '[a-z0-9!#\$%&\'*+/=?^_`{|}~-]+(?:.[a-z0-9!#\$%&\'*+/=?^_`{|}~-]+)*@ci.suez.edu.eg';
@@ -29,6 +30,7 @@ class LoginScreen extends StatelessWidget {
     RegExp regExp2 = RegExp(pattern);
     return regExp2.hasMatch(passwordController.toString());
   }
+  */
 
   int initialValue = 0;
 
@@ -40,7 +42,16 @@ class LoginScreen extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
       child: BlocConsumer<AppCubit, AppStates>(
-        listener: (BuildContext context, AppStates state) {},
+        listener: (BuildContext context, AppStates state) {
+          /*if (state is LoginSuccessState) {
+            if (state.currentUser.status == "success") {
+              print(state.currentUser.message);
+              AppCubit.get(context).changeRole(state.currentUser.userLogin!.roles![0]);
+            }else{
+              print(state.currentUser.message);
+            }
+          }*/
+        },
         builder: (BuildContext context, AppStates state) {
           AppCubit cubit = AppCubit.get(context);
 
@@ -65,7 +76,6 @@ class LoginScreen extends StatelessWidget {
                     key: formKey,
                     child: Column(
                       children: [
-
                         SizedBox(
                           height: height / 150,
                         ),
@@ -151,12 +161,12 @@ class LoginScreen extends StatelessWidget {
                                         return isArabic
                                             ? 'أدخل البريد الإلكتروني!'
                                             : 'Email Field is Empty!';
-                                      } else if (!isEmail) {
+                                      } else /*if (!isEmail) {
                                         return isArabic
                                             ? 'تحقق من بريدك الإلكتروني'
                                             : 'Check Your Email';
-                                      }
-                                      return null;
+                                      }*/
+                                        return null;
                                     },
                                   ),
                                   SizedBox(
@@ -183,12 +193,12 @@ class LoginScreen extends StatelessWidget {
                                         return isArabic
                                             ? 'أدخل كلمة المرور!'
                                             : 'Password Field is Empty!';
-                                      } else if (!ispass) {
+                                      } else /*if (!ispass) {
                                         return isArabic
                                             ? 'تحقق من كلمة المرور'
                                             : 'Check Your Password, Please!';
-                                      }
-                                      return null;
+                                      }*/
+                                        return null;
                                     },
                                   ),
                                   SizedBox(
@@ -218,15 +228,19 @@ class LoginScreen extends StatelessWidget {
                                   SizedBox(
                                     height: height / 150,
                                   ),
+                                  //state is! LoginLoadingState?
                                   defaultButton(
                                     function: () {
                                       if (formKey.currentState!.validate()) {
-                                        cubit.enterSelectedMode();
+                                        cubit.userLogin(emailController.text,
+                                            passwordController.text);
+                                        //cubit.selectedRole = cubit.currentUser.userLogin!.roles![0];
+                                        cubit.enterSelectedRole();
                                         Navigator.pushAndRemoveUntil(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  cubit.selectedModeMainPage ),
+                                                  cubit.selectedRoleMainPage),
                                           (Route<dynamic> route) => false,
                                         );
                                       }
@@ -235,6 +249,7 @@ class LoginScreen extends StatelessWidget {
                                         ? 'دخول'
                                         : 'login'.toUpperCase(),
                                   ),
+                                  //: const CircularProgressIndicator(),
                                   Row(
                                     children: [
                                       TextButton(

@@ -46,6 +46,7 @@ dependencies:
   flutter_bloc: ^8.0.1
   shared_preferences: ^2.0.5
   toggle_switch: ^2.0.1
+  dio: ^4.0.6
 
 
 dev_dependencies:
