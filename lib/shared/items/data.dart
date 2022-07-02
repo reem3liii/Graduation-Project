@@ -1,13 +1,18 @@
 var labels = [
   'National ID',
-  'Acceptence year',
+  'Acceptance year',
   'Gender',
-  'Birthday',
+  'Date of Birth',
+  'Department',
   'Level',
   'Semester',
-  'Department',
+  'Phone Number',
+  'City',
+  'Address',
+  'Previous Qualification',
+  'percentage',
   'Name',
-  'Email'
+  'Email',
 ];
 var arLabels = [
   'الرقم القومي',
@@ -20,14 +25,20 @@ var arLabels = [
   'الاسم',
   'البريد الالكتروني'
 ];
+
 var data = [
   '30001234567890',
   '2018-2019',
   'female',
-  '15/04/2000',
+  '15-04-2000',
+  'general',
   '4',
   semesters.length,
-  'general',
+  '01200130883',
+  'Suez',
+  'Address',
+  'High School',
+  '85.46%',
   'sama hussien ahmed',
   'samahussien788@gmail.com'
 ];

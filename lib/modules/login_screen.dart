@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -77,17 +78,17 @@ class LoginScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: height / 150,
+                          height: height / 65,
                         ),
                         Center(
                           child: Image.asset(
                             'assets/images/SAAS Logo 1.png',
-                            width: 160,
-                            height: 160,
+                            width: width/3,
+                            height: height/3.3,
                           ),
                         ),
                         SizedBox(
-                          height: height / 35,
+                          height: height / 65,
                         ),
                         Expanded(
                           child: Container(
@@ -229,7 +230,31 @@ class LoginScreen extends StatelessWidget {
                                     height: height / 150,
                                   ),
                                   //state is! LoginLoadingState?
-                                  defaultButton(
+                                  ConditionalBuilder(
+                                    condition: state is! LoginLoadingState,
+                                    builder: (context) => defaultButton(
+                                      function: () {
+                                        if (formKey.currentState!.validate()) {
+                                          cubit.userLogin(emailController.text,
+                                              passwordController.text);
+                                          //cubit.selectedRole = cubit.currentUser.userLogin!.roles![0];
+                                          cubit.enterSelectedRole();
+                                          Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                cubit.selectedRoleMainPage),
+                                                (Route<dynamic> route) => false,
+                                          );
+                                        }
+                                      },
+                                      text: isArabic
+                                          ? 'دخول'
+                                          : 'login'.toUpperCase(),
+                                    ),
+                                    fallback: (context) => const Center(child: CircularProgressIndicator(),),
+                                  ),
+                                  /*defaultButton(
                                     function: () {
                                       if (formKey.currentState!.validate()) {
                                         cubit.userLogin(emailController.text,
@@ -248,7 +273,7 @@ class LoginScreen extends StatelessWidget {
                                     text: isArabic
                                         ? 'دخول'
                                         : 'login'.toUpperCase(),
-                                  ),
+                                  ),*/
                                   //: const CircularProgressIndicator(),
                                   Row(
                                     children: [

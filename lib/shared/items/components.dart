@@ -389,7 +389,7 @@ Widget defaultGridViewList({
         crossAxisCount: 3,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
-        mainAxisExtent: 210,
+        mainAxisExtent: 220,
       ),
       itemBuilder: itembuild,
     );

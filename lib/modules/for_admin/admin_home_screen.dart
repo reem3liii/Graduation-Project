@@ -55,11 +55,11 @@ class HomeAdminScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: height / 15,
+                          height: height / 18,
                         ),
                         Image.asset(
                           'assets/images/SAAS Logo 1.png',
-                          width: width / 2.5,
+                          width: width / 3,
                         ),
                         SizedBox(
                           height: height / 65,
