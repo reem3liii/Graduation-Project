@@ -154,7 +154,7 @@ class ProfileScreen extends StatelessWidget {
                                     fontWeight: FontWeight.normal,
                                     fontSize: 15,
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),

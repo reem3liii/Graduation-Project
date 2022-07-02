@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/modules/for_admin/admin_home_screen.dart';
 import 'package:saas/modules/for_student/details.dart';
@@ -40,10 +41,10 @@ class AppCubit extends Cubit<AppStates> {
   var selectedRoleMainPage;
 
   void enterSelectedRole() {
-    if (selectedRole == "Student") {
+    if (currentUser.userLogin?.roles?.first.toString() == "Student") {
       selectedRoleMainPage = MainPage();
-    } else if (/*selectedRole == "Coordinator" ||*/ selectedRole ==
-        "Instructor") {
+    } else /*if (selectedRole == "Coordinator" || selectedRole == "Instructor") */
+    {
       selectedRoleMainPage = const HomeAdminScreen();
     }
     emit(AccessTheCurrentRoleState());
@@ -97,6 +98,7 @@ class AppCubit extends Cubit<AppStates> {
     }).then((value) {
       print(value.data);
       currentUser = CurrentUser.fromJson(value.data);
+      //currentUser.userLogin.roles.first.toString();
       emit(LoginSuccessState(currentUser));
     }).catchError((error) {
       print(error.toString());
