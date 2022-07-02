@@ -8,9 +8,6 @@ class DioHelper {
       BaseOptions(
         baseUrl: 'http://emanmo1-001-site1.btempurl.com/api/',
         receiveDataWhenStatusError: true,
-        headers: {
-          'Content-Type': 'application/json',
-        },
       ),
     );
   }
@@ -18,10 +15,20 @@ class DioHelper {
   static Future<Response> getUserData(
       String url, Map<String, dynamic> query, String? token) async {
     dio.options.headers = {
+      'Content-Type': 'application/json',
       'Authorization': token,
     };
 
     return await dio.get(url, queryParameters: query);
+  }
+
+  static Future<Response> getAllUsers(String url, String? token) async {
+    dio.options.headers = {
+      'Content-Type': 'application/json',
+      'Authorization': token,
+    };
+
+    return await dio.get(url);
   }
 
   static Future<Response> postUserData(

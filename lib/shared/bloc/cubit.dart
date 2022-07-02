@@ -103,4 +103,19 @@ class AppCubit extends Cubit<AppStates> {
       emit(LoginErrorState(error.toString()));
     });
   }
+
+  /*void allAdvisors(String token) {
+    emit(LoginLoadingState());
+
+    DioHelper.getAllUsers(GET_ADVISORS, token).then((value) {
+      print(value.data);
+      //currentUser = CurrentUser.fromJson(value.data);
+      ////emit(LoginSuccessState(currentUser));
+    }).catchError((error) {
+      print(error.toString());
+      //emit(LoginErrorState(error.toString()));
+    });
+  }*/
+
+
 }

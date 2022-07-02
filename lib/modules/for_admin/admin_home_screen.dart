@@ -9,12 +9,16 @@ import 'package:saas/shared/bloc/states.dart';
 import 'package:saas/shared/items/data.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
+import 'package:saas/shared/items/models.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../login_screen.dart';
 import 'add_advisor.dart';
 import 'add_student.dart';
 import 'add_course.dart';
 import 'get_advisors.dart';
+
+String adminToken =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0YmZmYmFkOS1mOWMwLTQwN2EtODNkYS03YTg5NjNhMWU2YTMiLCJlbWFpbCI6ImFobWVkMUBnbWFpbC5jb20iLCJ1aWQiOiIzMDAwMTAxMTkyOTE0NSIsInJvbGVzIjpbIkluc3RydWN0b3IiLCJDb29yZGluYXRvciJdLCJleHAiOjE2NjQ0NjY0MzcsImlzcyI6IlNlY3VyZUFwaSIsImF1ZCI6IlNlY3VyZUFwaVVzZXIifQ.Pdar5CB6a4Hh1roLKXEG03vHW0Z06w9CSYo5oagX2n0";
 
 class HomeAdminScreen extends StatelessWidget {
   const HomeAdminScreen({Key? key}) : super(key: key);
@@ -29,6 +33,8 @@ class HomeAdminScreen extends StatelessWidget {
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (BuildContext context, AppStates state) {},
         builder: (BuildContext context, AppStates state) {
+          AppCubit cubit = AppCubit.get(context);
+          //CurrentUser currentUser = cubit.currentUser;
           return Scaffold(
             backgroundColor: defaultColor,
             appBar: PreferredSize(
@@ -79,6 +85,7 @@ class HomeAdminScreen extends StatelessWidget {
                           isArabic
                               ? arData[arData.length - 1].toString()
                               : data[data.length - 1].toString(),
+                          //currentUser.userLogin!.email!,
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!
@@ -133,16 +140,18 @@ class HomeAdminScreen extends StatelessWidget {
                         ),
                         heightSpace(),
                         heightSpace(),
-                        adminSectionName(isArabic ? 'المرشدين' : 'Advisers',
+                        adminSectionName(isArabic ? 'المرشدين' : 'Advisors',
                             Icons.account_circle_outlined),
                         settingItem(
                             const Icon(Icons.list_rounded),
-                            isArabic ? 'عرض المرشدين' : 'List current advisers',
+                            isArabic ? 'عرض المرشدين' : 'List current advisors',
                             context,
-                            const GetAdvisors()),
+                            const GetAdvisors(), fun: () {
+                          //cubit.allAdvisors(adminToken);
+                        }),
                         settingItem(
                             const Icon(Icons.person_add),
-                            isArabic ? 'اضافة مرشد جديد' : 'Add new adviser',
+                            isArabic ? 'اضافة مرشد جديد' : 'Add new advisor',
                             context,
                             const AddAdvisor()),
                         heightSpace(),
