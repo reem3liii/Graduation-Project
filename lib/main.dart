@@ -21,7 +21,7 @@ void main() async {
   DioHelper.init();
   await CacheHelper.init();
 
-  Widget widget;
+  /*Widget widget;
   bool? splash = CacheHelper.getData(key: 'splash');
   String? token = CacheHelper.getData(key: 'token');
 
@@ -33,10 +33,10 @@ void main() async {
     }
   } else {
     widget = Splash();
-  }
+  }*/
 
   runApp(MyApp(
-    startWidget: widget,
+    //startWidget: widget,
   ));
 }
 
@@ -44,10 +44,10 @@ class MyApp extends StatelessWidget {
   static final ValueNotifier<ThemeMode> themeNotifier =
       ValueNotifier(ThemeMode.light);
   //final bool lightMode;
-  final Widget startWidget;
+  //final Widget startWidget;
   const MyApp({
     Key? key,
-    required this.startWidget, 
+    //required this.startWidget, 
   }) : super(key: key);
 
   @override
@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
             theme: lightTheme,
             darkTheme: darkTheme,
             themeMode: currentMode,
-            home: startWidget,
+            home: const Splash(),//startWidget,
             localizationsDelegates: const [
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
