@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/modules/for_admin/admin_home_screen.dart';
+import 'package:saas/modules/for_advisor/homeAdvisor_screen.dart';
 import 'package:saas/modules/for_student/details.dart';
 import 'package:saas/modules/for_student/home_screen.dart';
 import 'package:saas/modules/for_student/main_page.dart';
@@ -50,7 +51,7 @@ class AppCubit extends Cubit<AppStates> {
     }
     else
       {
-        selectedRoleMainPage = GPACalculator();
+        selectedRoleMainPage = const HomeAdvisorScreen();
       }
     emit(AccessTheCurrentRoleState());
   }
