@@ -27,7 +27,7 @@ class AppCubit extends Cubit<AppStates> {
 
   //late String selectedRole;
 
-  String selectedRole = "Instructor";
+  String selectedRole ="";
   //String selectedRole ="Student";
 
   /*void changeRole(String role) {
@@ -40,13 +40,18 @@ class AppCubit extends Cubit<AppStates> {
 
   var selectedRoleMainPage;
 
+
   void enterSelectedRole() {
     if (currentUser.userLogin?.roles?.first.toString() == "Student") {
       selectedRoleMainPage = MainPage();
-    } else /*if (selectedRole == "Coordinator" || selectedRole == "Instructor") */
+    } else if (currentUser.userLogin?.roles?.last.toString() == "Coordinator" )
     {
       selectedRoleMainPage = const HomeAdminScreen();
     }
+    else
+      {
+        selectedRoleMainPage = GPACalculator();
+      }
     emit(AccessTheCurrentRoleState());
   }
 
@@ -71,13 +76,6 @@ class AppCubit extends Cubit<AppStates> {
     arrayOfVisible[index] = !arrayOfVisible[index];
     emit(AppIsVisibleState());
   }
-
-  /*bool isLightTheme = true;
-  void ChangeMode(bool state){
-    isLightTheme =! state;
-    emit(AppChangeModeThemeState());
-
-  }*/
 
   List<bool> visibilAdvisors = [false];
   List<bool> upAdvisors = [false];
