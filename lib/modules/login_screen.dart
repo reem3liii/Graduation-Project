@@ -5,10 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/main.dart';
 import 'package:saas/shared/bloc/cubit.dart';
 import 'package:saas/shared/bloc/states.dart';
+import 'package:saas/shared/cache_helper.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
-//import 'package:toggle_switch/toggle_switch.dart';
-//import 'for_student/main_page.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -44,14 +43,33 @@ class LoginScreen extends StatelessWidget {
       create: (BuildContext context) => AppCubit(),
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (BuildContext context, AppStates state) {
-          /*if (state is LoginSuccessState) {
-            if (state.currentUser.status == "success") {
-              print(state.currentUser.message);
-              AppCubit.get(context).changeRole(state.currentUser.userLogin!.roles![0]);
+          if (state is LoginSuccessState) {
+            if (state.currentUser.status.toString() == "success") {
+              //print(state.currentUser.message);
+              AppCubit.get(context).enterSelectedRole();
+              CacheHelper.putData(key: 'token', value: state.currentUser.userLogin?.token).then((value){
+                navigateToThenRemove(context,AppCubit.get(context).selectedRoleMainPage);
+              });
+
             }else{
-              print(state.currentUser.message);
+              //print(state.currentUser.message);
+              AlertDialog(
+                title: const Text('Incorrect Email or password'),
+                content: const SingleChildScrollView(
+                  child: Text('The Email or password you entered does n\'t appear to belong to an account. '
+                      'Please check your Email or password and try again.'),
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    child: const Text('Ok'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
             }
-          }*/
+          }
         },
         builder: (BuildContext context, AppStates state) {
           AppCubit cubit = AppCubit.get(context);
@@ -118,35 +136,6 @@ class LoginScreen extends StatelessWidget {
                                   SizedBox(
                                     height: height / 45,
                                   ),
-                                  /*Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      ToggleSwitch(
-                                        totalSwitches: 3,
-                                        labels: const ['Student','Adviser', 'Admin'],
-                                        fontSize: 16,
-                                        activeBgColors: [
-                                          [defaultColor1],
-                                          [defaultColor1],
-                                          [defaultColor1],
-                                        ],
-                                        inactiveBgColor: Colors.white,
-                                        activeFgColor: Colors.white,
-                                        inactiveFgColor: Colors.grey.shade600,
-                                        borderColor: const [Colors.grey],
-                                        borderWidth: 0.7,
-                                        cornerRadius: 30,
-                                        initialLabelIndex: cubit.selectedMode,
-                                        minWidth: 112,
-                                        minHeight: 63,
-                                        onToggle: (index) {
-                                          // = index!;
-                                          cubit.changeMode(index!);
-                                          print('switched to $index ');
-                                        },
-                                      ),
-                                    ],
-                                  ),*/
                                   SizedBox(
                                     height: height / 65,
                                   ),
@@ -205,30 +194,6 @@ class LoginScreen extends StatelessWidget {
                                   SizedBox(
                                     height: height / 65,
                                   ),
-                                  /*RadioListTile<int>(
-                                      title: const Text('Student'),
-                                      activeColor: defaultColor,
-                                      value: 0,
-                                      groupValue: cubit.selectedMode,
-                                      onChanged: (value) =>
-                                          cubit.changeMode(0)),
-                                  RadioListTile<int>(
-                                      title: const Text('Adviser'),
-                                      activeColor: defaultColor,
-                                      value: 1,
-                                      groupValue: cubit.selectedMode,
-                                      onChanged: (value) =>
-                                          cubit.changeMode(1)),
-                                  RadioListTile<int>(
-                                      title: const Text('Administrator'),
-                                      activeColor: defaultColor,
-                                      value: 2,
-                                      groupValue: cubit.selectedMode,
-                                      onChanged: (value) =>
-                                          cubit.changeMode(2)),*/
-                                  SizedBox(
-                                    height: height / 150,
-                                  ),
                                   //state is! LoginLoadingState?
                                   ConditionalBuilder(
                                     condition: state is! LoginLoadingState,
@@ -238,14 +203,14 @@ class LoginScreen extends StatelessWidget {
                                           cubit.userLogin(emailController.text,
                                               passwordController.text);
                                           //cubit.selectedRole = cubit.currentUser.userLogin!.roles![0];
-                                          cubit.enterSelectedRole();
-                                          Navigator.pushAndRemoveUntil(
+                                          //cubit.enterSelectedRole();
+                                          /*Navigator.pushAndRemoveUntil(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                 cubit.selectedRoleMainPage),
                                                 (Route<dynamic> route) => false,
-                                          );
+                                          );*/
                                         }
                                       },
                                       text: isArabic
@@ -254,26 +219,6 @@ class LoginScreen extends StatelessWidget {
                                     ),
                                     fallback: (context) => const Center(child: CircularProgressIndicator(),),
                                   ),
-                                  /*defaultButton(
-                                    function: () {
-                                      if (formKey.currentState!.validate()) {
-                                        cubit.userLogin(emailController.text,
-                                            passwordController.text);
-                                        //cubit.selectedRole = cubit.currentUser.userLogin!.roles![0];
-                                        cubit.enterSelectedRole();
-                                        Navigator.pushAndRemoveUntil(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  cubit.selectedRoleMainPage),
-                                          (Route<dynamic> route) => false,
-                                        );
-                                      }
-                                    },
-                                    text: isArabic
-                                        ? 'دخول'
-                                        : 'login'.toUpperCase(),
-                                  ),*/
                                   //: const CircularProgressIndicator(),
                                   Row(
                                     children: [
