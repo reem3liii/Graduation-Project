@@ -12,27 +12,22 @@ class DioHelper {
     );
   }
 
-  static Future<Response> getUserData(
-      String url, Map<String, dynamic> query, String? token) async {
+  static Future<Response> getData(
+      String url, String? token, Map<String, dynamic>? query) async {
     dio.options.headers = {
       'Content-Type': 'application/json',
-      'Authorization': token,
+      'Authorization': 'Bearer $token',
     };
 
     return await dio.get(url, queryParameters: query);
   }
 
-  static Future<Response> getAllUsers(String url, String? token) async {
+  static Future<Response> postData(String url, String? token,
+      Map<String, dynamic> data, Map<String, dynamic>? query) async {
     dio.options.headers = {
       'Content-Type': 'application/json',
-      'Authorization': token,
+      'Authorization': 'Bearer $token',
     };
-
-    return await dio.get(url);
-  }
-
-  static Future<Response> postUserData(
-      String url, Map<String, dynamic> data) async {
-    return dio.post(url, data: data);
+    return await dio.post(url, data: data, queryParameters: query);
   }
 }

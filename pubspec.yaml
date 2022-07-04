@@ -47,6 +47,7 @@ dependencies:
   toggle_switch: ^2.0.1
   dio: ^4.0.6
   conditional_builder_null_safety: ^0.0.6
+  fluttertoast: ^8.0.3
 
 
 dev_dependencies:

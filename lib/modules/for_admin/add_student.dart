@@ -12,7 +12,7 @@ var studentBODController = TextEditingController();
 var studentPhoneController = TextEditingController();
 var studentCityController = TextEditingController();
 var studentAddressController = TextEditingController();
-List<String> menueGender = ['   Male', '    Female'];
+List<String> menueGender = ['Male', 'Female'];
 String? selectedGender = menueGender[0];
 var studentPQController = TextEditingController();
 var studentInstituteController = TextEditingController();
@@ -24,9 +24,9 @@ var studentEmailController = TextEditingController();
 var studentPasswordController = TextEditingController();
 //List<String> menueLevels = ['1', '2', '3', '4'];
 //String? selectedLevel = menueLevels[0];
-List<String> menueSemesters = ['    1', '   2', '   3', '   4', '   5', '   6', '   7', '   8'];
+List<String> menueSemesters = ['1', '2', '3', '4', '5', '6', '7', '8'];
 String? selectedSemester = menueSemesters[0];
-List<String> menueDepartment = ['   SWE', '   BIO', '   CS', '    IS', '    IT'];
+List<String> menueDepartment = ['SWE', 'BIO', 'CS', 'IS', 'IT'];
 String? selectedDepartment = menueDepartment[0];
 
 class AddStudent extends StatefulWidget {
@@ -198,7 +198,7 @@ class _AddStudentState extends State<AddStudent> {
                       Text(
                         isArabic
                             ? 'أدخل اسم المرشد :'
-                            : 'Enter student birth of date:',
+                            : 'Enter student birth of date (in this style yyyy-mm-dd):',
                         style: isArabic
                             ? arBodyStyle(
                                 size: 16,
