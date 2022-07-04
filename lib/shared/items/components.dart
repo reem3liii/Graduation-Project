@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:rolling_switch/rolling_switch.dart';
@@ -219,6 +220,39 @@ Widget settingItem(icon, title, context, screen, {void Function()? fun}) =>
         navigateTo(context, screen);
         fun;
       },
+      child: Container(
+        height: 60,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadiusDirectional.circular(10),
+          //color: defaultLightColor.withOpacity(0.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            children: [
+              icon,
+              widthSpace(),
+              widthSpace(),
+              Text(
+                title,
+                style: isArabic
+                    ? arBodyStyle(size: 18)
+                    : bodyStyle3(
+                        size: 18,
+                        color: MyApp.themeNotifier.value == ThemeMode.light
+                            ? Colors.black
+                            : Colors.white),
+              ),
+              const Spacer(),
+              defaultForwardArrow(),
+            ],
+          ),
+        ),
+      ),
+    );
+
+Widget settingItemAdmin(icon, title, function) => InkWell(
+      onTap: function,
       child: Container(
         height: 60,
         decoration: BoxDecoration(
@@ -701,3 +735,32 @@ Widget adminButton(icon, label) => Padding(
         ),
       ),
     );
+
+enum ToastStates { Success, Error, Warning }
+
+void showToast(String msg, ToastStates state) => Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 5,
+      backgroundColor: chooseToastColor(state),
+      textColor: Colors.white,
+      fontSize: 16,
+      
+    );
+
+Color chooseToastColor(ToastStates state) {
+  Color color;
+  switch (state) {
+    case ToastStates.Success:
+      color = Colors.green;
+      break;
+    case ToastStates.Warning:
+      color = Colors.amber;
+      break;
+    case ToastStates.Error:
+      color = Colors.red;
+      break;
+  }
+  return color;
+}

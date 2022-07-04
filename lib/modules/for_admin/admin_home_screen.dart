@@ -17,11 +17,10 @@ import 'add_student.dart';
 import 'add_course.dart';
 import 'get_advisors.dart';
 
-String adminToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0YmZmYmFkOS1mOWMwLTQwN2EtODNkYS03YTg5NjNhMWU2YTMiLCJlbWFpbCI6ImFobWVkMUBnbWFpbC5jb20iLCJ1aWQiOiIzMDAwMTAxMTkyOTE0NSIsInJvbGVzIjpbIkluc3RydWN0b3IiLCJDb29yZGluYXRvciJdLCJleHAiOjE2NjQ0NjY0MzcsImlzcyI6IlNlY3VyZUFwaSIsImF1ZCI6IlNlY3VyZUFwaVVzZXIifQ.Pdar5CB6a4Hh1roLKXEG03vHW0Z06w9CSYo5oagX2n0";
-
 class HomeAdminScreen extends StatelessWidget {
-  const HomeAdminScreen({Key? key}) : super(key: key);
+  HomeAdminScreen(this.token, this.email);
+  final token;
+  final email;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,6 @@ class HomeAdminScreen extends StatelessWidget {
         listener: (BuildContext context, AppStates state) {},
         builder: (BuildContext context, AppStates state) {
           AppCubit cubit = AppCubit.get(context);
-          //CurrentUser currentUser = cubit.currentUser;
           return Scaffold(
             backgroundColor: defaultColor,
             appBar: PreferredSize(
@@ -71,21 +69,17 @@ class HomeAdminScreen extends StatelessWidget {
                           height: height / 65,
                         ),
                         Text(
-                          isArabic
-                              ? arData[arData.length - 2].toString()
-                              : data[data.length - 2].toString(),
-                          style: isArabic
-                              ? arTitleStyle().copyWith(color: Colors.white)
-                              : titleStyle().copyWith(color: Colors.white),
+                          "Ahmed Maher Ali",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(color: Colors.white, fontSize: 26),
                         ),
                         SizedBox(
                           height: height / 65,
                         ),
                         Text(
-                          isArabic
-                              ? arData[arData.length - 1].toString()
-                              : data[data.length - 1].toString(),
-                          //currentUser.userLogin!.email!,
+                          email,
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!
@@ -142,18 +136,19 @@ class HomeAdminScreen extends StatelessWidget {
                         heightSpace(),
                         adminSectionName(isArabic ? 'المرشدين' : 'Advisors',
                             Icons.account_circle_outlined),
-                        settingItem(
-                            const Icon(Icons.list_rounded),
+                        settingItemAdmin(const Icon(Icons.list_rounded),
                             isArabic ? 'عرض المرشدين' : 'List current advisors',
-                            context,
-                            const GetAdvisors(), fun: () {
-                          //cubit.allAdvisors(adminToken);
+                            () {
+                          print("Get advisors . . . ");
+                          print(token);
+                          cubit.allAdvisors(token);
+                          //navigateTo(context, GetAdvisors());
                         }),
                         settingItem(
                             const Icon(Icons.person_add),
                             isArabic ? 'اضافة مرشد جديد' : 'Add new advisor',
                             context,
-                            const AddAdvisor()),
+                            AddAdvisor(token)),
                         heightSpace(),
                         adminSectionName(isArabic ? 'المواد' : 'Courses',
                             Icons.account_tree_outlined),

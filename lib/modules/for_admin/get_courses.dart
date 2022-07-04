@@ -9,7 +9,9 @@ import '../../shared/bloc/cubit.dart';
 import '../../shared/bloc/states.dart';
 
 class GetCourses extends StatelessWidget {
-  const GetCourses({Key? key}) : super(key: key);
+  const GetCourses({Key? key, required this.coursesCategory}) : super(key: key);
+
+  final String coursesCategory;
 
   @override
   Widget build(BuildContext context) {

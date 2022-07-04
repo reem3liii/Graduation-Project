@@ -10,8 +10,8 @@ import '../../shared/bloc/cubit.dart';
 import '../../shared/bloc/states.dart';
 
 var formKey = GlobalKey<FormState>();
-List<String> menueCategory = ['General', 'CS', 'IS', 'Math'];
-String? selectedCategory = menueCategory[0];
+List<String> menueCategory = ['SEN','CSC', 'ISC', 'MAT', 'GEN','UNI'];
+String selectedCategory = menueCategory[0];
 
 class SelectCourseCategory extends StatefulWidget {
   const SelectCourseCategory({Key? key}) : super(key: key);
@@ -97,7 +97,7 @@ class _SelectCourseCategoryState extends State<SelectCourseCategory> {
                                           ))
                                       .toList(),
                                   onChanged: (category) => setState(() {
-                                        selectedCategory = category;
+                                        selectedCategory = category!;
                                       })),
                               heightSpace(),
                               heightSpace(),
@@ -106,9 +106,8 @@ class _SelectCourseCategoryState extends State<SelectCourseCategory> {
                               defaultButton(
                                 function: () {
                                   if (formKey.currentState!.validate()) {
-                                    print('selecting the Category');
-
-                                    navigateTo(context, GetCourses());
+                                    print('selecting $selectedCategory Category');
+                                    navigateTo(context, GetCourses( coursesCategory: selectedCategory));
                                   }
                                 },
                                 text: isArabic ? 'عرض' : 'List',
