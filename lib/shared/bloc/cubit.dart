@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/modules/for_admin/admin_home_screen.dart';
@@ -32,7 +34,7 @@ class AppCubit extends Cubit<AppStates> {
 
   void enterSelectedRole() {
     if (currentUser.userLogin?.roles?.first.toString() == "Student") {
-      selectedRoleMainPage = MainPage();
+      selectedRoleMainPage = MainPage(currentUser.userLogin?.token);
     } else if (currentUser.userLogin?.roles?.last.toString() == "Coordinator") {
       selectedRoleMainPage = HomeAdminScreen(
           currentUser.userLogin?.token, currentUser.userLogin?.email);
@@ -175,4 +177,66 @@ class AppCubit extends Cubit<AppStates> {
       emit(GetCoursesErrorState(error.toString()));
     });
   }
+
+  late SemesterAndGrade semAndGra;
+
+
+  void getSemestersAndGrades(String token) {
+    emit(semesterAndGradesLoadingState());
+
+    DioHelper.getData(SEMESTERS_GRADES, token, null).then((value) {
+      print(value.data.length);
+      if(value.data.length > 0){
+        semAndGra = SemesterAndGrade.fromJson(value.data[0]);
+        for(var i=0;i<value.data.length;i++) {
+          semestersAndGrades.add(
+              SemesterAndGrade(
+                  semesterName: SemesterAndGrade.fromJson(value.data[i]).semesterName,
+                  gpAofSemester: SemesterAndGrade.fromJson(value.data[i]).gpAofSemester
+              ));
+        }
+      }
+      else{
+        semestersAndGrades = [];
+      }
+      emit(semesterAndGradesSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(semesterAndGradesErrorState(error.toString()));
+    });
+  }
+
+
+  late CurrentCourse currCourses;
+
+
+  void getCurrentCourses(String token) {
+    emit(CurrentCoursesLoadingState());
+
+    DioHelper.getData(CURRENT_COURSES, token, null).then((value) {
+
+      if(value.data.length > 0){
+       // currCourses = CurrentCourse.fromJson(value.data[0]);
+        for(var i=0;i<value.data.length;i++) {
+          currentCourses.add(
+              CurrentCourse(
+                  courseName: CurrentCourse.fromJson(value.data[i]).courseName,
+                  courseCode: CurrentCourse.fromJson(value.data[i]).courseCode,
+                  instructorName: CurrentCourse.fromJson(value.data[i]).instructorName
+              )
+          );
+          print(value.data[i]);
+        }
+        print(currentCourses.length.toString());
+      }
+      else{
+        currentCourses = [];
+      }
+      emit(CurrentCoursesSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(CurrentCoursesErrorState(error.toString()));
+    });
+  }
+
 }

@@ -8,6 +8,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:saas/main.dart';
 import 'package:saas/shared/design/colors.dart';
 
+import 'json_models.dart';
 import 'models.dart';
 
 void navigateTo(context, widget) => Navigator.push(
@@ -435,7 +436,7 @@ Widget defaultGridViewList({
     );
 
 Widget coursesList(
-  CurrentCourses course, {
+  CurrentCourse course, {
   required double height,
   required Color color,
   required Color titleColor,
@@ -452,15 +453,15 @@ Widget coursesList(
             Container(
               padding: const EdgeInsets.all(8),
               child: Text(
-                course.courseAbbreviation,
+                createCourseAbbreviation(course.courseName.toString()),
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 25.0,
-                    color: course.color),
+                    color: chooseColor(course.courseCode.toString())),
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: course.color.withOpacity(0.2),
+                color: chooseColor(course.courseCode.toString()).withOpacity(0.2),
               ),
               clipBehavior: Clip.antiAliasWithSaveLayer,
             ),
@@ -468,19 +469,23 @@ Widget coursesList(
               height: height / 18,
             ),
             Text(
-              isArabic ? course.arCourseName : course.courseName,
-              maxLines: 2,
+              //isArabic ? 'course.arCourseName' :
+              '${course.courseName}',
+              maxLines: 3,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    fontSize: 17,
-                    fontWeight: FontWeight.normal,
+              style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
                   ),
+            ),
+            SizedBox(
+              height: height / 40,
             ),
             Text(
               '(${course.courseCode})',
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    fontSize: 17,
-                    fontWeight: FontWeight.normal,
+              style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
                   ),
             ),
             SizedBox(
@@ -498,9 +503,9 @@ Widget coursesList(
             ),*/
                 Expanded(
                   child: Text(
-                    isArabic
-                        ? "دكتور ${course.arCourseProfessor}"
-                        : "Dr. ${course.courseProfessor}",
+                    //isArabic
+                       // ? "دكتور ${course.arCourseProfessor}":
+                         "Dr. ${course.instructorName}",
                     style:
                         TextStyle(fontSize: 15.0, color: Colors.grey.shade700),
                     overflow: TextOverflow.ellipsis,
@@ -749,6 +754,7 @@ void showToast(String msg, ToastStates state) => Fluttertoast.showToast(
       
     );
 
+
 Color chooseToastColor(ToastStates state) {
   Color color;
   switch (state) {
@@ -763,4 +769,34 @@ Color chooseToastColor(ToastStates state) {
       break;
   }
   return color;
+}
+
+Color chooseColor(String str) {
+  Color color;
+  if(str[0] == 'M') {
+    color = Colors.pink;
+  } else if(str[0] == 'U') {
+    color = Colors.purple;
+  } else if(str[0] == 'C') {
+    color = Colors.cyan;
+  } else if(str[0] == 'I') {
+    color = Colors.indigo;
+  } else if(str[0] == 'S') {
+    color = Colors.deepOrange;
+  } else {
+    color = Colors.green;
+  }
+  return color;
+}
+
+String createCourseAbbreviation(String Str){
+  List<String> a = [];
+  for(var i=0;i<Str.length;i++){
+    if(Str[i].toUpperCase() == Str[i] && Str[i] != ' ' && Str[i] != '-'){
+      a.add(Str[i].toString());
+    }
+  }
+  String abbreviation = a.join();
+  //print(abbreviation);
+  return abbreviation;
 }

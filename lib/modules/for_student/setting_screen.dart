@@ -8,6 +8,7 @@ import 'package:saas/shared/bloc/states.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
 import 'package:saas/main.dart';
+import 'package:saas/shared/items/json_models.dart';
 import '../login_screen.dart';
 import '../setting_screens/app_info.dart';
 
@@ -101,6 +102,8 @@ class SettingScreen extends StatelessWidget {
                   const Spacer(),
                   TextButton(
                     onPressed: () {
+                      semestersAndGrades = [];
+                      currentCourses = [];
                       navigateToThenRemove(context, LoginScreen());
                       print('Logout');
                     },

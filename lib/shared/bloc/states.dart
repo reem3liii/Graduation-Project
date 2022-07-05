@@ -69,3 +69,26 @@ class GetCoursesErrorState extends AppStates {
   final String error;
   GetCoursesErrorState(this.error);
 }
+
+
+
+// ignore: camel_case_types
+class semesterAndGradesLoadingState extends AppStates {}
+// ignore: camel_case_types
+class semesterAndGradesSuccessState extends AppStates {}
+// ignore: camel_case_types
+class semesterAndGradesErrorState extends AppStates {
+  final String error;
+  semesterAndGradesErrorState(this.error);
+}
+
+// ignore: camel_case_types
+class CurrentCoursesLoadingState extends AppStates {}
+// ignore: camel_case_types
+class CurrentCoursesSuccessState extends AppStates {}
+// ignore: camel_case_types
+class CurrentCoursesErrorState extends AppStates {
+  final String error;
+  CurrentCoursesErrorState(this.error);
+}
+

@@ -96,4 +96,56 @@ class addUser {
     data['message'] = this.message;
     return data;
   }
+
 }
+
+
+//student models
+
+class SemesterAndGrade{
+  String? semesterName;
+  double? gpAofSemester;
+
+  SemesterAndGrade({
+    this.semesterName,
+    this.gpAofSemester
+  });
+
+  SemesterAndGrade.fromJson( Map<String,dynamic> json){
+    semesterName = json['semesterName'];
+    gpAofSemester = json['gpAofSemester'];
+  }
+
+  Map<String , dynamic> toJson(){
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['semesterName'] = semesterName;
+    data['gpAofSemester'] = gpAofSemester;
+    return data;
+  }
+}
+List<SemesterAndGrade> semestersAndGrades = [];
+
+
+class CurrentCourse {
+  String? instructorName;
+  String? courseName;
+  String? courseCode;
+
+  CurrentCourse({this.instructorName, this.courseName, this.courseCode});
+
+  CurrentCourse.fromJson(Map<String, dynamic> json) {
+    instructorName = json['instructorName'];
+    courseName = json['courseName'];
+    courseCode = json['courseCode'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['instructorName'] = this.instructorName;
+    data['courseName'] = this.courseName;
+    data['courseCode'] = this.courseCode;
+    return data;
+  }
+}
+
+List<CurrentCourse> currentCourses = [];
