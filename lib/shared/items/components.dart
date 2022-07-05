@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:rolling_switch/rolling_switch.dart';
@@ -7,8 +8,8 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:saas/main.dart';
 import 'package:saas/shared/design/colors.dart';
 
+import 'json_models.dart';
 import 'models.dart';
-
 
 void navigateTo(context, widget) => Navigator.push(
       context,
@@ -214,9 +215,11 @@ Widget adminSectionName(name, icon) => Padding(
       ),
     );
 
-Widget settingItem(icon, title, context, screen) => InkWell(
+Widget settingItem(icon, title, context, screen, {void Function()? fun}) =>
+    InkWell(
       onTap: () {
         navigateTo(context, screen);
+        fun;
       },
       child: Container(
         height: 60,
@@ -233,10 +236,13 @@ Widget settingItem(icon, title, context, screen) => InkWell(
               widthSpace(),
               Text(
                 title,
-                style: isArabic ? arBodyStyle(size: 18) : bodyStyle3(size: 18,
-                    color: MyApp.themeNotifier.value == ThemeMode.light?
-                    Colors.black:Colors.white
-                ),
+                style: isArabic
+                    ? arBodyStyle(size: 18)
+                    : bodyStyle3(
+                        size: 18,
+                        color: MyApp.themeNotifier.value == ThemeMode.light
+                            ? Colors.black
+                            : Colors.white),
               ),
               const Spacer(),
               defaultForwardArrow(),
@@ -246,7 +252,40 @@ Widget settingItem(icon, title, context, screen) => InkWell(
       ),
     );
 
-Widget settingSwitchItem(icon, title, context, leftIcon, rightIcon,function) =>
+Widget settingItemAdmin(icon, title, function) => InkWell(
+      onTap: function,
+      child: Container(
+        height: 60,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadiusDirectional.circular(10),
+          //color: defaultLightColor.withOpacity(0.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            children: [
+              icon,
+              widthSpace(),
+              widthSpace(),
+              Text(
+                title,
+                style: isArabic
+                    ? arBodyStyle(size: 18)
+                    : bodyStyle3(
+                        size: 18,
+                        color: MyApp.themeNotifier.value == ThemeMode.light
+                            ? Colors.black
+                            : Colors.white),
+              ),
+              const Spacer(),
+              defaultForwardArrow(),
+            ],
+          ),
+        ),
+      ),
+    );
+
+Widget settingSwitchItem(icon, title, context, leftIcon, rightIcon, function) =>
     InkWell(
       /*onTap: () {
         navigateTo(context, screen);
@@ -266,14 +305,17 @@ Widget settingSwitchItem(icon, title, context, leftIcon, rightIcon,function) =>
               widthSpace(),
               Text(
                 title,
-                style: isArabic ? arBodyStyle(size: 18) : Theme.of(context).textTheme.bodyText1?.copyWith(
-                  fontSize: 18,
-                  fontWeight: FontWeight.normal,
-                ),
+                style: isArabic
+                    ? arBodyStyle(size: 18)
+                    : Theme.of(context).textTheme.bodyText1?.copyWith(
+                          fontSize: 18,
+                          fontWeight: FontWeight.normal,
+                        ),
               ),
               const Spacer(),
               RollingSwitch.icon(
-                onChanged: function,/*(bool state) {
+                onChanged: function,
+                /*(bool state) {
                   print('turned ${(state) ? 'on' : 'off'}');
                 },*/
                 rollingInfoLeft: RollingIconInfo(
@@ -307,8 +349,7 @@ Widget containerWithOROutShadow({
   double offsetValue1 = 1,
   double offsetValue2 = 2,
   required height,
-  required  Color color,
-
+  required Color color,
 }) =>
     Container(
       decoration: BoxDecoration(
@@ -394,60 +435,65 @@ Widget defaultGridViewList({
       itemBuilder: itembuild,
     );
 
-Widget coursesList(CurrentCourses course, {
+Widget coursesList(
+  CurrentCourse course, {
   required double height,
   required Color color,
   required Color titleColor,
   required BuildContext context,
-}) => containerWithOROutShadow(
-  blurRadiusValue: 0,
-  offsetValue1: 0,
-  offsetValue2: 0.2,
-  widget: Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          child: Text(
-            course.courseAbbreviation,
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25.0,
-                color: course.color
-            ),
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: course.color.withOpacity(0.2),
-          ),
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-        ),
-        SizedBox(
-          height: height / 18,
-        ),
-        Text(
-          isArabic ? course.arCourseName : course.courseName,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style:Theme.of(context).textTheme.bodyText1?.copyWith(
-            fontSize: 17,
-            fontWeight: FontWeight.normal,
-          ),
-        ),
-        Text(
-          '(${course.courseCode})',
-          style: Theme.of(context).textTheme.bodyText1?.copyWith(
-            fontSize: 17,
-            fontWeight: FontWeight.normal,
-          ),
-        ),
-        SizedBox(
-          height: height / 30,
-        ),
-        Row(
+}) =>
+    containerWithOROutShadow(
+      blurRadiusValue: 0,
+      offsetValue1: 0,
+      offsetValue2: 0.2,
+      widget: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
           children: [
-            /*Icon(
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: Text(
+                createCourseAbbreviation(course.courseName.toString()),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25.0,
+                    color: chooseColor(course.courseCode.toString())),
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: chooseColor(course.courseCode.toString()).withOpacity(0.2),
+              ),
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+            ),
+            SizedBox(
+              height: height / 18,
+            ),
+            Text(
+              //isArabic ? 'course.arCourseName' :
+              '${course.courseName}',
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+            SizedBox(
+              height: height / 40,
+            ),
+            Text(
+              '(${course.courseCode})',
+              style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+            ),
+            SizedBox(
+              height: height / 30,
+            ),
+            Row(
+              children: [
+                /*Icon(
               Icons.perm_identity,
               color: Colors.grey.shade600,
               size: 15,
@@ -455,138 +501,142 @@ Widget coursesList(CurrentCourses course, {
             const SizedBox(
               width: 5,
             ),*/
-            Expanded(
-              child: Text(
-                isArabic
-                    ? "دكتور ${course.arCourseProfessor}"
-                    : "Dr. ${course.courseProfessor}",
-                style:
-                TextStyle(fontSize: 15.0, color: Colors.grey.shade700),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 3,
-                //softWrap: false,
-              ),
+                Expanded(
+                  child: Text(
+                    //isArabic
+                       // ? "دكتور ${course.arCourseProfessor}":
+                         "Dr. ${course.instructorName}",
+                    style:
+                        TextStyle(fontSize: 15.0, color: Colors.grey.shade700),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                    //softWrap: false,
+                  ),
+                ),
+              ],
+              crossAxisAlignment: CrossAxisAlignment.start,
             ),
           ],
           crossAxisAlignment: CrossAxisAlignment.start,
         ),
-      ],
-      crossAxisAlignment: CrossAxisAlignment.start,
-    ),
-  ),
-  height: height,
-  color: color,
-);
+      ),
+      height: height,
+      color: color,
+    );
 
-Widget recCoursesItem(CurrentCourses course,{
+Widget recCoursesItem(
+  CurrentCourses course, {
   required double height,
   required double width,
   required Color color,
   required Color titleColor,
   required BuildContext context,
-}) => Padding(
-  padding: const EdgeInsetsDirectional.only(
-    bottom: 12,
-  ),
-  child: Container(
-    height: height,
-    width: width,
-    decoration: BoxDecoration(
-      color: color,
-      borderRadius: BorderRadius.circular(12),
-    ),
-    child: Padding(
-      padding: const EdgeInsets.all(10),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: Text(
-              course.courseAbbreviation,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30.0,
-                  color: courses[1].color),
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: courses[1].color.withOpacity(0.2),
-            ),
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-          ),
-          const Spacer(),
-          SizedBox(
-            width: width/3,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  isArabic ? course.arCourseName : course.courseName,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    fontSize: 18,
-                  ),
+}) =>
+    Padding(
+      padding: const EdgeInsetsDirectional.only(
+        bottom: 12,
+      ),
+      child: Container(
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                child: Text(
+                  course.courseAbbreviation,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30.0,
+                      color: courses[1].color),
                 ),
-                Text(
-                  '(${course.courseCode})',
-                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    fontSize: 18,
-                  ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: courses[1].color.withOpacity(0.2),
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Row(
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+              ),
+              const Spacer(),
+              SizedBox(
+                width: width / 3,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(
-                      Icons.perm_identity,
-                      color: Colors.grey.shade600,
-                      size: 16,
+                    Text(
+                      isArabic ? course.arCourseName : course.courseName,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            fontSize: 18,
+                          ),
+                    ),
+                    Text(
+                      '(${course.courseCode})',
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            fontSize: 18,
+                          ),
                     ),
                     const SizedBox(
-                      width: 5,
+                      height: 5,
                     ),
-                    Flexible(
-                      child: RichText(
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                        //strutStyle: StrutStyle(fontSize: 12.0),
-                        text: TextSpan(
-                          style: TextStyle(fontSize: 15.0,
-                            color: Colors.grey.shade600,
-                            fontWeight: FontWeight.w800,),
-                          text: isArabic
-                              ? "دكتور  ${course.arCourseProfessor}"
-                              : "Dr. ${course.courseProfessor}",
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.perm_identity,
+                          color: Colors.grey.shade600,
+                          size: 16,
                         ),
-                      ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Flexible(
+                          child: RichText(
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                            //strutStyle: StrutStyle(fontSize: 12.0),
+                            text: TextSpan(
+                              style: TextStyle(
+                                fontSize: 15.0,
+                                color: Colors.grey.shade600,
+                                fontWeight: FontWeight.w800,
+                              ),
+                              text: isArabic
+                                  ? "دكتور  ${course.arCourseProfessor}"
+                                  : "Dr. ${course.courseProfessor}",
+                            ),
+                          ),
+                        ),
+                      ],
+                      crossAxisAlignment: CrossAxisAlignment.start,
                     ),
                   ],
-                  crossAxisAlignment: CrossAxisAlignment.start,
                 ),
-              ],
-            ),
+              ),
+              const Spacer(),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.add_circle_rounded),
+                color: defaultColor1,
+                iconSize: 30,
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.cancel_rounded),
+                color: Colors.redAccent.shade700,
+                iconSize: 30,
+              ),
+            ],
           ),
-          const Spacer(),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.add_circle_rounded),
-            color: defaultColor1,
-            iconSize: 30,
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.cancel_rounded),
-            color: Colors.redAccent.shade700,
-            iconSize: 30,
-          ),
-        ],
+        ),
       ),
-    ),
-  ),
-);
+    );
 
 Widget adminButtons(
         {addIcon = Icons.person_add,
@@ -691,4 +741,62 @@ Widget adminButton(icon, label) => Padding(
       ),
     );
 
+enum ToastStates { Success, Error, Warning }
+
+void showToast(String msg, ToastStates state) => Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 5,
+      backgroundColor: chooseToastColor(state),
+      textColor: Colors.white,
+      fontSize: 16,
+      
+    );
+
+Color chooseToastColor(ToastStates state) {
+  Color color;
+  switch (state) {
+    case ToastStates.Success:
+      color = Colors.green;
+      break;
+    case ToastStates.Warning:
+      color = Colors.amber;
+      break;
+    case ToastStates.Error:
+      color = Colors.red;
+      break;
+  }
+  return color;
+}
+
+Color chooseColor(String str) {
+  Color color;
+  if(str[0] == 'M') {
+    color = Colors.pink;
+  } else if(str[0] == 'U') {
+    color = Colors.purple;
+  } else if(str[0] == 'C') {
+    color = Colors.cyan;
+  } else if(str[0] == 'I') {
+    color = Colors.indigo;
+  } else if(str[0] == 'S') {
+    color = Colors.deepOrange;
+  } else {
+    color = Colors.green;
+  }
+  return color;
+}
+
+String createCourseAbbreviation(String Str){
+  List<String> a = [];
+  for(var i=0;i<Str.length;i++){
+    if(Str[i].toUpperCase() == Str[i] && Str[i] != ' ' && Str[i] != '-'){
+      a.add(Str[i].toString());
+    }
+  }
+  String abbreviation = a.join();
+  //print(abbreviation);
+  return abbreviation;
+}
 

@@ -46,14 +46,17 @@ class LoginScreen extends StatelessWidget {
           if (state is LoginSuccessState) {
             if (state.currentUser.status.toString() == "success") {
               //print(state.currentUser.message);
+
               AppCubit.get(context).enterSelectedRole();
               CacheHelper.putData(key: 'token', value: state.currentUser.userLogin?.token).then((value){
                 navigateToThenRemove(context,AppCubit.get(context).selectedRoleMainPage);
               });
 
-            }else{
+            }else if(state.currentUser.status.toString() == "fail"){
               //print(state.currentUser.message);
-              AlertDialog(
+              showToast('The Email or password you entered doesn\'t appear to belong to an account. '
+                  'Please check your Email or password and try again.', ToastStates.Error);
+              /*AlertDialog(
                 title: const Text('Incorrect Email or password'),
                 content: const SingleChildScrollView(
                   child: Text('The Email or password you entered does n\'t appear to belong to an account. '
@@ -67,7 +70,8 @@ class LoginScreen extends StatelessWidget {
                     },
                   ),
                 ],
-              );
+              );*/
+
             }
           }
         },

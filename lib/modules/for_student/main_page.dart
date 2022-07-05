@@ -5,21 +5,16 @@ import 'package:saas/modules/gpa_calculator/gpa_page.dart';
 import 'package:saas/shared/bloc/cubit.dart';
 import 'package:saas/shared/bloc/states.dart';
 import 'package:saas/shared/items/components.dart';
-import 'package:saas/shared/design/colors.dart';
-
-import 'details.dart';
-import 'home_screen.dart';
-import 'profile_screen.dart';
 
 class MainPage extends StatelessWidget {
-  MainPage({Key? key}) : super(key: key);
+  MainPage(this.token);
+  final token;
 
-  @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
 
     return BlocProvider(
-      create: (BuildContext context) => AppCubit(),
+      create: (BuildContext context) => AppCubit()..getSemestersAndGrades(token)..getCurrentCourses(token),
       child: BlocConsumer<AppCubit,AppStates>(
         listener: (BuildContext context,AppStates state){},
         builder: (BuildContext context,AppStates state){
@@ -58,7 +53,5 @@ class MainPage extends StatelessWidget {
       ),
     );
   }
-
-
 }
 

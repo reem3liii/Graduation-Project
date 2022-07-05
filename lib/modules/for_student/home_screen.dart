@@ -5,6 +5,7 @@ import 'package:saas/main.dart';
 import 'package:saas/modules/for_student/recommended_courses.dart';
 import 'package:saas/shared/bloc/cubit.dart';
 import 'package:saas/shared/bloc/states.dart';
+import 'package:saas/shared/items/json_models.dart';
 import 'package:saas/shared/items/models.dart';
 import 'package:saas/modules/setting_screens/password.dart';
 import 'package:saas/shared/items/components.dart';
@@ -12,24 +13,26 @@ import 'package:saas/shared/design/colors.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class HomeScreen extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
-    List<PerformanceData> data = [
+    /*List<PerformanceData> data = [
       PerformanceData('1st', 2.54),
       PerformanceData('2nd', 2.67),
       PerformanceData('3rd', 2.75),
       PerformanceData('4th', 2.78),
       PerformanceData('5th', 2.85),
-    ];
+    ];*/
 
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (BuildContext context, AppStates state) {},
         builder: (BuildContext context, AppStates state) {
+          AppCubit cubit = AppCubit.get(context);
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
@@ -72,17 +75,17 @@ class HomeScreen extends StatelessWidget {
                               majorTickLines: const MajorTickLines(size: 0),
                             ),
                             tooltipBehavior: TooltipBehavior(enable: true),
-                            series: <ColumnSeries<PerformanceData, String>>[
-                              ColumnSeries<PerformanceData, String>(
+                            series: <ColumnSeries<SemesterAndGrade, String>>[
+                              ColumnSeries<SemesterAndGrade, String>(
                                 //series: <ChartSeries<PerformanceData, String>>[
                                 //SplineAreaSeries<PerformanceData, String>(
                                 //color: const Color.fromRGBO(75, 135, 185, 0.6),
-                                //markerSettings: MarkerSettings(isVisible: true),
+                                markerSettings: const MarkerSettings(isVisible: true),
                                 //borderColor: const Color.fromRGBO(75, 135, 185, 1),
                                 //borderWidth: 2,
-                                dataSource: data,
-                                xValueMapper: (PerformanceData gpa, _) => gpa.semester,
-                                yValueMapper: (PerformanceData gpa, _) => gpa.gpa,
+                                dataSource: semestersAndGrades,
+                                xValueMapper: (SemesterAndGrade gpa, _) => gpa.semesterName,
+                                yValueMapper: (SemesterAndGrade gpa, _) => gpa.gpAofSemester,
                                 name: 'GPA',
                                 dataLabelSettings: DataLabelSettings(
                                   isVisible: true,
@@ -118,7 +121,7 @@ class HomeScreen extends StatelessWidget {
                                 MyApp.themeNotifier.value == ThemeMode.light?
                                 Colors.grey.shade100
                                     :
-                                Colors.grey.shade700, context: context, 
+                                Colors.grey.shade700, context: context,
                               ),
                               height: height / 4.75,
                               color: MyApp.themeNotifier.value == ThemeMode.light?
@@ -129,7 +132,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                            SizedBox(
                             width: width / 30,
-                          ), 
+                          ),
                           Expanded(
                             child: containerWithOROutShadow(
                               blurRadiusValue: 0,
@@ -176,7 +179,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       defaultGridViewList(
                         itembuild: (context, index) => coursesList(
-                            courses[index],
+                            currentCourses[index],
                             height: height / 3,
                             color: MyApp.themeNotifier.value == ThemeMode.light?
                                 Colors.white.withOpacity(0.98)
@@ -184,7 +187,7 @@ class HomeScreen extends StatelessWidget {
                                 Colors.black.withOpacity(0.8),
                             titleColor: MyApp.themeNotifier.value == ThemeMode.light? Colors.black : Colors.white, context: context,
                         ),
-                        list: courses,
+                        list: currentCourses,
                       ),
                       SizedBox(
                         height: height / 30,
