@@ -71,6 +71,7 @@ class GetCoursesErrorState extends AppStates {
 }
 
 
+
 // ignore: camel_case_types
 class semesterAndGradesLoadingState extends AppStates {}
 // ignore: camel_case_types
@@ -90,3 +91,4 @@ class CurrentCoursesErrorState extends AppStates {
   final String error;
   CurrentCoursesErrorState(this.error);
 }
+

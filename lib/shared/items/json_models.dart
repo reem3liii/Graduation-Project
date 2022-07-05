@@ -96,6 +96,7 @@ class addUser {
     data['message'] = this.message;
     return data;
   }
+
 }
 
 
@@ -148,7 +149,3 @@ class CurrentCourse {
 }
 
 List<CurrentCourse> currentCourses = [];
-
-
-
-

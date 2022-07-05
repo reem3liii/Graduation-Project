@@ -238,4 +238,5 @@ class AppCubit extends Cubit<AppStates> {
       emit(CurrentCoursesErrorState(error.toString()));
     });
   }
+
 }

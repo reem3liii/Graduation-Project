@@ -223,7 +223,7 @@ class _AddAdvisorState extends State<AddAdvisor> {
                           defaultTextField(
                             textEditingController: advisorBODController,
                             textInputType: TextInputType.datetime,
-                            preIcon: Icons.calendar_view_month_rounded,
+                            preIcon: Icons.calendar_month_rounded,
                             validator: (advisorBODController) {
                               if (advisorBODController.toString().isEmpty) {
                                 return isArabic
