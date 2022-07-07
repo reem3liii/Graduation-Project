@@ -94,7 +94,6 @@ class GetCoursesErrorState extends AppStates {
   GetCoursesErrorState(this.error);
 }
 
-
 //Start Student States
 
 // ignore: camel_case_types

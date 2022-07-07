@@ -252,7 +252,8 @@ class _AddStudentState extends State<AddStudent> {
                             defaultTextField(
                               textEditingController: studentBODController,
                               textInputType: TextInputType.datetime,
-                              preIcon: Icons.calendar_view_month_rounded,
+
+                              preIcon: Icons.calendar_month_rounded,
                               validator: (studentBODController) {
                                 if (studentBODController.toString().isEmpty) {
                                   return isArabic
@@ -477,7 +478,8 @@ class _AddStudentState extends State<AddStudent> {
                               textEditingController:
                                   studentPrecentagePrevDegreeController,
                               textInputType: TextInputType.number,
-                              preIcon: Icons.email,
+                              preIcon: Icons.percent_outlined,
+
                               validator:
                                   (studentPrecentagePrevDegreeController) {
                                 if (studentPrecentagePrevDegreeController

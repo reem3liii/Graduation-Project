@@ -192,3 +192,4 @@ class CoursesOnSemester {
 }
 
 List<dynamic> courses_Semester = [];
+
