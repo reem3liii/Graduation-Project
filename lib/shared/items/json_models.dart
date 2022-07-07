@@ -149,3 +149,47 @@ class CurrentCourse {
 }
 
 List<CurrentCourse> currentCourses = [];
+
+class TotalHoursAndGpa {
+  double? gpa;
+  int? hours;
+
+  TotalHoursAndGpa({this.gpa, this.hours});
+
+  TotalHoursAndGpa.fromJson(Map<String, dynamic> json) {
+    gpa = json['gpa'];
+    hours = json['hours'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['gpa'] = this.gpa;
+    data['hours'] = this.hours;
+    return data;
+  }
+}
+
+int totalHours=0;
+double totalGpa=0;
+
+class CoursesOnSemester {
+  double? gpa;
+  String? courseName;
+
+  CoursesOnSemester({this.gpa, this.courseName});
+
+  CoursesOnSemester.fromJson(Map<String, dynamic> json) {
+    gpa = json['gpa'];
+    courseName = json['courseName'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['gpa'] = this.gpa;
+    data['courseName'] = this.courseName;
+    return data;
+  }
+}
+
+List<dynamic> courses_Semester = [];
+

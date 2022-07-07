@@ -252,6 +252,7 @@ class _AddStudentState extends State<AddStudent> {
                             defaultTextField(
                               textEditingController: studentBODController,
                               textInputType: TextInputType.datetime,
+
                               preIcon: Icons.calendar_month_rounded,
                               validator: (studentBODController) {
                                 if (studentBODController.toString().isEmpty) {
@@ -478,6 +479,7 @@ class _AddStudentState extends State<AddStudent> {
                                   studentPrecentagePrevDegreeController,
                               textInputType: TextInputType.number,
                               preIcon: Icons.percent_outlined,
+
                               validator:
                                   (studentPrecentagePrevDegreeController) {
                                 if (studentPrecentagePrevDegreeController

@@ -130,6 +130,7 @@ class ProfileScreen extends StatelessWidget {
                               children: [
                                 SizedBox(
                                   width: width / 3,
+                                  //key
                                   child: Text(
                                     isArabic ? arLabels[index] : labels[index],
                                     style: Theme.of(context).textTheme.bodyText1?.copyWith(
@@ -142,6 +143,7 @@ class ProfileScreen extends StatelessWidget {
                                       defaultLightColor,
                                     ),),
                                 ),
+                                //data
                                 Text(
                                   isArabic
                                       ? arData[index].toString()

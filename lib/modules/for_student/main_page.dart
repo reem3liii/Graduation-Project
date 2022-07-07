@@ -9,14 +9,19 @@ import 'package:saas/shared/items/components.dart';
 class MainPage extends StatelessWidget {
   MainPage(this.token);
   final token;
+  //List<dynamic> semAndGradeData;
 
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
 
     return BlocProvider(
-      create: (BuildContext context) => AppCubit()..getSemestersAndGrades(token)..getCurrentCourses(token),
+      create: (BuildContext context) => AppCubit()..getSemestersAndGrades(token)..getCurrentCourses(token)..getTotalHoursAndGpa(token),
       child: BlocConsumer<AppCubit,AppStates>(
-        listener: (BuildContext context,AppStates state){},
+        listener: (BuildContext context,AppStates state){
+          if(state is CoursesOnSemesterSuccessState){
+            //semAndGradeData = AppCubit.get(context).coursesOnSemester;
+          }
+        },
         builder: (BuildContext context,AppStates state){
           AppCubit cubitScreens = AppCubit.get(context);
           return Scaffold(

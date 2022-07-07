@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/modules/for_admin/add_course.dart';
 import 'package:saas/modules/for_admin/add_student.dart';
@@ -175,16 +172,20 @@ class AppCubit extends Cubit<AppStates> {
       emit(GetCoursesErrorState(error.toString()));
     });
   }
-
+  //Student part (API)
   late SemesterAndGrade semAndGra;
+  //late SemesterAndGrade semAndGra;
 
 
   void getSemestersAndGrades(String token) {
     emit(semesterAndGradesLoadingState());
 
     DioHelper.getDataWithAuth(SEMESTERS_GRADES, token, null).then((value) {
-      print(value.data.length);
+
+      //print(value.data[0]);
+ 
       if(value.data.length > 0){
+        //semAndGra = value.data;
         semAndGra = SemesterAndGrade.fromJson(value.data[0]);
         for(var i=0;i<value.data.length;i++) {
           semestersAndGrades.add(
@@ -192,7 +193,12 @@ class AppCubit extends Cubit<AppStates> {
                   semesterName: SemesterAndGrade.fromJson(value.data[i]).semesterName,
                   gpAofSemester: SemesterAndGrade.fromJson(value.data[i]).gpAofSemester
               ));
+          print(value.data[i].toString());
         }
+        for(var i=0;i<value.data.length;i++) {
+          getCoursesOnSemester(token,SemesterAndGrade.fromJson(value.data[i]).semesterName.toString());
+        }
+
       }
       else{
         semestersAndGrades = [];
@@ -236,6 +242,56 @@ class AppCubit extends Cubit<AppStates> {
       emit(CurrentCoursesErrorState(error.toString()));
     });
   }
+
+
+  late TotalHoursAndGpa total_hour_gpa;
+
+
+  void getTotalHoursAndGpa(String token) {
+    emit(TotalHoursAndGpaLoadingState());
+
+    DioHelper.getDataWithAuth(TOTAL_HOURS_AND_GPA, token, null).then((value) {
+      print(value.data);
+      totalHours =TotalHoursAndGpa.fromJson(value.data).hours!;
+      totalGpa = TotalHoursAndGpa.fromJson(value.data).gpa!;
+      emit(TotalHoursAndGpaSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(TotalHoursAndGpaErrorState(error.toString()));
+    });
+  }
+
+  late List<dynamic> coursesOnSemester;
+
+  void getCoursesOnSemester(String token, String semestername) {
+    emit(CoursesOnSemesterLoadingState());
+    var formData = FormData.fromMap({'semestername': semestername});
+    DioHelper.postDataWithAuth(COURSES_ON_SEMESTERS, token, formData, null)
+        .then((value) {
+      print(value.data);
+      /*for(var i=0;i<value.data.length;i++) {
+        courses_Semester.add(
+            CoursesOnSemester(
+                courseName: CoursesOnSemester.fromJson(value.data[i]).courseName,
+                gpa: CoursesOnSemester.fromJson(value.data[i]).gpa,
+            )
+        );
+        //print(value.data[i]);
+      }
+      for(var i=0;i<value.data.length;i++) {
+        print(courses_Semester.length.toString());
+        print(courses_Semester[i].courseName);
+        print(courses_Semester[i].gpa);
+      }*/
+      coursesOnSemester = value.data;
+      print(coursesOnSemester);
+      emit(CoursesOnSemesterSuccessState(coursesOnSemester));
+    }).catchError((error) {
+      print(error);
+      emit(CoursesOnSemesterErrorState(error.toString()));
+    });
+  }
+  //End Student Part***************
 
   late List<dynamic> allStudentsData;
 
