@@ -9,7 +9,7 @@ import '../../shared/bloc/cubit.dart';
 import '../../shared/bloc/states.dart';
 
 var formKey = GlobalKey<FormState>();
-var courseCodeController = TextEditingController();
+  //courseCodeController.Text = courseOldData["title"];
 var courseNameController = TextEditingController();
 var courseArabicNameController = TextEditingController();
 var courseHoursController = TextEditingController();
@@ -17,35 +17,32 @@ var courseDegreeController = TextEditingController();
 var lecturerIDController = TextEditingController();
 List<String> menueCategory = ['GEN', 'CSC', 'ISC', 'MAT', 'UNI', 'SEN'];
 String? selectedCategory = menueCategory[0];
-List<String> menueLevels = ['1', '2', '3', '4'];
-String? selectedLevel = menueLevels[0];
 
-class AddCourse extends StatefulWidget {
-  const AddCourse(this.token);
+class UpdateCourse extends StatefulWidget {
+  UpdateCourse(this.token, this.courseOldData);
   final token;
+  final Map<String, dynamic> courseOldData;
 
   @override
-  State<AddCourse> createState() => _AddCourseState();
+  State<UpdateCourse> createState() => _UpdateCourseState();
 }
 
-class _AddCourseState extends State<AddCourse> {
+class _UpdateCourseState extends State<UpdateCourse> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
         create: (BuildContext context) => AppCubit(),
         child: BlocConsumer<AppCubit, AppStates>(
             listener: (BuildContext context, AppStates state) {
-          if (state is AddCoursesSuccessState) {
-            showToast(state.response, ToastStates.Success);
-            courseCodeController.clear();
+          if (state is UpdateCoursesSuccessState) {
+            showToast("Updated successfully", ToastStates.Success);
             courseNameController.clear();
             courseArabicNameController.clear();
             courseHoursController.clear();
             courseDegreeController.clear();
             lecturerIDController.clear();
-            selectedLevel = menueLevels[0];
             selectedCategory = menueCategory[0];
-          } else if (state is AddCoursesErrorState) {
+          } else if (state is UpdateCoursesErrorState) {
             showToast(state.error, ToastStates.Error);
           }
         }, builder: (BuildContext context, AppStates state) {
@@ -53,7 +50,7 @@ class _AddCourseState extends State<AddCourse> {
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                isArabic ? 'إضافة مادة' : 'Add course',
+                isArabic ? 'إضافة مادة' : 'Update course',
                 style: isArabic
                     ? arTitleStyle(
                         color: defaultColor, size: 20, weight: FontWeight.w600)
@@ -81,7 +78,7 @@ class _AddCourseState extends State<AddCourse> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             heightSpace(),
-                            Text(
+                            /*Text(
                               isArabic
                                   ? 'أدخل كود المادة :'
                                   : 'Enter course code:',
@@ -111,11 +108,11 @@ class _AddCourseState extends State<AddCourse> {
                               },
                             ),
                             heightSpace(),
-                            heightSpace(),
+                            heightSpace(),*/
                             Text(
                               isArabic
                                   ? 'أدخل اسم المادة :'
-                                  : 'Enter course name (English):',
+                                  : 'Course name (English):',
                               style: isArabic
                                   ? arBodyStyle(
                                       size: 16,
@@ -128,6 +125,7 @@ class _AddCourseState extends State<AddCourse> {
                             ),
                             heightSpace(),
                             defaultTextField(
+                              labelText: widget. courseOldData["title"],
                               textEditingController: courseNameController,
                               textInputType: TextInputType.name,
                               preIcon: Icons.account_tree_outlined,
@@ -146,7 +144,7 @@ class _AddCourseState extends State<AddCourse> {
                             Text(
                               isArabic
                                   ? 'أدخل اسم المادة :'
-                                  : 'Enter course name (Arabic):',
+                                  : 'Course name (Arabic):',
                               style: isArabic
                                   ? arBodyStyle(
                                       size: 16,
@@ -159,6 +157,7 @@ class _AddCourseState extends State<AddCourse> {
                             ),
                             heightSpace(),
                             defaultTextField(
+                              labelText: widget. courseOldData["titleArb"],
                               textEditingController: courseArabicNameController,
                               textInputType: TextInputType.name,
                               preIcon: Icons.account_tree,
@@ -179,7 +178,7 @@ class _AddCourseState extends State<AddCourse> {
                             Text(
                               isArabic
                                   ? 'اختر فئة المادة:'
-                                  : 'Choose the category of the course:',
+                                  : 'Category of the course:',
                               style: isArabic
                                   ? arBodyStyle(
                                       size: 16,
@@ -209,7 +208,7 @@ class _AddCourseState extends State<AddCourse> {
                                     })),
                             heightSpace(),
                             heightSpace(),
-                            Text(
+                            /*Text(
                               isArabic
                                   ? 'اختر مستوى المادة:'
                                   : 'Choose the level of the course:',
@@ -241,11 +240,11 @@ class _AddCourseState extends State<AddCourse> {
                                       selectedLevel = level;
                                     })),
                             heightSpace(),
-                            heightSpace(),
+                            heightSpace(),*/
                             Text(
                               isArabic
                                   ? 'أدخل اسم المحاضر :'
-                                  : 'Enter total hours of the course:',
+                                  : 'Total hours of the course:',
                               style: isArabic
                                   ? arBodyStyle(
                                       size: 16,
@@ -258,6 +257,7 @@ class _AddCourseState extends State<AddCourse> {
                             ),
                             heightSpace(),
                             defaultTextField(
+                              labelText: widget. courseOldData["numOfHours"],
                               textEditingController: courseHoursController,
                               textInputType: TextInputType.number,
                               preIcon: Icons.access_time_rounded,
@@ -276,7 +276,7 @@ class _AddCourseState extends State<AddCourse> {
                             Text(
                               isArabic
                                   ? 'أدخل اسم المحاضر :'
-                                  : 'Enter total degrees of the course:',
+                                  : 'Total degrees of the course:',
                               style: isArabic
                                   ? arBodyStyle(
                                       size: 16,
@@ -289,6 +289,7 @@ class _AddCourseState extends State<AddCourse> {
                             ),
                             heightSpace(),
                             defaultTextField(
+                              labelText: widget. courseOldData["grade"],
                               textEditingController: courseDegreeController,
                               textInputType: TextInputType.number,
                               preIcon: Icons.bar_chart_outlined,
@@ -305,9 +306,7 @@ class _AddCourseState extends State<AddCourse> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'أدخل اسم المحاضر :'
-                                  : 'Enter lecturer ID:',
+                              isArabic ? 'أدخل اسم المحاضر :' : 'Lecturer ID:',
                               style: isArabic
                                   ? arBodyStyle(
                                       size: 16,
@@ -339,20 +338,20 @@ class _AddCourseState extends State<AddCourse> {
                             defaultButton(
                               function: () {
                                 if (formKey.currentState!.validate()) {
-                                  print('Adding new course');
-                                  cubit.addCourse(
+                                  print('Updating course');
+                                  cubit.updateCourse(
                                       widget.token,
-                                      courseCodeController.text,
+                                      widget.courseOldData["courseId"],
                                       courseNameController.text,
                                       courseArabicNameController.text,
                                       selectedCategory!,
-                                      selectedLevel!,
+                                      widget.courseOldData["level"],
                                       int.parse(courseHoursController.text),
                                       int.parse(courseDegreeController.text),
                                       lecturerIDController.text);
                                 }
                               },
-                              text: isArabic ? 'إضافة' : 'Add',
+                              text: isArabic ? 'إضافة' : 'Update',
                             ),
                             heightSpace(),
                             heightSpace(),

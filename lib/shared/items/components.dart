@@ -754,6 +754,7 @@ void showToast(String msg, ToastStates state) => Fluttertoast.showToast(
       
     );
 
+
 Color chooseToastColor(ToastStates state) {
   Color color;
   switch (state) {
@@ -799,4 +800,3 @@ String createCourseAbbreviation(String Str){
   //print(abbreviation);
   return abbreviation;
 }
-

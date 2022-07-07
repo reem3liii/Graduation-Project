@@ -13,6 +13,8 @@ import 'package:saas/shared/design/colors.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class HomeScreen extends StatelessWidget {
+  //HomeScreen(this.semAndGradeData);
+  //List<SemesterAndGrade> semAndGradeData;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,9 @@ class HomeScreen extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
       child: BlocConsumer<AppCubit, AppStates>(
-        listener: (BuildContext context, AppStates state) {},
+        listener: (BuildContext context, AppStates state) {
+
+        },
         builder: (BuildContext context, AppStates state) {
           AppCubit cubit = AppCubit.get(context);
           return Scaffold(
@@ -70,7 +74,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             primaryYAxis: NumericAxis(
                               //labelFormat: '{value}',
-                              //axisLine: AxisLine(width: 0),
+                              //axisLine: AxisLine(width: ),
                               majorGridLines: const MajorGridLines(width: 0),
                               majorTickLines: const MajorTickLines(size: 0),
                             ),
@@ -113,9 +117,9 @@ class HomeScreen extends StatelessWidget {
                                 titleText: isArabic
                                     ? 'المعدل الأكاديمي التراكمي الكلي'
                                     : 'Total GPA',
-                                value: '2.5',
+                                value: totalGpa.toString(),
                                 color: Colors.green.shade500,
-                                percentValue: 0.75,
+                                percentValue: totalGpa/4,
                                 titleColor: MyApp.themeNotifier.value == ThemeMode.light? Colors.black : Colors.white,
                                 backgroundColor:
                                 MyApp.themeNotifier.value == ThemeMode.light?
@@ -144,9 +148,9 @@ class HomeScreen extends StatelessWidget {
                                 titleText: isArabic
                                     ? 'الساعات المعتمده الكليه'
                                     : 'Total Hours',
-                                value: '73',
+                                value: totalHours.toString(),
                                 color: Colors.blue.shade700,
-                                percentValue: 0.553,
+                                percentValue: totalHours/132,
                                 titleColor: MyApp.themeNotifier.value == ThemeMode.light? Colors.black : Colors.white,
                                 backgroundColor: MyApp.themeNotifier.value == ThemeMode.light?
                                 Colors.grey.shade100

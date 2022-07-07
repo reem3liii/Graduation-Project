@@ -104,6 +104,8 @@ class SettingScreen extends StatelessWidget {
                     onPressed: () {
                       semestersAndGrades = [];
                       currentCourses = [];
+                      totalHours = 0;
+                      totalGpa = 0;
                       navigateToThenRemove(context, LoginScreen());
                       print('Logout');
                     },

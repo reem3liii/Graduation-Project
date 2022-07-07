@@ -4,17 +4,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/main.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
-
 import '../../shared/bloc/cubit.dart';
 import '../../shared/bloc/states.dart';
 import 'get_students.dart';
 
 var formKey = GlobalKey<FormState>();
-List<String> menueLevels = ['Level 1', 'Level 2', 'Level 3', 'Level 4'];
-String? selectedLevel = menueLevels[0];
+List<int> menueLevels = [1, 2, 3, 4];
+int selectedLevel = menueLevels[0];
 
 class SelectStudentLevel extends StatefulWidget {
-  const SelectStudentLevel({Key? key}) : super(key: key);
+  SelectStudentLevel({Key? key, required this.token}) : super(key: key);
+
+  final String token;
 
   @override
   State<SelectStudentLevel> createState() => _SelectStudentLevelState();
@@ -29,8 +30,13 @@ class _SelectStudentLevelState extends State<SelectStudentLevel> {
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
       child: BlocConsumer<AppCubit, AppStates>(
-        listener: (BuildContext context, AppStates state) {},
+        listener: (BuildContext context, AppStates state) {
+          if (state is GetStudentsSuccessState) {     
+             navigateTo(context, GetStudents(students: state.students));
+          }
+        },
         builder: (BuildContext context, AppStates state) {
+          AppCubit cubit = AppCubit.get(context);
           return Scaffold(
               appBar: AppBar(
                 title: Text(
@@ -88,15 +94,16 @@ class _SelectStudentLevelState extends State<SelectStudentLevel> {
                                               BorderRadius.circular(30),
                                           borderSide: const BorderSide(
                                               color: Colors.grey))),
-                                  value: selectedLevel,
+                                  value: selectedLevel.toString(),
                                   items: menueLevels
                                       .map((level) => DropdownMenuItem<String>(
-                                            value: level,
-                                            child: Text(level),
+                                            value: level.toString(),
+                                            child: Text(
+                                                'Level ${level.toString()}'),
                                           ))
                                       .toList(),
                                   onChanged: (level) => setState(() {
-                                        selectedLevel = level;
+                                        selectedLevel = int.parse(level!);
                                       })),
                               heightSpace(),
                               heightSpace(),
@@ -105,8 +112,10 @@ class _SelectStudentLevelState extends State<SelectStudentLevel> {
                               defaultButton(
                                 function: () {
                                   if (formKey.currentState!.validate()) {
-                                    print('selecting the level');
-                                    navigateTo(context, const GetStudents());
+                                    print('selecting level $selectedLevel');
+                                    cubit.allStudents(
+                                        widget.token, selectedLevel);
+                                    //navigateTo(context, const GetStudents());
                                   }
                                 },
                                 text: isArabic ? 'عرض' : 'List',

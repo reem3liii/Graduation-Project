@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/main.dart';
+import 'package:saas/modules/for_admin/update_course.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
 
@@ -9,9 +10,12 @@ import '../../shared/bloc/cubit.dart';
 import '../../shared/bloc/states.dart';
 
 class GetCourses extends StatelessWidget {
-  const GetCourses({Key? key, required this.coursesCategory}) : super(key: key);
+  GetCourses({Key? key, required this.coursesData, required this.token})
+      : super(key: key);
 
-  final String coursesCategory;
+  //final String coursesCategory;
+  List<dynamic> coursesData;
+  final String token;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +25,13 @@ class GetCourses extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
       child: BlocConsumer<AppCubit, AppStates>(
-        listener: (BuildContext context, AppStates state) {},
+        listener: (BuildContext context, AppStates state) {
+          if (state is GetCourseByIDSuccessState) {
+            navigateTo(context, UpdateCourse(token, state.courseByID));
+          }
+        },
         builder: (BuildContext context, AppStates state) {
+          AppCubit cubit = AppCubit.get(context);
           return Scaffold(
               appBar: AppBar(
                 title: Text(
@@ -78,7 +87,7 @@ class GetCourses extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        '  Artificial Inelligence',
+                                        '  ${coursesData[index]['courseName']}',
                                         style: TextStyle(
                                             fontSize: 20,
                                             color: defaultColor,
@@ -95,7 +104,7 @@ class GetCourses extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              'Code: CSC301\nLevel: 3\nLecturer: Dr. Ahmed Fouad',
+                                              'Code: ${coursesData[index]['courseCode']}\nLevel: ${coursesData[index]['level']}\nLecturer: ${coursesData[index]['instructorName']}',
                                               style: bodyStyle2(size: 16),
                                             ),
                                             heightSpace(),
@@ -116,7 +125,12 @@ class GetCourses extends StatelessWidget {
                                           )),
                                       IconButton(
                                           iconSize: 22,
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            cubit.getCourseByID(
+                                                token,
+                                                coursesData[index]
+                                                    ['courseCode']);
+                                          },
                                           icon: Icon(
                                             Icons.edit,
                                             color: defaultColor,
@@ -131,7 +145,7 @@ class GetCourses extends StatelessWidget {
                           ),
                         ),
                       ),
-                      itemCount: 10,
+                      itemCount: coursesData.length,
                       separatorBuilder: (context, index) => SizedBox(
                         height: height / 50,
                       ),

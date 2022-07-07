@@ -46,11 +46,35 @@ class AddAdvisorErrorState extends AppStates {
   AddAdvisorErrorState(this.error);
 }
 
+class AddStudentLoadingState extends AppStates {}
+
+class AddStudentSuccessState extends AppStates {
+  final addUser addResponse;
+  AddStudentSuccessState(this.addResponse);
+}
+
+class AddStudentErrorState extends AppStates {
+  final String error;
+  AddStudentErrorState(this.error);
+}
+
+class AddCoursesLoadingState extends AppStates {}
+
+class AddCoursesSuccessState extends AppStates {
+  final String response;
+  AddCoursesSuccessState(this.response);
+}
+
+class AddCoursesErrorState extends AppStates {
+  final String error;
+  AddCoursesErrorState(this.error);
+}
+
 class GetAdvisorsLoadingState extends AppStates {}
 
 class GetAdvisorsSuccessState extends AppStates {
-  //final Advisor advisor;
-  //GetAdvisorsSuccessState(this.advisor);
+  final List<dynamic> advisors;
+  GetAdvisorsSuccessState(this.advisors);
 }
 
 class GetAdvisorsErrorState extends AppStates {
@@ -61,8 +85,8 @@ class GetAdvisorsErrorState extends AppStates {
 class GetCoursesLoadingState extends AppStates {}
 
 class GetCoursesSuccessState extends AppStates {
-  //final Advisor advisor;
-  //GetAdvisorsSuccessState(this.advisor);
+  final List<dynamic> courses;
+  GetCoursesSuccessState(this.courses);
 }
 
 class GetCoursesErrorState extends AppStates {
@@ -71,15 +95,21 @@ class GetCoursesErrorState extends AppStates {
 }
 
 
+//Start Student States
+
 // ignore: camel_case_types
 class semesterAndGradesLoadingState extends AppStates {}
 // ignore: camel_case_types
-class semesterAndGradesSuccessState extends AppStates {}
+class semesterAndGradesSuccessState extends AppStates {
+  //final List<dynamic> semesAndGrades;
+  //semesterAndGradesSuccessState(this.semesAndGrades);
+}
 // ignore: camel_case_types
 class semesterAndGradesErrorState extends AppStates {
   final String error;
   semesterAndGradesErrorState(this.error);
 }
+
 
 // ignore: camel_case_types
 class CurrentCoursesLoadingState extends AppStates {}
@@ -89,4 +119,65 @@ class CurrentCoursesSuccessState extends AppStates {}
 class CurrentCoursesErrorState extends AppStates {
   final String error;
   CurrentCoursesErrorState(this.error);
+}
+
+
+class TotalHoursAndGpaLoadingState extends AppStates {}
+// ignore: camel_case_types
+class TotalHoursAndGpaSuccessState extends AppStates {}
+// ignore: camel_case_types
+class TotalHoursAndGpaErrorState extends AppStates {
+  final String error;
+  TotalHoursAndGpaErrorState(this.error);
+}
+
+
+class CoursesOnSemesterLoadingState extends AppStates {}
+// ignore: camel_case_types
+class CoursesOnSemesterSuccessState extends AppStates {
+  final List<dynamic> courses;
+  CoursesOnSemesterSuccessState(this.courses);
+}
+// ignore: camel_case_types
+class CoursesOnSemesterErrorState extends AppStates {
+  final String error;
+  CoursesOnSemesterErrorState(this.error);
+}
+//End Student States
+
+class GetStudentsLoadingState extends AppStates {}
+
+class GetStudentsSuccessState extends AppStates {
+  final List<dynamic> students;
+  GetStudentsSuccessState(this.students);
+}
+
+class GetStudentsErrorState extends AppStates {
+  final String error;
+  GetStudentsErrorState(this.error);
+}
+
+
+class UpdateCoursesLoadingState extends AppStates {}
+
+class UpdateCoursesSuccessState extends AppStates {
+  final dynamic updateResponse;
+  UpdateCoursesSuccessState(this.updateResponse);
+}
+
+class UpdateCoursesErrorState extends AppStates {
+  final String error;
+  UpdateCoursesErrorState(this.error);
+}
+
+class GetCourseByIDLoadingState extends AppStates {}
+
+class GetCourseByIDSuccessState extends AppStates {
+  final Map<String,dynamic> courseByID;
+  GetCourseByIDSuccessState(this.courseByID);
+}
+
+class GetCourseByIDErrorState extends AppStates {
+  final String error;
+  GetCourseByIDErrorState(this.error);
 }

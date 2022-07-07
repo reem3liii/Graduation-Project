@@ -10,7 +10,8 @@ import '../../shared/bloc/states.dart';
 import 'degrees.dart';
 
 class GetStudents extends StatefulWidget {
-  const GetStudents({Key? key}) : super(key: key);
+  GetStudents({Key? key, required this.students}) : super(key: key);
+  final List<dynamic> students;
 
   @override
   State<GetStudents> createState() => _GetStudentsState();
@@ -85,7 +86,7 @@ class _GetStudentsState extends State<GetStudents> {
                                         height: 5,
                                       ),
                                       Text(
-                                        '  Salma Samy',
+                                        '  ${widget.students[index]['fullName']}',
                                         style: TextStyle(
                                             fontSize: 20,
                                             color: defaultColor,
@@ -102,7 +103,7 @@ class _GetStudentsState extends State<GetStudents> {
                                               height: 4,
                                             ),
                                             Text(
-                                              'ID: 3226435\nLevel: 2\nEmail: salma@gmail.com\nPhone:  010352522',
+                                              'ID: ${widget.students[index]['id']}\nLevel: ${widget.students[index]['level']}\nEmail: ${widget.students[index]['email']}\nPhone:  ${widget.students[index]['phone']}',
                                               style: bodyStyle2(size: 16),
                                             ),
                                           ],
@@ -153,7 +154,7 @@ class _GetStudentsState extends State<GetStudents> {
                           ),
                         ),
                       ),
-                      itemCount: 10,
+                      itemCount: widget.students.length,
                       separatorBuilder: (context, index) => SizedBox(
                         height: height / 50,
                       ),

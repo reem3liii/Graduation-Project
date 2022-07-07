@@ -7,6 +7,7 @@ import 'package:saas/shared/bloc/states.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/items/data.dart';
 import 'package:saas/shared/design/colors.dart';
+import 'package:saas/shared/items/json_models.dart';
 
 
 class Details extends StatefulWidget {
@@ -29,6 +30,7 @@ class _DetailsState extends State<Details> {
        child: BlocConsumer<AppCubit,AppStates>(
          listener: (BuildContext context,AppStates state){},
          builder: (BuildContext context,AppStates state){
+           AppCubit cubit = AppCubit.get(context);
            return Scaffold(
              appBar: AppBar(
                title: Text(
@@ -85,7 +87,7 @@ class _DetailsState extends State<Details> {
                                          padding: const EdgeInsets.all(5),
                                          child: GestureDetector(
                                            child: Text(
-                                             semesters[index].keys.toList().first,
+                                             semestersAndGrades[index].semesterName.toString(),
                                              style: Theme.of(context).textTheme.bodyText1?.copyWith(
                                                fontSize: width/15,
                                                fontWeight: FontWeight.w500,
@@ -122,14 +124,8 @@ class _DetailsState extends State<Details> {
                                                animation: true,
                                                animationDuration: 750,
                                                lineHeight: height / 35,
-                                               percent: semesters[index]
-                                                   .values
-                                                   .last
-                                                   .toDouble() / 4,
-                                               progressColor: semesters[index]
-                                                   .values
-                                                   .last
-                                                   .toDouble() > standard
+                                               percent: semestersAndGrades[index].gpAofSemester! / 4,
+                                               progressColor: semestersAndGrades[index].gpAofSemester! > standard
                                                    ? defaultGreenColor.shade300
                                                    : Colors.red.shade400,
                                                backgroundColor: MyApp.themeNotifier.value == ThemeMode.light? Colors.grey.shade200 : Colors.grey.shade800,
@@ -140,10 +136,7 @@ class _DetailsState extends State<Details> {
                                                top: 1,
                                                left: 14,
                                                child: Text(
-                                                 semesters[index]
-                                                     .values
-                                                     .last
-                                                     .toString(),
+                                                 semestersAndGrades[index].gpAofSemester.toString(),
                                                  style: bodyStyle(
                                                    size: width / 30,
                                                    weight: FontWeight.w600,
@@ -174,33 +167,25 @@ class _DetailsState extends State<Details> {
                                                      .spaceBetween,
                                                  children: [
                                                    Text(
-                                                     isArabic
-                                                         ? arSubjects[index]
-                                                         .keys
-                                                         .toList()[sub]
-                                                         : subjects[index]
-                                                         .keys
-                                                         .toList()[sub],
+                                                     //isArabic
+                                                         //? arSubjects[index].keys.toList()[sub]:
+                                                     courses_Semester[index].courseName.toString(),
                                                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
                                                        fontSize: 16,
                                                        fontWeight: FontWeight.w500,
                                                      ),
                                                    ),
                                                    Text(
-                                                     subjects[index][
+                                                       courses_Semester[index].gpa.toString(),
+                                                     /*subjects[index][
                                                      subjects[index]
                                                          .keys
                                                          .toList()[sub]]
-                                                         .toString(),
+                                                         .toString(),*/
                                                      style: bodyStyle(
                                                          size: 16,
                                                          weight: FontWeight.w600,
-                                                         color: double.parse(subjects[
-                                                         index][subjects[
-                                                         index]
-                                                             .keys
-                                                             .toList()[sub]]
-                                                             .toString()) >
+                                                         color: courses_Semester[index].gpa! >
                                                              standard
                                                              ? Colors.green
                                                              : Colors.red),
@@ -208,7 +193,7 @@ class _DetailsState extends State<Details> {
                                                  ]),
                                              separatorBuilder: (context, sub) =>
                                              const SizedBox(height: 10),
-                                             itemCount: subjects[index].length)
+                                             itemCount: courses_Semester.length,)
                                        ],
                                      ),
                                    ),
@@ -221,7 +206,7 @@ class _DetailsState extends State<Details> {
                          separatorBuilder: (context, index) => SizedBox(
                            height: height / 50,
                          ),
-                         itemCount: int.parse(data[5].toString())),
+                         itemCount: semestersAndGrades.length),
                    ),
                    const SizedBox(
                      height: 20,
