@@ -30,7 +30,13 @@ class HomeAdminScreen extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
       child: BlocConsumer<AppCubit, AppStates>(
-        listener: (BuildContext context, AppStates state) {},
+        listener: (BuildContext context, AppStates state) {
+          if (state is GetAdvisorsSuccessState) {
+            if (state.advisors != null) {
+              navigateTo(context, GetAdvisors(state.advisors));
+            }
+          }
+        },
         builder: (BuildContext context, AppStates state) {
           AppCubit cubit = AppCubit.get(context);
           return Scaffold(
@@ -142,7 +148,6 @@ class HomeAdminScreen extends StatelessWidget {
                           print("Get advisors . . . ");
                           print(token);
                           cubit.allAdvisors(token);
-                          //navigateTo(context, GetAdvisors());
                         }),
                         settingItem(
                             const Icon(Icons.person_add),
@@ -156,12 +161,15 @@ class HomeAdminScreen extends StatelessWidget {
                             const Icon(Icons.list_rounded),
                             isArabic ? 'عرض المواد' : 'List all courses',
                             context,
-                            const SelectCourseCategory()),
+                            SelectCourseCategory(
+                              token: token,
+                            )),
                         settingItem(
-                            const Icon(Icons.add_chart_rounded),
-                            isArabic ? 'اضافة مادة جديدة' : 'Add new course',
-                            context,
-                            const AddCourse()),
+                          const Icon(Icons.add_chart_rounded),
+                          isArabic ? 'اضافة مادة جديدة' : 'Add new course',
+                          context,
+                          AddCourse(token),
+                        ),
                         heightSpace(),
                         adminSectionName(isArabic ? 'الطلاب' : 'Students',
                             Icons.account_box_outlined),
@@ -169,12 +177,12 @@ class HomeAdminScreen extends StatelessWidget {
                             const Icon(Icons.list_rounded),
                             isArabic ? 'عرض الطلاب' : 'List students',
                             context,
-                            const SelectStudentLevel()),
+                             SelectStudentLevel(token: token,)),
                         settingItem(
                             const Icon(Icons.person_add),
                             isArabic ? 'اضافة طالب جديد' : 'Add new student',
                             context,
-                            const AddStudent()),
+                            AddStudent( token: token)),
                         heightSpace(),
                         /*adminSectionName(isArabic ? 'الدرجات' : 'Degrees',
                             Icons.account_box_outlined),

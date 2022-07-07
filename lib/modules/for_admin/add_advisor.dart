@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/main.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
-
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import '../../shared/bloc/cubit.dart';
 import '../../shared/bloc/states.dart';
 
@@ -39,6 +39,15 @@ class _AddAdvisorState extends State<AddAdvisor> {
         if (state is AddAdvisorSuccessState) {
           if (state.addResponse.status.toString() == "success") {
             showToast(state.addResponse.message!, ToastStates.Success);
+            advisorIDController.clear();
+            advisorNameController.clear();
+            advisorArabicNameController.clear();
+            advisorEmailController.clear();
+            advisorPasswordController.clear();
+            advisorPhoneController.clear();
+            advisorBODController.clear();
+            selectedLevel = menueLevels[0];
+            selectedGender = menueGender[0];
           } else {
             showToast(state.addResponse.message!, ToastStates.Warning);
           }
@@ -64,6 +73,7 @@ class _AddAdvisorState extends State<AddAdvisor> {
             ),
           ),
           body: CustomScrollView(
+            physics: BouncingScrollPhysics(),
             slivers: [
               SliverFillRemaining(
                 hasScrollBody: false,
@@ -366,26 +376,34 @@ class _AddAdvisorState extends State<AddAdvisor> {
                           heightSpace(),
                           heightSpace(),
                           heightSpace(),
-                          defaultButton(
-                            function: () {
-                              if (formKey.currentState!.validate()) {
-                                print('Adding advisor . . .');
-                                print(widget.token);
-                                cubit.addAdvisor(
-                                    widget.token,
-                                    advisorIDController.text,
-                                    advisorNameController.text,
-                                    advisorArabicNameController.text,
-                                    selectedGender,
-                                    advisorBODController.text,
-                                    advisorPhoneController.text,
-                                    selectedLevel,
-                                    advisorEmailController.text,
-                                    advisorPasswordController.text);
-                              }
-                            },
-                            text: isArabic ? 'إضافة' : 'Add',
+                          ConditionalBuilder(
+                            condition: state is! AddAdvisorLoadingState,
+                            builder: (context) => defaultButton(
+                              function: () {
+                                if (formKey.currentState!.validate()) {
+                                  print('Adding advisor . . .');
+                                  //print(widget.token);
+                                  cubit.addAdvisor(
+                                      widget.token,
+                                      advisorIDController.text,
+                                      advisorNameController.text,
+                                      advisorArabicNameController.text,
+                                      selectedGender,
+                                      advisorBODController.text,
+                                      advisorPhoneController.text,
+                                      selectedLevel,
+                                      advisorEmailController.text,
+                                      advisorPasswordController.text);
+                                }
+                              },
+                              text: isArabic ? 'إضافة' : 'Add',
+                            ),
+                            fallback: (context) => const Center(
+                              child: CircularProgressIndicator(),
+                            ),
                           ),
+                          heightSpace(),
+                          heightSpace(),
                         ],
                       ),
                     ),

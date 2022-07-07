@@ -16,3 +16,6 @@ const String SEMESTERS_GRADES = 'Students/GetSemesterAndGrade';
 
 const String CURRENT_COURSES = 'Students/GetCurrentCourses';
 
+const String UPDATE_COURSE = 'Courses/UpdateCourse';
+
+const String GET_COURSE_BY_ID = 'Courses/GetCoursebyId';

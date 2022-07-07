@@ -9,7 +9,9 @@ import '../../shared/bloc/cubit.dart';
 import '../../shared/bloc/states.dart';
 
 class GetAdvisors extends StatelessWidget {
-  const GetAdvisors({Key? key}) : super(key: key);
+  GetAdvisors(this.advisorsData, {Key? key}) : super(key: key);
+
+  List<dynamic> advisorsData;
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +78,7 @@ class GetAdvisors extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        '  Reem Ali',
+                                        '  ${advisorsData[index]['fullName']}',
                                         style: TextStyle(
                                             fontSize: 20,
                                             color: defaultColor,
@@ -90,7 +92,7 @@ class GetAdvisors extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              'ID: 1204435\nLevel: 3\nEmail: reem@gmail.com\nPhone:  01025242913',
+                                              'ID: ${advisorsData[index]['id']}\nLevel: ${advisorsData[index]['level']}\nEmail: ${advisorsData[index]['email']}\nPhone:  ${advisorsData[index]['phone']}',
                                               style: bodyStyle2(size: 16),
                                             ),
                                             heightSpace(),
@@ -126,7 +128,7 @@ class GetAdvisors extends StatelessWidget {
                           ),
                         ),
                       ),
-                      itemCount: 8,
+                      itemCount: advisorsData.length,
                       separatorBuilder: (context, index) => SizedBox(
                         height: height / 50,
                       ),

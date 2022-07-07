@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/main.dart';
+import 'package:saas/modules/for_admin/add_course.dart';
 import 'package:saas/modules/for_admin/get_courses.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
@@ -10,11 +11,12 @@ import '../../shared/bloc/cubit.dart';
 import '../../shared/bloc/states.dart';
 
 var formKey = GlobalKey<FormState>();
-List<String> menueCategory = ['SEN','CSC', 'ISC', 'MAT', 'GEN','UNI'];
+List<String> menueCategory = ['SEN', 'CSC', 'ISC', 'MAT', 'GEN', 'UNI'];
 String selectedCategory = menueCategory[0];
 
 class SelectCourseCategory extends StatefulWidget {
-  const SelectCourseCategory({Key? key}) : super(key: key);
+  const SelectCourseCategory({Key? key, required this.token}) : super(key: key);
+  final String token;
 
   @override
   State<SelectCourseCategory> createState() => _SelectCourseCategoryState();
@@ -29,8 +31,13 @@ class _SelectCourseCategoryState extends State<SelectCourseCategory> {
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
       child: BlocConsumer<AppCubit, AppStates>(
-        listener: (BuildContext context, AppStates state) {},
+        listener: (BuildContext context, AppStates state) {
+          if (state is GetCoursesSuccessState) {     
+              navigateTo(context, GetCourses(coursesData: state.courses, token: widget.token,));
+          }
+        },
         builder: (BuildContext context, AppStates state) {
+          AppCubit cubit = AppCubit.get(context);
           return Scaffold(
               appBar: AppBar(
                 title: Text(
@@ -106,8 +113,10 @@ class _SelectCourseCategoryState extends State<SelectCourseCategory> {
                               defaultButton(
                                 function: () {
                                   if (formKey.currentState!.validate()) {
-                                    print('selecting $selectedCategory Category');
-                                    navigateTo(context, GetCourses( coursesCategory: selectedCategory));
+                                    print(
+                                        'selecting $selectedCategory Category');
+                                    cubit.allCourses(
+                                        widget.token, selectedCategory);
                                   }
                                 },
                                 text: isArabic ? 'عرض' : 'List',
