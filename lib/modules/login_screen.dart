@@ -194,7 +194,6 @@ class LoginScreen extends StatelessWidget {
                                   SizedBox(
                                     height: height / 65,
                                   ),
-                                  //state is! LoginLoadingState?
                                   ConditionalBuilder(
                                     condition: state is! LoginLoadingState,
                                     builder: (context) => defaultButton(
@@ -202,15 +201,6 @@ class LoginScreen extends StatelessWidget {
                                         if (formKey.currentState!.validate()) {
                                           cubit.userLogin(emailController.text,
                                               passwordController.text);
-                                          //cubit.selectedRole = cubit.currentUser.userLogin!.roles![0];
-                                          //cubit.enterSelectedRole();
-                                          /*Navigator.pushAndRemoveUntil(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                cubit.selectedRoleMainPage),
-                                                (Route<dynamic> route) => false,
-                                          );*/
                                         }
                                       },
                                       text: isArabic
@@ -219,7 +209,6 @@ class LoginScreen extends StatelessWidget {
                                     ),
                                     fallback: (context) => const Center(child: CircularProgressIndicator(),),
                                   ),
-                                  //: const CircularProgressIndicator(),
                                   Row(
                                     children: [
                                       TextButton(

@@ -46,11 +46,35 @@ class AddAdvisorErrorState extends AppStates {
   AddAdvisorErrorState(this.error);
 }
 
+class AddStudentLoadingState extends AppStates {}
+
+class AddStudentSuccessState extends AppStates {
+  final addUser addResponse;
+  AddStudentSuccessState(this.addResponse);
+}
+
+class AddStudentErrorState extends AppStates {
+  final String error;
+  AddStudentErrorState(this.error);
+}
+
+class AddCoursesLoadingState extends AppStates {}
+
+class AddCoursesSuccessState extends AppStates {
+  final String response;
+  AddCoursesSuccessState(this.response);
+}
+
+class AddCoursesErrorState extends AppStates {
+  final String error;
+  AddCoursesErrorState(this.error);
+}
+
 class GetAdvisorsLoadingState extends AppStates {}
 
 class GetAdvisorsSuccessState extends AppStates {
-  //final Advisor advisor;
-  //GetAdvisorsSuccessState(this.advisor);
+  final List<dynamic> advisors;
+  GetAdvisorsSuccessState(this.advisors);
 }
 
 class GetAdvisorsErrorState extends AppStates {
@@ -61,11 +85,48 @@ class GetAdvisorsErrorState extends AppStates {
 class GetCoursesLoadingState extends AppStates {}
 
 class GetCoursesSuccessState extends AppStates {
-  //final Advisor advisor;
-  //GetAdvisorsSuccessState(this.advisor);
+  final List<dynamic> courses;
+  GetCoursesSuccessState(this.courses);
 }
 
 class GetCoursesErrorState extends AppStates {
   final String error;
   GetCoursesErrorState(this.error);
+}
+
+class GetStudentsLoadingState extends AppStates {}
+
+class GetStudentsSuccessState extends AppStates {
+  final List<dynamic> students;
+  GetStudentsSuccessState(this.students);
+}
+
+class GetStudentsErrorState extends AppStates {
+  final String error;
+  GetStudentsErrorState(this.error);
+}
+
+
+class UpdateCoursesLoadingState extends AppStates {}
+
+class UpdateCoursesSuccessState extends AppStates {
+  final dynamic updateResponse;
+  UpdateCoursesSuccessState(this.updateResponse);
+}
+
+class UpdateCoursesErrorState extends AppStates {
+  final String error;
+  UpdateCoursesErrorState(this.error);
+}
+
+class GetCourseByIDLoadingState extends AppStates {}
+
+class GetCourseByIDSuccessState extends AppStates {
+  final Map<String,dynamic> courseByID;
+  GetCourseByIDSuccessState(this.courseByID);
+}
+
+class GetCourseByIDErrorState extends AppStates {
+  final String error;
+  GetCourseByIDErrorState(this.error);
 }
