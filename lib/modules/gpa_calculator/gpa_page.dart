@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:saas/main.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
@@ -17,11 +16,11 @@ class GPACalculator extends StatefulWidget {
 }
 
 class _GPACalculatorState extends State<GPACalculator> {
-  int initialCount = 5;
+  int initialCount = 4;
   int fieldCount = 0;
   int nextIndex = 0;
-  double a = 0, a2 = 0;
-  double res = 0;
+  double semesterPoints = 0, semesterHours = 0;
+  double res = 0, cumulativeGpa = 0;
 
   List<TextEditingController> gpaControllers = <TextEditingController>[];
   List<TextEditingController> creditControllers = <TextEditingController>[];
@@ -138,6 +137,8 @@ class _GPACalculatorState extends State<GPACalculator> {
     // generate the list of TextFields
     final List<Widget> children = _buildList1();
     final List<Widget> children2 = _buildList2();
+    TextEditingController cumulativeGPA = TextEditingController();
+    TextEditingController creditsEarned = TextEditingController();
 
     // build the ListView
     return Scaffold(
@@ -167,6 +168,69 @@ class _GPACalculatorState extends State<GPACalculator> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
+              Padding(
+                padding: const EdgeInsetsDirectional.only(
+                  start: 20,
+                  end: 20,
+                  bottom: 10
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Text('Cumulative GPA',style: titleStyle(
+                            size: 18,
+                            color: defaultGreenColor,
+                          ),),
+                          TextField(
+                            controller: cumulativeGPA,
+                            keyboardType: TextInputType.number,
+                            maxLength: 6,
+                            decoration: const InputDecoration(
+                              labelText: "Cumulative GPA",
+                              labelStyle: TextStyle(
+                                color: Colors.grey,
+                              ),
+                              counterText: "",
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ],
+                        //mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                      ),
+                    ),
+                    widthSpace(),
+                    widthSpace(),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Text('Credits earned',style: titleStyle(
+                            size: 18,
+                            color: defaultGreenColor,
+                          ),),
+                          TextField(
+                            controller: creditsEarned,
+                            keyboardType: TextInputType.number,
+                            maxLength: 6,
+                            decoration: const InputDecoration(
+                              labelText: "Credits earned",
+                              labelStyle: TextStyle(
+                                color: Colors.grey,
+                              ),
+                              counterText: "",
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ],
+                        //mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               Row(
                 children: [
                   widthSpace(),
@@ -245,21 +309,40 @@ class _GPACalculatorState extends State<GPACalculator> {
                   function: () {
                     for (int j = 0; j < fieldCount; j++) {
                       if (gpaControllers[j].text.toString() != "") {
-                        if (double.parse(gpaControllers[j].text.toString()) >=
-                            1.0) {
-                          a2 += double.parse(
-                              creditControllers[j].text.toString());
-                          a +=
+                        semesterHours += double.parse(
+                            creditControllers[j].text.toString());
+                        if (double.parse(gpaControllers[j].text.toString()) >= 1.0) {
+                          semesterPoints +=
                               (double.parse(gpaControllers[j].text.toString()) *
                                   double.parse(
                                       creditControllers[j].text.toString()));
                         }
                       }
                     }
-                    res = (a / a2);
-                    print(a / a2);
+                    res = (semesterPoints / semesterHours);
+                    //print(semesterHours.toString());
+                    //print(semesterPoints.toString());
+                    print(semesterPoints / semesterHours);
+                    if(cumulativeGPA.text.toString() != "" && creditsEarned.text.toString() != ""){
+                      cumulativeGpa = (
+                          (
+                              (
+                                  double.parse(cumulativeGPA.text.toString())
+                                  *
+                                  double.parse(creditsEarned.text.toString())
+                              )
+                              +
+                              semesterPoints
+                          )
+                          /
+                          (double.parse(creditsEarned.text.toString())+semesterHours)
+                      );
+                    }
+
+                    //print((double.parse(cumulativeGPA.text.toString())+2).toString());
                     setState(() {
                       res = res;
+                      cumulativeGpa = cumulativeGpa;
                     });
                   },
                   text: isArabic ? 'احسب' : 'CALCULATE',
@@ -275,16 +358,34 @@ class _GPACalculatorState extends State<GPACalculator> {
                 style: isArabic
                     ? arTitleStyle(
                         size: 20,
-                        color: a == 0 && a2 == 0
+                        color: semesterPoints == 0 && semesterHours == 0
                             ? Colors.white.withOpacity(0)
                             : defaultOrangeColor,
                       )
                     : titleStyle(
                         size: 20,
-                        color: a == 0 && a2 == 0
+                        color: semesterPoints == 0 && semesterHours == 0
                             ? Colors.white.withOpacity(0)
                             : defaultOrangeColor,
                       ),
+              ),
+              Text(
+                isArabic
+                    ? "المعدل الاكاديمي : ${cumulativeGpa.toStringAsFixed(2)}"
+                    : "Cumulative GPA: ${cumulativeGpa.toStringAsFixed(2)}",
+                style: isArabic
+                    ? arTitleStyle(
+                  size: 20,
+                  color: cumulativeGpa == 0
+                      ? Colors.white.withOpacity(0)
+                      : defaultOrangeColor,
+                )
+                    : titleStyle(
+                  size: 20,
+                  color: cumulativeGpa == 0
+                      ? Colors.white.withOpacity(0)
+                      : defaultOrangeColor,
+                ),
               ),
             ],
           ),
@@ -316,59 +417,6 @@ class _GPACalculatorState extends State<GPACalculator> {
 }
 
 
-
-
-
-
-
-/*
-
-class CoursesList extends StatefulWidget {
-  const CoursesList({
-    this.initialCount = 5,
-  });
-
-  final int initialCount;
-  @override
-  _CoursesListState createState() => _CoursesListState();
-}
-
-class _CoursesListState extends State<CoursesList> {
-
-  }
-
-
-  @override
-
-}*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   /*alert()  {
     return showDialog(
       context: context,
@@ -386,91 +434,6 @@ class _CoursesListState extends State<CoursesList> {
           ],
         );
       },
-    );
-  }
-}*//*Column(
-        children: [
-
-          heightSpace(),
-          /*ContainerWithOROutShadow(
-                    blurRadiusValue: 0,
-                    offsetValue1: 0.2,
-                    offsetValue2: 0.2,
-                    widget: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                        children: [
-                          /*list.forEach((coursesNumbers){
-                            ;
-                          });*/
-                          Row(
-                            children:[
-                              Text('Your course:',style: TextStyle(color: defaultBlueColor.shade400,fontSize: 16,fontWeight: FontWeight.w500),),
-                              const Spacer(),
-                              SizedBox(
-                                width: 50,
-                                child: TextField(
-                                  controller: GradeByNumberController,
-                                  keyboardType: TextInputType.number,
-                                  //onTap: (){},
-                                  decoration: const InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: 'Grade',
-                                  ),
-                                ),
-                              ),
-                              const Spacer(),
-                              SizedBox(
-                                width: 50,
-                                child: TextField(
-                                  controller: GradeController,
-                                  keyboardType: TextInputType.text,
-                                  //onTap: (){},
-                                  decoration: const InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: 'Grade',
-                                  ),
-                                ),
-                              ),
-                              const Spacer(),
-                              SizedBox(
-                                width: 50,
-                                child: TextField(
-                                  controller: CreditController,
-                                  keyboardType: TextInputType.number,
-                                  //onTap: (){},
-                                  decoration: const InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: 'Credit',
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          defaultButton(
-                              function: (){
-                                setState(() {
-                                  coursesNumbers++;
-                                  print(coursesNumbers);
-                                });
-                              },
-                              text: '+',
-                              width:50,
-                          ),
-                        ],
-                      ),
-                    )),*/
-          /*SizedBox(
-                  height: 200,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) => CoursesList(courses[index]),
-                    itemCount: courses.length,
-                    scrollDirection: Axis.horizontal,
-                  ),
-                ),*/
-        ],
-      ),
     );
   }
 }*/
