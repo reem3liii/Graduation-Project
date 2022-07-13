@@ -174,18 +174,13 @@ class AppCubit extends Cubit<AppStates> {
   }
   //Student part (API)
   late SemesterAndGrade semAndGra;
-  //late SemesterAndGrade semAndGra;
-
 
   void getSemestersAndGrades(String token) {
     emit(semesterAndGradesLoadingState());
 
     DioHelper.getDataWithAuth(SEMESTERS_GRADES, token, null).then((value) {
 
-      //print(value.data[0]);
- 
       if(value.data.length > 0){
-        //semAndGra = value.data;
         semAndGra = SemesterAndGrade.fromJson(value.data[0]);
         for(var i=0;i<value.data.length;i++) {
           semestersAndGrades.add(
@@ -211,16 +206,11 @@ class AppCubit extends Cubit<AppStates> {
   }
 
 
-  late CurrentCourse currCourses;
-
-
   void getCurrentCourses(String token) {
     emit(CurrentCoursesLoadingState());
 
     DioHelper.getDataWithAuth(CURRENT_COURSES, token, null).then((value) {
-
       if(value.data.length > 0){
-       // currCourses = CurrentCourse.fromJson(value.data[0]);
         for(var i=0;i<value.data.length;i++) {
           currentCourses.add(
               CurrentCourse(
@@ -231,7 +221,6 @@ class AppCubit extends Cubit<AppStates> {
           );
           print(value.data[i]);
         }
-        print(currentCourses.length.toString());
       }
       else{
         currentCourses = [];
@@ -268,7 +257,7 @@ class AppCubit extends Cubit<AppStates> {
     var formData = FormData.fromMap({'semestername': semestername});
     DioHelper.postDataWithAuth(COURSES_ON_SEMESTERS, token, formData, null)
         .then((value) {
-      print(value.data);
+      //print(value.data);
       /*for(var i=0;i<value.data.length;i++) {
         courses_Semester.add(
             CoursesOnSemester(
@@ -289,6 +278,27 @@ class AppCubit extends Cubit<AppStates> {
     }).catchError((error) {
       print(error);
       emit(CoursesOnSemesterErrorState(error.toString()));
+    });
+  }
+
+  void getCurrentUserData(String token) {
+    emit(CurrentUserDataLoadingState());
+
+    DioHelper.getDataWithAuth(CURRENT_USER_DATA, token, null).then((value) {
+      print(value.data);
+      currentUserInf = CurrentUserData.fromJson(value.data);
+      userInformation.add(currentUserInf!.department.toString().toUpperCase());
+      userInformation.add((semestersAndGrades.length + 1).toString());
+      userInformation.add(currentUserInf!.acceptenceYear.toString());
+      userInformation.add(currentUserInf!.brithOfdate.toString().substring(0,10));
+      userInformation.add(currentUserInf!.phoneNumber.toString());
+      userInformation.add(currentUserInf!.city.toString());
+      userInformation.add(currentUserInf!.address.toString());
+      userInformation.add(currentUserInf!.gender.toString());
+      emit(CurrentUserDataSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(CurrentUserDataErrorState(error.toString()));
     });
   }
   //End Student Part***************

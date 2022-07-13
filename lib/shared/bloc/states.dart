@@ -142,6 +142,16 @@ class CoursesOnSemesterErrorState extends AppStates {
   final String error;
   CoursesOnSemesterErrorState(this.error);
 }
+
+class CurrentUserDataLoadingState extends AppStates {}
+// ignore: camel_case_types
+class CurrentUserDataSuccessState extends AppStates {
+}
+// ignore: camel_case_types
+class CurrentUserDataErrorState extends AppStates {
+  final String error;
+  CurrentUserDataErrorState(this.error);
+}
 //End Student States
 
 class GetStudentsLoadingState extends AppStates {}

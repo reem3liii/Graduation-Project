@@ -15,7 +15,7 @@ class MainPage extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
 
     return BlocProvider(
-      create: (BuildContext context) => AppCubit()..getSemestersAndGrades(token)..getCurrentCourses(token)..getTotalHoursAndGpa(token),
+      create: (BuildContext context) => AppCubit()..getSemestersAndGrades(token)..getCurrentCourses(token)..getTotalHoursAndGpa(token)..getCurrentUserData(token),
       child: BlocConsumer<AppCubit,AppStates>(
         listener: (BuildContext context,AppStates state){
           if(state is CoursesOnSemesterSuccessState){

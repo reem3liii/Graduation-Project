@@ -193,3 +193,78 @@ class CoursesOnSemester {
 
 List<dynamic> courses_Semester = [];
 
+
+class CurrentUserData {
+  String? name;
+  String? nameArb;
+  String? gender;
+  String? brithOfdate;
+  String? acceptenceYear;
+  String? department;
+  String? city;
+  String? address;
+  String? phoneNumber;
+  String? email;
+  String? previousqualification;
+  String? institute;
+  int? graduationYear;
+  int? total;
+  int? percentage;
+
+  CurrentUserData(
+      {this.name,
+        this.nameArb,
+        this.gender,
+        this.brithOfdate,
+        this.acceptenceYear,
+        this.department,
+        this.city,
+        this.address,
+        this.phoneNumber,
+        this.email,
+        this.previousqualification,
+        this.institute,
+        this.graduationYear,
+        this.total,
+        this.percentage});
+
+  CurrentUserData.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    nameArb = json['nameArb'];
+    gender = json['gender'];
+    brithOfdate = json['brithOfdate'];
+    acceptenceYear = json['acceptenceYear'];
+    department = json['department'];
+    city = json['city'];
+    address = json['address'];
+    phoneNumber = json['phoneNumber'];
+    email = json['email'];
+    previousqualification = json['previousqualification'];
+    institute = json['institute'];
+    graduationYear = json['graduationYear'];
+    total = json['total'];
+    percentage = json['percentage'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['name'] = this.name;
+    data['nameArb'] = this.nameArb;
+    data['gender'] = this.gender;
+    data['brithOfdate'] = this.brithOfdate;
+    data['acceptenceYear'] = this.acceptenceYear;
+    data['department'] = this.department;
+    data['city'] = this.city;
+    data['address'] = this.address;
+    data['phoneNumber'] = this.phoneNumber;
+    data['email'] = this.email;
+    data['previousqualification'] = this.previousqualification;
+    data['institute'] = this.institute;
+    data['graduationYear'] = this.graduationYear;
+    data['total'] = this.total;
+    data['percentage'] = this.percentage;
+    return data;
+  }
+}
+CurrentUserData? currentUserInf;
+List userInformation = [];
