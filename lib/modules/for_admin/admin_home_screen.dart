@@ -6,10 +6,8 @@ import 'package:saas/modules/for_admin/select_course_category.dart';
 import 'package:saas/modules/for_admin/select_student_level.dart';
 import 'package:saas/shared/bloc/cubit.dart';
 import 'package:saas/shared/bloc/states.dart';
-import 'package:saas/shared/items/data.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
-import 'package:saas/shared/items/models.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../login_screen.dart';
 import 'add_advisor.dart';
@@ -18,7 +16,7 @@ import 'add_course.dart';
 import 'get_advisors.dart';
 
 class HomeAdminScreen extends StatelessWidget {
-  HomeAdminScreen(this.token, this.email);
+  const HomeAdminScreen(this.token, this.email);
   final token;
   final email;
 
@@ -32,9 +30,7 @@ class HomeAdminScreen extends StatelessWidget {
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (BuildContext context, AppStates state) {
           if (state is GetAdvisorsSuccessState) {
-            if (state.advisors != null) {
-              navigateTo(context, GetAdvisors(state.advisors));
-            }
+            navigateTo(context, GetAdvisors(state.advisors));
           }
         },
         builder: (BuildContext context, AppStates state) {

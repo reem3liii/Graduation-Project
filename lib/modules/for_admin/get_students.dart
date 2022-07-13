@@ -10,7 +10,7 @@ import '../../shared/bloc/states.dart';
 import 'degrees.dart';
 
 class GetStudents extends StatefulWidget {
-  GetStudents({Key? key, required this.students}) : super(key: key);
+  const GetStudents({Key? key, required this.students}) : super(key: key);
   final List<dynamic> students;
 
   @override
@@ -21,7 +21,7 @@ class _GetStudentsState extends State<GetStudents> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
+    //double width = MediaQuery.of(context).size.width;
 
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),

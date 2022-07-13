@@ -1,13 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:rolling_switch/rolling_switch.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:saas/main.dart';
 import 'package:saas/shared/design/colors.dart';
-
 import 'json_models.dart';
 import 'models.dart';
 

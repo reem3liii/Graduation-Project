@@ -1,8 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saas/modules/for_admin/add_course.dart';
-import 'package:saas/modules/for_admin/add_student.dart';
 import 'package:saas/modules/for_admin/admin_home_screen.dart';
-import 'package:saas/modules/for_advisor/homeAdvisor_screen.dart';
 import 'package:saas/modules/for_student/details.dart';
 import 'package:saas/modules/for_student/home_screen.dart';
 import 'package:saas/modules/for_student/main_page.dart';
@@ -15,8 +12,6 @@ import 'package:saas/shared/items/json_models.dart';
 import 'package:saas/shared/items/models.dart';
 import '../items/data.dart';
 import 'package:dio/dio.dart';
-import 'package:bloc/src/bloc.dart';
-import '../cache_helper.dart';
 
 //import '../data.dart';
 class AppCubit extends Cubit<AppStates> {

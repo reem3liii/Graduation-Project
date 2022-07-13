@@ -13,7 +13,7 @@ List<int> menueLevels = [1, 2, 3, 4];
 int selectedLevel = menueLevels[0];
 
 class SelectStudentLevel extends StatefulWidget {
-  SelectStudentLevel({Key? key, required this.token}) : super(key: key);
+  const SelectStudentLevel({Key? key, required this.token}) : super(key: key);
 
   final String token;
 
@@ -24,8 +24,8 @@ class SelectStudentLevel extends StatefulWidget {
 class _SelectStudentLevelState extends State<SelectStudentLevel> {
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
+    //double height = MediaQuery.of(context).size.height;
+    //double width = MediaQuery.of(context).size.width;
 
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),

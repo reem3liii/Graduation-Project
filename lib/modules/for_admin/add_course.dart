@@ -67,7 +67,7 @@ class _AddCourseState extends State<AddCourse> {
               ),
             ),
             body: CustomScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               slivers: [
                 SliverFillRemaining(
                   hasScrollBody: false,
@@ -196,7 +196,7 @@ class _AddCourseState extends State<AddCourse> {
                                     enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:
-                                            BorderSide(color: Colors.grey))),
+                                            const BorderSide(color: Colors.grey))),
                                 value: selectedCategory,
                                 items: menueCategory
                                     .map((category) => DropdownMenuItem<String>(
@@ -229,7 +229,7 @@ class _AddCourseState extends State<AddCourse> {
                                     enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:
-                                            BorderSide(color: Colors.grey))),
+                                            const BorderSide(color: Colors.grey))),
                                 value: selectedLevel,
                                 items: menueLevels
                                     .map((level) => DropdownMenuItem<String>(

@@ -19,7 +19,7 @@ List<String> menueCategory = ['GEN', 'CSC', 'ISC', 'MAT', 'UNI', 'SEN'];
 String? selectedCategory = menueCategory[0];
 
 class UpdateCourse extends StatefulWidget {
-  UpdateCourse(this.token, this.courseOldData);
+  const UpdateCourse(this.token, this.courseOldData, {Key? key}) : super(key: key);
   final token;
   final Map<String, dynamic> courseOldData;
 
@@ -64,7 +64,7 @@ class _UpdateCourseState extends State<UpdateCourse> {
               ),
             ),
             body: CustomScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               slivers: [
                 SliverFillRemaining(
                   hasScrollBody: false,
@@ -195,7 +195,7 @@ class _UpdateCourseState extends State<UpdateCourse> {
                                     enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:
-                                            BorderSide(color: Colors.grey))),
+                                            const BorderSide(color: Colors.grey))),
                                 value: selectedCategory,
                                 items: menueCategory
                                     .map((category) => DropdownMenuItem<String>(

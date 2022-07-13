@@ -91,7 +91,7 @@ class _AddStudentState extends State<AddStudent> {
               ),
             ),
             body: CustomScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               slivers: [
                 SliverFillRemaining(
                   hasScrollBody: false,

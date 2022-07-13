@@ -73,7 +73,7 @@ class _AddAdvisorState extends State<AddAdvisor> {
             ),
           ),
           body: CustomScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             slivers: [
               SliverFillRemaining(
                 hasScrollBody: false,

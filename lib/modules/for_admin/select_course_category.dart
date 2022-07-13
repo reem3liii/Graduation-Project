@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/main.dart';
-import 'package:saas/modules/for_admin/add_course.dart';
 import 'package:saas/modules/for_admin/get_courses.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
@@ -25,8 +24,8 @@ class SelectCourseCategory extends StatefulWidget {
 class _SelectCourseCategoryState extends State<SelectCourseCategory> {
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
+    //double height = MediaQuery.of(context).size.height;
+    //double width = MediaQuery.of(context).size.width;
 
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
@@ -94,7 +93,7 @@ class _SelectCourseCategoryState extends State<SelectCourseCategory> {
                                           borderRadius:
                                               BorderRadius.circular(30),
                                           borderSide:
-                                              BorderSide(color: Colors.grey))),
+                                              const BorderSide(color: Colors.grey))),
                                   value: selectedCategory,
                                   items: menueCategory
                                       .map((category) =>
