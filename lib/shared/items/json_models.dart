@@ -193,6 +193,7 @@ class CoursesOnSemester {
 
 List<dynamic> courses_Semester = [];
 
+
 class CurrentUserData {
   String? name;
   String? nameArb;

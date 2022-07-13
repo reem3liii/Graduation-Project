@@ -179,6 +179,7 @@ class AppCubit extends Cubit<AppStates> {
     emit(semesterAndGradesLoadingState());
 
     DioHelper.getDataWithAuth(SEMESTERS_GRADES, token, null).then((value) {
+
       if(value.data.length > 0){
         semAndGra = SemesterAndGrade.fromJson(value.data[0]);
         for(var i=0;i<value.data.length;i++) {
@@ -230,6 +231,7 @@ class AppCubit extends Cubit<AppStates> {
       emit(CurrentCoursesErrorState(error.toString()));
     });
   }
+
 
   late TotalHoursAndGpa total_hour_gpa;
 
