@@ -67,7 +67,7 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(
                         height: height / 3.5,
                         child: SfCartesianChart(
-                            plotAreaBorderWidth: 0,
+                            plotAreaBorderWidth: 1,
                             primaryXAxis: CategoryAxis(
                               majorGridLines: const MajorGridLines(width: 0),
                               majorTickLines: const MajorTickLines(size: 0),
@@ -75,7 +75,7 @@ class HomeScreen extends StatelessWidget {
                             primaryYAxis: NumericAxis(
                               //labelFormat: '{value}',
                               //axisLine: AxisLine(width: ),
-                              majorGridLines: const MajorGridLines(width: 0),
+                              majorGridLines: const MajorGridLines(width: 1),
                               majorTickLines: const MajorTickLines(size: 0),
                             ),
                             tooltipBehavior: TooltipBehavior(enable: true),

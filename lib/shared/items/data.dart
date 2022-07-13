@@ -1,4 +1,4 @@
-var labels = [
+/*var labels = [
   'National ID',
   'Acceptance year',
   'Gender',
@@ -13,6 +13,18 @@ var labels = [
   'percentage',
   'Name',
   'Email',
+];*/
+var labels = [
+  'Department',
+  //'Level',
+  'Semester',
+  'Acceptance year',
+  //'National ID',
+  'Date of Birth',
+  'Phone Number',
+  'City',
+  'Address',
+  'Gender',
 ];
 var arLabels = [
   'الرقم القومي',
@@ -26,7 +38,7 @@ var arLabels = [
   'البريد الالكتروني'
 ];
 
-var data = [
+/*var data = [
   '30001234567890',
   '2018-2019',
   'female',
@@ -41,6 +53,18 @@ var data = [
   '85.46%',
   'sama hussien ahmed',
   'samahussien788@gmail.com'
+];*/
+var data= [
+  'general',
+  '4',
+  '2018-2019',
+  '30001234567890',
+  '15-04-2000',
+  semesters.length,
+  '01200130883',
+  'Suez',
+  'Address',
+  'female',
 ];
 var arData = [
   '30001234567890',

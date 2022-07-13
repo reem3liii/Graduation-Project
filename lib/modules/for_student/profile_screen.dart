@@ -7,6 +7,7 @@ import 'package:saas/shared/bloc/states.dart';
 import 'package:saas/shared/design/colors.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/items/data.dart';
+import 'package:saas/shared/items/json_models.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class ProfileScreen extends StatelessWidget {
       child: BlocConsumer<AppCubit,AppStates>(
         listener: (BuildContext context,AppStates state){},
         builder: (BuildContext context,AppStates state){
+          AppCubit cubit = AppCubit.get(context);
           return Scaffold(
             appBar: AppBar(
               actions: [
@@ -60,7 +62,9 @@ class ProfileScreen extends StatelessWidget {
                         CircleAvatar(
                           radius: width / 6,
                           backgroundColor: Colors.transparent,
-                          backgroundImage:
+                          backgroundImage:currentUserInf!.gender.toString() == 'male'?
+                          const AssetImage('assets/images/student_profile1.png')
+                          :
                           const AssetImage('assets/images/student_profile.png'),
                         ),
                         SizedBox(
@@ -69,7 +73,7 @@ class ProfileScreen extends StatelessWidget {
                         Text(
                           isArabic
                               ? arData[arData.length - 2].toString()
-                              : data[data.length - 2].toString(),
+                              : currentUserInf!.name.toString(),
                           style: isArabic
                               ? arTitleStyle().copyWith(color: Colors.white)
                               : titleStyle().copyWith(color: Colors.white),
@@ -80,7 +84,7 @@ class ProfileScreen extends StatelessWidget {
                         Text(
                           isArabic
                               ? arData[arData.length - 1].toString()
-                              : data[data.length - 1].toString(),
+                              : currentUserInf!.email.toString(),
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!
@@ -147,7 +151,7 @@ class ProfileScreen extends StatelessWidget {
                                 Text(
                                   isArabic
                                       ? arData[index].toString()
-                                      : data[index].toString(),
+                                      : userInformation[index],
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1!
@@ -171,7 +175,7 @@ class ProfileScreen extends StatelessWidget {
                             Colors.grey[800],
                             //Colors.grey[300],
                           ),
-                          itemCount: data.length - 2),
+                          itemCount: userInformation.length),
                     ),
                   ),
                 )
