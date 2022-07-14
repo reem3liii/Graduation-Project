@@ -47,7 +47,7 @@ class AppCubit extends Cubit<AppStates> {
 
   int selectedIndex = 0;
   final screens = [
-    HomeScreen(),
+    HomeScreen(token),
     Details(),
     GPACalculator(),
     const ProfileScreen(),
@@ -90,6 +90,7 @@ class AppCubit extends Cubit<AppStates> {
         .then((value) {
       print(value.data);
       currentUser = CurrentUser.fromJson(value.data);
+      token=currentUser.userLogin!.token.toString();
       //currentUser.userLogin.roles.first.toString();
       emit(LoginSuccessState(currentUser));
     }).catchError((error) {
@@ -301,6 +302,11 @@ class AppCubit extends Cubit<AppStates> {
       emit(CurrentUserDataErrorState(error.toString()));
     });
   }
+
+  /*bool has_current_courses = false;
+  void hasCurrentCourses(){
+    if()
+  }*/
   //End Student Part***************
 
   late List<dynamic> allStudentsData;

@@ -1,36 +1,26 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/main.dart';
 import 'package:saas/modules/for_student/recommended_courses.dart';
 import 'package:saas/shared/bloc/cubit.dart';
 import 'package:saas/shared/bloc/states.dart';
 import 'package:saas/shared/items/json_models.dart';
-import 'package:saas/shared/items/models.dart';
 import 'package:saas/modules/setting_screens/password.dart';
 import 'package:saas/shared/items/components.dart';
-import 'package:saas/shared/design/colors.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class HomeScreen extends StatelessWidget {
-  //HomeScreen(this.semAndGradeData);
-  //List<SemesterAndGrade> semAndGradeData;
+  HomeScreen(this.token);
+  final token;
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
-    /*List<PerformanceData> data = [
-      PerformanceData('1st', 2.54),
-      PerformanceData('2nd', 2.67),
-      PerformanceData('3rd', 2.75),
-      PerformanceData('4th', 2.78),
-      PerformanceData('5th', 2.85),
-    ];*/
-
     return BlocProvider(
-      create: (BuildContext context) => AppCubit(),
+      create: (BuildContext context) => AppCubit()..getTotalHoursAndGpa(token),
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (BuildContext context, AppStates state) {
 
@@ -75,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                             primaryYAxis: NumericAxis(
                               //labelFormat: '{value}',
                               //axisLine: AxisLine(width: ),
-                              majorGridLines: const MajorGridLines(width: 1),
+                              majorGridLines: const MajorGridLines(width: 0),
                               majorTickLines: const MajorTickLines(size: 0),
                             ),
                             tooltipBehavior: TooltipBehavior(enable: true),
@@ -97,7 +87,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 opacity: 0.55,
                                 //opacity: 0.3,
-                                animationDuration: 2000,
+                                animationDuration: 1250,
                               ),
                             ]),
                       ),
@@ -133,8 +123,8 @@ class HomeScreen extends StatelessWidget {
                                   :
                               Colors.black.withOpacity(0.8),
                             ),
-                            ),
-                           SizedBox(
+                          ),
+                          SizedBox(
                             width: width / 30,
                           ),
                           Expanded(
@@ -163,7 +153,7 @@ class HomeScreen extends StatelessWidget {
                                   :
                               Colors.black.withOpacity(0.8),
                             ),
-                           ),
+                          ),
                         ],
                       ),
                       SizedBox(
@@ -181,18 +171,36 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(
                         height: height / 100,
                       ),
-                      defaultGridViewList(
-                        itembuild: (context, index) => coursesList(
+                      ConditionalBuilder(
+                        condition: currentCourses.isNotEmpty,
+                        builder: (context) => defaultGridViewList(
+                          itembuild: (context, index) => coursesList(
                             currentCourses[index],
                             height: height / 3,
                             color: MyApp.themeNotifier.value == ThemeMode.light?
-                                Colors.white.withOpacity(0.98)
-                                  :
-                                Colors.black.withOpacity(0.8),
+                            Colors.white.withOpacity(0.98)
+                                :
+                            Colors.black.withOpacity(0.8),
                             titleColor: MyApp.themeNotifier.value == ThemeMode.light? Colors.black : Colors.white, context: context,
+                          ),
+                          list: currentCourses,
                         ),
-                        list: currentCourses,
+                        fallback: (context) => Center(
+                          child: Column(
+                            children: [Image.asset(
+                              'assets/images/noCourses.png',
+                              width: width/1.75,
+                              height: height/3.75,
+                            ),
+                              const Text('You do not have current courses now.',style: TextStyle(
+                                fontSize: 17,
+                                color: Colors.grey,
+                              ),),
+                            ],
+                          ),
+                        ),
                       ),
+
                       SizedBox(
                         height: height / 30,
                       ),
@@ -217,17 +225,17 @@ class HomeScreen extends StatelessWidget {
                               navigateTo(context, const RecommendedScreen());
                             },
                             text: isArabic ? 'بدء التوصية' : 'Start recommendation',
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: height / 30,
-                    ),
-                  ],
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: height / 30,
+                      ),
+                    ],
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
                 ),
               ),
-            ),
           );
         },
       ),

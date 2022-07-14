@@ -307,6 +307,9 @@ class _GPACalculatorState extends State<GPACalculator> {
                 child: defaultButton(
                   width: 150,
                   function: () {
+                    if(gpaControllers.length == 0){
+
+                    }
                     for (int j = 0; j < fieldCount; j++) {
                       if (gpaControllers[j].text.toString() != "") {
                         semesterHours += double.parse(
@@ -338,12 +341,14 @@ class _GPACalculatorState extends State<GPACalculator> {
                           (double.parse(creditsEarned.text.toString())+semesterHours)
                       );
                     }
-
                     //print((double.parse(cumulativeGPA.text.toString())+2).toString());
                     setState(() {
                       res = res;
                       cumulativeGpa = cumulativeGpa;
                     });
+                    if(res.isNaN){
+                      showToast('Please Enter your GPA and credit\.', ToastStates.Warning);
+                    }
                   },
                   text: isArabic ? 'احسب' : 'CALCULATE',
                 ),
