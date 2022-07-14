@@ -54,8 +54,8 @@ class LoginScreen extends StatelessWidget {
 
             }else if(state.currentUser.status.toString() == "fail"){
               //print(state.currentUser.message);
-              showToast('The Email or password you entered doesn\'t appear to belong to an account. '
-                  'Please check your Email or password and try again.', ToastStates.Error);
+              showToast('It appears that the E-mail or password you entered does not belong to an account\.'
+                  'Please check your E-mail or password and try again.', ToastStates.Error);
               /*AlertDialog(
                 title: const Text('Incorrect Email or password'),
                 content: const SingleChildScrollView(
@@ -213,7 +213,7 @@ class LoginScreen extends StatelessWidget {
                                     ),
                                     fallback: (context) => const Center(child: CircularProgressIndicator(),),
                                   ),
-                                  Row(
+                                  /*Row(
                                     children: [
                                       TextButton(
                                         onPressed: () {},
@@ -228,7 +228,7 @@ class LoginScreen extends StatelessWidget {
                                       ),
                                     ],
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                  ),
+                                  ),*/
                                 ],
                                 crossAxisAlignment: CrossAxisAlignment.start,
                               ),

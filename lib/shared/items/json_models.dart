@@ -157,7 +157,7 @@ class TotalHoursAndGpa {
   TotalHoursAndGpa({this.gpa, this.hours});
 
   TotalHoursAndGpa.fromJson(Map<String, dynamic> json) {
-    gpa = json['gpa'];
+    gpa = (json['gpa']as num).toDouble();
     hours = json['hours'];
   }
 
@@ -169,8 +169,8 @@ class TotalHoursAndGpa {
   }
 }
 
-int totalHours=0;
-double totalGpa=0;
+var totalHours = 0;
+double totalGpa = 0;
 
 class CoursesOnSemester {
   double? gpa;
@@ -267,3 +267,4 @@ class CurrentUserData {
 }
 CurrentUserData? currentUserInf;
 List userInformation = [];
+String token ='';

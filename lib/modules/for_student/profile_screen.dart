@@ -63,9 +63,9 @@ class ProfileScreen extends StatelessWidget {
                           radius: width / 6,
                           backgroundColor: Colors.transparent,
                           backgroundImage:currentUserInf!.gender.toString() == 'male'?
-                          const AssetImage('assets/images/student_profile1.png')
+                          const AssetImage('assets/images/male_student.jpeg')
                           :
-                          const AssetImage('assets/images/student_profile.png'),
+                          const AssetImage('assets/images/female_student.jpeg'),
                         ),
                         SizedBox(
                           height: height / 65,
