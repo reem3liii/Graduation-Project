@@ -7,7 +7,7 @@ import 'package:saas/shared/bloc/cubit.dart';
 import 'package:saas/shared/bloc/states.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
-//import 'package:toggle_switch/toggle_switch.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 import '../login_screen.dart';
 import 'add_advisor.dart';
 import 'add_student.dart';
@@ -99,12 +99,10 @@ class HomeAdminScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(14.0),
                     child: Column(
                       children: [
-                        /*heightSpace(),
+                        heightSpace(),
                         heightSpace(),
                         adminSectionName(
-                            isArabic
-                                ? 'عملية التوصية'
-                                : 'Recommendation Process',
+                            'Recommendation Process',
                             Icons.manage_search_sharp),
                         heightSpace(),
                         Row(
@@ -132,8 +130,8 @@ class HomeAdminScreen extends StatelessWidget {
                               },
                             ),
                           ],
-                        ),*/
-                        //heightSpace(),
+                        ),
+                        heightSpace(),
                         heightSpace(),
                         adminSectionName('Advisors',
                             Icons.account_circle_outlined),
