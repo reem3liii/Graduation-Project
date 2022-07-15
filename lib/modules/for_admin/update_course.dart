@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/main.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
-
 import '../../shared/bloc/cubit.dart';
 import '../../shared/bloc/states.dart';
 
@@ -34,7 +33,7 @@ class _UpdateCourseState extends State<UpdateCourse> {
         create: (BuildContext context) => AppCubit(),
         child: BlocConsumer<AppCubit, AppStates>(
             listener: (BuildContext context, AppStates state) {
-          if (state is UpdateCoursesSuccessState) {
+          /*if (state is UpdateCoursesSuccessState) {
             showToast("Updated successfully", ToastStates.Success);
             courseNameController.clear();
             courseArabicNameController.clear();
@@ -44,17 +43,14 @@ class _UpdateCourseState extends State<UpdateCourse> {
             selectedCategory = menueCategory[0];
           } else if (state is UpdateCoursesErrorState) {
             showToast(state.error, ToastStates.Error);
-          }
+          }*/
         }, builder: (BuildContext context, AppStates state) {
           AppCubit cubit = AppCubit.get(context);
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                isArabic ? 'إضافة مادة' : 'Update course',
-                style: isArabic
-                    ? arTitleStyle(
-                        color: defaultColor, size: 20, weight: FontWeight.w600)
-                    : titleStyle(
+                'Update course',
+                style: titleStyle(
                         color: defaultColor, size: 20, weight: FontWeight.w600),
               ),
               backgroundColor: defaultBackgroundColor,
@@ -337,7 +333,7 @@ class _UpdateCourseState extends State<UpdateCourse> {
                             heightSpace(),
                             defaultButton(
                               function: () {
-                                if (formKey.currentState!.validate()) {
+                                /*if (formKey.currentState!.validate()) {
                                   print('Updating course');
                                   cubit.updateCourse(
                                       widget.token,
@@ -349,7 +345,7 @@ class _UpdateCourseState extends State<UpdateCourse> {
                                       int.parse(courseHoursController.text),
                                       int.parse(courseDegreeController.text),
                                       lecturerIDController.text);
-                                }
+                                }*/
                               },
                               text: isArabic ? 'إضافة' : 'Update',
                             ),

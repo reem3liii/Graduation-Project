@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/main.dart';
-import 'package:saas/modules/for_admin/update_course.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
-
 import '../../shared/bloc/cubit.dart';
 import '../../shared/bloc/states.dart';
+
+List<String> deletedCourses = [];
 
 class GetCourses extends StatelessWidget {
   GetCourses({Key? key, required this.coursesData, required this.token})
@@ -26,22 +26,17 @@ class GetCourses extends StatelessWidget {
       create: (BuildContext context) => AppCubit(),
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (BuildContext context, AppStates state) {
-          if (state is GetCourseByIDSuccessState) {
+          /*if (state is GetCourseByIDSuccessState) {
             navigateTo(context, UpdateCourse(token, state.courseByID));
-          }
+          }*/
         },
         builder: (BuildContext context, AppStates state) {
           AppCubit cubit = AppCubit.get(context);
           return Scaffold(
               appBar: AppBar(
                 title: Text(
-                  isArabic ? 'المواد' : 'The Courses',
-                  style: isArabic
-                      ? arTitleStyle(
-                          color: defaultColor,
-                          size: 20,
-                          weight: FontWeight.w600)
-                      : titleStyle(
+                  'The Courses',
+                  style:  titleStyle(
                           color: defaultColor,
                           size: 20,
                           weight: FontWeight.w600),
@@ -53,12 +48,10 @@ class GetCourses extends StatelessWidget {
                 ),
               ),
               body: SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
                 physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
                     ListView.separated(
                       physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
@@ -75,74 +68,75 @@ class GetCourses extends StatelessWidget {
                             ),
                           ],
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              Row(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 270,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  widthSpace(),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        '  ${coursesData[index]['courseName']}',
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            color: defaultColor,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                      const SizedBox(
-                                        height: 4,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Code: ${coursesData[index]['courseCode']}\nLevel: ${coursesData[index]['level']}\nLecturer: ${coursesData[index]['instructorName']}',
-                                              style: bodyStyle2(size: 16),
-                                            ),
-                                            heightSpace(),
-                                          ],
+                                  heightSpace(),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      '${coursesData[index]['courseName']}',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          color: defaultColor,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 4,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Code: ${coursesData[index]['courseCode']}\nLevel: ${coursesData[index]['level']}\nLecturer: ${coursesData[index]['instructorName']}',
+                                          style: bodyStyle2(size: 16),
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                  const Spacer(),
-                                  Column(
-                                    children: [
-                                      IconButton(
-                                          iconSize: 22,
-                                          onPressed: () {},
-                                          icon: Icon(
-                                            Icons.cancel_rounded,
-                                            color: Colors.red.shade700,
-                                          )),
-                                      IconButton(
-                                          iconSize: 22,
-                                          onPressed: () {
-                                            cubit.getCourseByID(
-                                                token,
-                                                coursesData[index]
-                                                    ['courseCode']);
-                                          },
-                                          icon: Icon(
-                                            Icons.edit,
-                                            color: defaultColor,
-                                          )),
-                                    ],
-                                  ),
-                                  widthSpace(),
+                                        const SizedBox(
+                                          height: 15,
+                                        ),
+                                      ],
+                                    ),
+                                  )
                                 ],
                               ),
-                            ],
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                          ),
+                            ),
+                            /*const Spacer(),
+                            IconButton(
+                                iconSize: 22,
+                                onPressed: () {
+                                  deleteDialog(context, () {
+                                    deletedCourses
+                                        .add(coursesData[index]['courseCode']);
+                                    coursesData.removeAt(index);
+                                    navigateTo(
+                                        context,
+                                        GetCourses(
+                                            coursesData: coursesData,
+                                            token: token));
+                                  }, () {
+                                    navigateTo(
+                                        context,
+                                        GetCourses(
+                                            coursesData: coursesData,
+                                            token: token));
+                                  });
+                                },
+                                icon: Icon(
+                                  Icons.cancel_rounded,
+                                  color: Colors.red.shade700,
+                                )),*/
+                         
+                          ],
                         ),
                       ),
                       itemCount: coursesData.length,

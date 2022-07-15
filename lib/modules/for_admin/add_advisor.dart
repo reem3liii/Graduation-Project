@@ -15,6 +15,8 @@ var advisorArabicNameController = TextEditingController();
 var advisorEmailController = TextEditingController();
 var advisorPasswordController = TextEditingController();
 var advisorPhoneController = TextEditingController();
+var advisorCityController = TextEditingController();
+var advisorAddressController = TextEditingController();
 var advisorBODController = TextEditingController();
 List<int> menueLevels = [1, 2, 3, 4];
 int selectedLevel = menueLevels[0];
@@ -46,6 +48,8 @@ class _AddAdvisorState extends State<AddAdvisor> {
             advisorPasswordController.clear();
             advisorPhoneController.clear();
             advisorBODController.clear();
+            advisorCityController.clear();
+            advisorAddressController.clear();
             selectedLevel = menueLevels[0];
             selectedGender = menueGender[0];
           } else {
@@ -59,11 +63,8 @@ class _AddAdvisorState extends State<AddAdvisor> {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              isArabic ? 'إضافة مرشد' : 'Add advisor',
-              style: isArabic
-                  ? arTitleStyle(
-                      color: defaultColor, size: 20, weight: FontWeight.w600)
-                  : titleStyle(
+              'Add advisor',
+              style:titleStyle(
                       color: defaultColor, size: 20, weight: FontWeight.w600),
             ),
             backgroundColor: defaultBackgroundColor,
@@ -88,15 +89,8 @@ class _AddAdvisorState extends State<AddAdvisor> {
                         children: [
                           heightSpace(),
                           Text(
-                            isArabic
-                                ? 'أدخل رقم تعريف المرشد :'
-                                : 'Enter advisor SSN:',
-                            style: isArabic
-                                ? arBodyStyle(
-                                    size: 16,
-                                    color: defaultColor,
-                                    weight: FontWeight.bold)
-                                : bodyStyle3(
+                            'Enter advisor SSN:',
+                            style: bodyStyle3(
                                     size: 16,
                                     color: defaultColor,
                                     weight: FontWeight.bold),
@@ -108,9 +102,7 @@ class _AddAdvisorState extends State<AddAdvisor> {
                             preIcon: Icons.badge_outlined,
                             validator: (advisorIDController) {
                               if (advisorIDController.toString().isEmpty) {
-                                return isArabic
-                                    ? 'من فضلك أدخل الرقم!'
-                                    : 'Please enter the SSN!';
+                                return 'Please enter the SSN!';
                               } else {
                                 return null;
                               }
@@ -119,15 +111,8 @@ class _AddAdvisorState extends State<AddAdvisor> {
                           heightSpace(),
                           heightSpace(),
                           Text(
-                            isArabic
-                                ? 'أدخل اسم المرشد :'
-                                : 'Enter advisor name (English):',
-                            style: isArabic
-                                ? arBodyStyle(
-                                    size: 16,
-                                    color: defaultColor,
-                                    weight: FontWeight.bold)
-                                : bodyStyle3(
+                            'Enter advisor name (English):',
+                            style: bodyStyle3(
                                     size: 16,
                                     color: defaultColor,
                                     weight: FontWeight.bold),
@@ -139,9 +124,7 @@ class _AddAdvisorState extends State<AddAdvisor> {
                             preIcon: Icons.perm_identity_rounded,
                             validator: (advisorNameController) {
                               if (advisorNameController.toString().isEmpty) {
-                                return isArabic
-                                    ? 'من فضلك أدخل الاسم!'
-                                    : 'Please enter the name!';
+                                return 'Please enter the name!';
                               } else {
                                 return null;
                               }
@@ -150,15 +133,8 @@ class _AddAdvisorState extends State<AddAdvisor> {
                           heightSpace(),
                           heightSpace(),
                           Text(
-                            isArabic
-                                ? 'أدخل اسم المرشد :'
-                                : 'Enter advisor name (Arabic):',
-                            style: isArabic
-                                ? arBodyStyle(
-                                    size: 16,
-                                    color: defaultColor,
-                                    weight: FontWeight.bold)
-                                : bodyStyle3(
+                            'Enter advisor name (Arabic):',
+                            style: bodyStyle3(
                                     size: 16,
                                     color: defaultColor,
                                     weight: FontWeight.bold),
@@ -172,9 +148,7 @@ class _AddAdvisorState extends State<AddAdvisor> {
                               if (advisorArabicNameController
                                   .toString()
                                   .isEmpty) {
-                                return isArabic
-                                    ? 'من فضلك أدخل الاسم!'
-                                    : 'Please enter the name!';
+                                return 'Please enter the name!';
                               } else {
                                 return null;
                               }
@@ -183,15 +157,8 @@ class _AddAdvisorState extends State<AddAdvisor> {
                           heightSpace(),
                           heightSpace(),
                           Text(
-                            isArabic
-                                ? 'اختر المستوى المسؤول عنه المرشد :'
-                                : 'Choose the gender of the advisor:',
-                            style: isArabic
-                                ? arBodyStyle(
-                                    size: 16,
-                                    color: defaultColor,
-                                    weight: FontWeight.bold)
-                                : bodyStyle3(
+                            'Choose the gender of the advisor:',
+                            style: bodyStyle3(
                                     size: 16,
                                     color: defaultColor,
                                     weight: FontWeight.bold),
@@ -216,15 +183,8 @@ class _AddAdvisorState extends State<AddAdvisor> {
                           heightSpace(),
                           heightSpace(),
                           Text(
-                            isArabic
-                                ? 'أدخل اسم المرشد :'
-                                : 'Enter advisor birth of date (in this style yyyy-mm-dd):',
-                            style: isArabic
-                                ? arBodyStyle(
-                                    size: 16,
-                                    color: defaultColor,
-                                    weight: FontWeight.bold)
-                                : bodyStyle3(
+                            'Enter advisor birth of date (in this style yyyy-mm-dd):',
+                            style: bodyStyle3(
                                     size: 16,
                                     color: defaultColor,
                                     weight: FontWeight.bold),
@@ -236,26 +196,61 @@ class _AddAdvisorState extends State<AddAdvisor> {
                             preIcon: Icons.calendar_month_rounded,
                             validator: (advisorBODController) {
                               if (advisorBODController.toString().isEmpty) {
-                                return isArabic
-                                    ? 'من فضلك أدخل الاسم!'
-                                    : 'Please enter the date!';
+                                return  'Please enter the date!';
                               } else {
                                 return null;
                               }
                             },
                           ),
                           heightSpace(),
+                            heightSpace(),
+                            Text( 'Enter advisor city:',
+                              style: bodyStyle3(
+                                      size: 16,
+                                      color: defaultColor,
+                                      weight: FontWeight.bold),
+                            ),
+                            heightSpace(),
+                            defaultTextField(
+                              textEditingController: advisorCityController,
+                              textInputType: TextInputType.name,
+                              preIcon: Icons.location_city_rounded,
+                              validator: (advisorCityController) {
+                                if (advisorCityController.toString().isEmpty) {
+                                  return  'Please enter the city!';
+                                } else {
+                                  return null;
+                                }
+                              },
+                            ),
+                            heightSpace(),
+                            heightSpace(),
+                            Text('Enter advisor address:',
+                              style: bodyStyle3(
+                                      size: 16,
+                                      color: defaultColor,
+                                      weight: FontWeight.bold),
+                            ),
+                            heightSpace(),
+                            defaultTextField(
+                              textEditingController: advisorAddressController,
+                              textInputType: TextInputType.text,
+                              preIcon: Icons.location_on_rounded,
+                              validator: (advisorAddressController) {
+                                if (advisorAddressController
+                                    .toString()
+                                    .isEmpty) {
+                                  return 'Please enter the address!';
+                                } else {
+                                  return null;
+                                }
+                              },
+                            ),
+                          heightSpace(),
                           heightSpace(),
                           Text(
-                            isArabic
-                                ? 'أدخل رقم الهاتف الخاص بالمرشد :'
-                                : 'Enter advisor phone number :',
-                            style: isArabic
-                                ? arBodyStyle(
-                                    size: 16,
-                                    color: defaultColor,
-                                    weight: FontWeight.bold)
-                                : bodyStyle3(
+                             'Enter advisor phone number :',
+                            style: bodyStyle3(
                                     size: 16,
                                     color: defaultColor,
                                     weight: FontWeight.bold),
@@ -267,9 +262,7 @@ class _AddAdvisorState extends State<AddAdvisor> {
                             preIcon: Icons.phone,
                             validator: (advisorPhoneController) {
                               if (advisorPhoneController.toString().isEmpty) {
-                                return isArabic
-                                    ? 'من فضلك أدخل رقم الهاتف!'
-                                    : 'Please enter phone number!';
+                                return 'Please enter phone number!';
                               } else {
                                 return null;
                               }
@@ -278,15 +271,8 @@ class _AddAdvisorState extends State<AddAdvisor> {
                           heightSpace(),
                           heightSpace(),
                           Text(
-                            isArabic
-                                ? 'اختر المستوى المسؤول عنه المرشد :'
-                                : 'Choose the level which the advisor is responsible :',
-                            style: isArabic
-                                ? arBodyStyle(
-                                    size: 16,
-                                    color: defaultColor,
-                                    weight: FontWeight.bold)
-                                : bodyStyle3(
+                            'Choose the level which the advisor is responsible :',
+                            style: bodyStyle3(
                                     size: 16,
                                     color: defaultColor,
                                     weight: FontWeight.bold),
@@ -311,15 +297,8 @@ class _AddAdvisorState extends State<AddAdvisor> {
                           heightSpace(),
                           heightSpace(),
                           Text(
-                            isArabic
-                                ? 'أدخل البريد الالكتروني الخاص بالمرشد :'
-                                : 'Enter advisor e-mail:',
-                            style: isArabic
-                                ? arBodyStyle(
-                                    size: 16,
-                                    color: defaultColor,
-                                    weight: FontWeight.bold)
-                                : bodyStyle3(
+                           'Enter advisor e-mail:',
+                            style: bodyStyle3(
                                     size: 16,
                                     color: defaultColor,
                                     weight: FontWeight.bold),
@@ -331,9 +310,7 @@ class _AddAdvisorState extends State<AddAdvisor> {
                             preIcon: Icons.email_rounded,
                             validator: (advisorEmailController) {
                               if (advisorEmailController.toString().isEmpty) {
-                                return isArabic
-                                    ? 'من فضلك أدخل البريد الالكتروني!'
-                                    : 'Please enter the email!';
+                                return 'Please enter the email!';
                               } else {
                                 return null;
                               }
@@ -342,15 +319,8 @@ class _AddAdvisorState extends State<AddAdvisor> {
                           heightSpace(),
                           heightSpace(),
                           Text(
-                            isArabic
-                                ? 'أدخل البريد الالكتروني الخاص بالمرشد :'
-                                : 'Enter temporary password:',
-                            style: isArabic
-                                ? arBodyStyle(
-                                    size: 16,
-                                    color: defaultColor,
-                                    weight: FontWeight.bold)
-                                : bodyStyle3(
+                             'Enter temporary password:',
+                            style: bodyStyle3(
                                     size: 16,
                                     color: defaultColor,
                                     weight: FontWeight.bold),
@@ -364,9 +334,7 @@ class _AddAdvisorState extends State<AddAdvisor> {
                               if (advisorPasswordController
                                   .toString()
                                   .isEmpty) {
-                                return isArabic
-                                    ? 'من فضلك أدخل البريد الالكتروني!'
-                                    : 'Please enter the password!';
+                                return 'Please enter the password!';
                               } else {
                                 return null;
                               }
@@ -393,10 +361,12 @@ class _AddAdvisorState extends State<AddAdvisor> {
                                       advisorPhoneController.text,
                                       selectedLevel,
                                       advisorEmailController.text,
-                                      advisorPasswordController.text);
+                                      advisorPasswordController.text,
+                                      advisorCityController.text,
+                                      advisorAddressController.text);
                                 }
                               },
-                              text: isArabic ? 'إضافة' : 'Add',
+                              text: 'Add',
                             ),
                             fallback: (context) => const Center(
                               child: CircularProgressIndicator(),

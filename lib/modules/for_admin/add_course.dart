@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/main.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
-
 import '../../shared/bloc/cubit.dart';
 import '../../shared/bloc/states.dart';
 
@@ -53,11 +52,8 @@ class _AddCourseState extends State<AddCourse> {
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                isArabic ? 'إضافة مادة' : 'Add course',
-                style: isArabic
-                    ? arTitleStyle(
-                        color: defaultColor, size: 20, weight: FontWeight.w600)
-                    : titleStyle(
+                'Add course',
+                style: titleStyle(
                         color: defaultColor, size: 20, weight: FontWeight.w600),
               ),
               backgroundColor: defaultBackgroundColor,
@@ -82,15 +78,8 @@ class _AddCourseState extends State<AddCourse> {
                           children: [
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'أدخل كود المادة :'
-                                  : 'Enter course code:',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                               'Enter course code:',
+                              style:  bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -102,9 +91,7 @@ class _AddCourseState extends State<AddCourse> {
                               preIcon: Icons.qr_code,
                               validator: (courseCodeController) {
                                 if (courseCodeController.toString().isEmpty) {
-                                  return isArabic
-                                      ? 'من فضلك أدخل الكود!'
-                                      : 'Please enter the code!';
+                                  return  'Please enter the code!';
                                 } else {
                                   return null;
                                 }
@@ -113,15 +100,8 @@ class _AddCourseState extends State<AddCourse> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'أدخل اسم المادة :'
-                                  : 'Enter course name (English):',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                               'Enter course name (English):',
+                              style: bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -133,9 +113,7 @@ class _AddCourseState extends State<AddCourse> {
                               preIcon: Icons.account_tree_outlined,
                               validator: (courseNameController) {
                                 if (courseNameController.toString().isEmpty) {
-                                  return isArabic
-                                      ? 'من فضلك أدخل الاسم!'
-                                      : 'Please enter the name!';
+                                  return 'Please enter the name!';
                                 } else {
                                   return null;
                                 }
@@ -144,15 +122,8 @@ class _AddCourseState extends State<AddCourse> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'أدخل اسم المادة :'
-                                  : 'Enter course name (Arabic):',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                               'Enter course name (Arabic):',
+                              style: bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -166,9 +137,7 @@ class _AddCourseState extends State<AddCourse> {
                                 if (courseArabicNameController
                                     .toString()
                                     .isEmpty) {
-                                  return isArabic
-                                      ? 'من فضلك أدخل الاسم!'
-                                      : 'Please enter the name!';
+                                  return 'Please enter the name!';
                                 } else {
                                   return null;
                                 }
@@ -177,15 +146,8 @@ class _AddCourseState extends State<AddCourse> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'اختر فئة المادة:'
-                                  : 'Choose the category of the course:',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                              'Choose the category of the course:',
+                              style: bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -210,15 +172,8 @@ class _AddCourseState extends State<AddCourse> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'اختر مستوى المادة:'
-                                  : 'Choose the level of the course:',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                              'Choose the level of the course:',
+                              style:  bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -243,15 +198,8 @@ class _AddCourseState extends State<AddCourse> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'أدخل اسم المحاضر :'
-                                  : 'Enter total hours of the course:',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                               'Enter total hours of the course:',
+                              style:  bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -263,9 +211,7 @@ class _AddCourseState extends State<AddCourse> {
                               preIcon: Icons.access_time_rounded,
                               validator: (courseHoursController) {
                                 if (courseHoursController.toString().isEmpty) {
-                                  return isArabic
-                                      ? 'من فضلك أدخل الاسم!'
-                                      : 'Please enter the hours!';
+                                  return 'Please enter the hours!';
                                 } else {
                                   return null;
                                 }
@@ -274,15 +220,8 @@ class _AddCourseState extends State<AddCourse> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'أدخل اسم المحاضر :'
-                                  : 'Enter total degrees of the course:',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                              'Enter total degrees of the course:',
+                              style: bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -294,9 +233,7 @@ class _AddCourseState extends State<AddCourse> {
                               preIcon: Icons.bar_chart_outlined,
                               validator: (courseDegreeController) {
                                 if (courseDegreeController.toString().isEmpty) {
-                                  return isArabic
-                                      ? 'من فضلك أدخل الاسم!'
-                                      : 'Please enter the degree!';
+                                  return 'Please enter the degree!';
                                 } else {
                                   return null;
                                 }
@@ -305,15 +242,8 @@ class _AddCourseState extends State<AddCourse> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'أدخل اسم المحاضر :'
-                                  : 'Enter lecturer ID:',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                              'Enter lecturer ID:',
+                              style:  bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -325,9 +255,7 @@ class _AddCourseState extends State<AddCourse> {
                               preIcon: Icons.person_outline,
                               validator: (lecturerIDController) {
                                 if (lecturerIDController.toString().isEmpty) {
-                                  return isArabic
-                                      ? 'من فضلك أدخل الاسم!'
-                                      : 'Please enter the ID!';
+                                  return  'Please enter the ID!';
                                 } else {
                                   return null;
                                 }
@@ -352,7 +280,7 @@ class _AddCourseState extends State<AddCourse> {
                                       lecturerIDController.text);
                                 }
                               },
-                              text: isArabic ? 'إضافة' : 'Add',
+                              text: 'Add',
                             ),
                             heightSpace(),
                             heightSpace(),

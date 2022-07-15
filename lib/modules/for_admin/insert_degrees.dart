@@ -33,11 +33,8 @@ class _InsertDegreesState extends State<InsertDegrees> {
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                isArabic ? 'ادخال الدرجات' : 'Insert degrees',
-                style: isArabic
-                    ? arTitleStyle(
-                        color: defaultColor, size: 20, weight: FontWeight.w600)
-                    : titleStyle(
+                'Insert degrees',
+                style:  titleStyle(
                         color: defaultColor, size: 20, weight: FontWeight.w600),
               ),
               backgroundColor: defaultBackgroundColor,
@@ -98,7 +95,6 @@ class _InsertDegreesState extends State<InsertDegrees> {
                                   widthSpace(),
                                   Expanded(
                                     child: TextField(
-                                      //controller: controller,
                                       keyboardType: TextInputType.number,
                                       maxLength: 3,
                                       decoration: InputDecoration(
@@ -107,8 +103,7 @@ class _InsertDegreesState extends State<InsertDegrees> {
                                                 BorderRadius.circular(10),
                                             borderSide: BorderSide(
                                                 color: defaultColor)),
-                                        labelText:
-                                            isArabic ? 'تقدير المقرر' : "GPA",
+                                        labelText: "GPA",
                                         counterText: "",
                                       ),
                                     ),
@@ -127,7 +122,7 @@ class _InsertDegreesState extends State<InsertDegrees> {
                     padding: const EdgeInsets.all(16.0),
                     child: defaultButton(
                       function: () {},
-                      text: isArabic ? 'حفظ' : 'Save',
+                      text:'Save',
                     ),
                   ),
                   heightSpace(),

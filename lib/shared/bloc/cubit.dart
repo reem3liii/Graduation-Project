@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/modules/for_admin/admin_home_screen.dart';
 import 'package:saas/modules/for_student/details.dart';
@@ -105,7 +106,9 @@ class AppCubit extends Cubit<AppStates> {
       String phone,
       int level,
       String mail,
-      String pass) {
+      String pass,
+      String city,
+      String address) {
     emit(AddAdvisorLoadingState());
 
     DioHelper.postDataWithAuth(
@@ -123,6 +126,8 @@ class AppCubit extends Cubit<AppStates> {
               'passwordConfirmed': pass,
               'phoneNumber': phone,
               'ssn': ssn,
+              'city': city,
+              'address': address,
             },
             null)
         .then((value) {
@@ -167,35 +172,33 @@ class AppCubit extends Cubit<AppStates> {
       emit(GetCoursesErrorState(error.toString()));
     });
   }
+
   //Student part (API)
   late SemesterAndGrade semAndGra;
   //late SemesterAndGrade semAndGra;
-
 
   void getSemestersAndGrades(String token) {
     emit(semesterAndGradesLoadingState());
 
     DioHelper.getDataWithAuth(SEMESTERS_GRADES, token, null).then((value) {
-
       //print(value.data[0]);
- 
-      if(value.data.length > 0){
+
+      if (value.data.length > 0) {
         //semAndGra = value.data;
         semAndGra = SemesterAndGrade.fromJson(value.data[0]);
-        for(var i=0;i<value.data.length;i++) {
-          semestersAndGrades.add(
-              SemesterAndGrade(
-                  semesterName: SemesterAndGrade.fromJson(value.data[i]).semesterName,
-                  gpAofSemester: SemesterAndGrade.fromJson(value.data[i]).gpAofSemester
-              ));
+        for (var i = 0; i < value.data.length; i++) {
+          semestersAndGrades.add(SemesterAndGrade(
+              semesterName:
+                  SemesterAndGrade.fromJson(value.data[i]).semesterName,
+              gpAofSemester:
+                  SemesterAndGrade.fromJson(value.data[i]).gpAofSemester));
           print(value.data[i].toString());
         }
-        for(var i=0;i<value.data.length;i++) {
-          getCoursesOnSemester(token,SemesterAndGrade.fromJson(value.data[i]).semesterName.toString());
+        for (var i = 0; i < value.data.length; i++) {
+          getCoursesOnSemester(token,
+              SemesterAndGrade.fromJson(value.data[i]).semesterName.toString());
         }
-
-      }
-      else{
+      } else {
         semestersAndGrades = [];
       }
       emit(semesterAndGradesSuccessState());
@@ -205,30 +208,24 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-
   late CurrentCourse currCourses;
-
 
   void getCurrentCourses(String token) {
     emit(CurrentCoursesLoadingState());
 
     DioHelper.getDataWithAuth(CURRENT_COURSES, token, null).then((value) {
-
-      if(value.data.length > 0){
-       // currCourses = CurrentCourse.fromJson(value.data[0]);
-        for(var i=0;i<value.data.length;i++) {
-          currentCourses.add(
-              CurrentCourse(
-                  courseName: CurrentCourse.fromJson(value.data[i]).courseName,
-                  courseCode: CurrentCourse.fromJson(value.data[i]).courseCode,
-                  instructorName: CurrentCourse.fromJson(value.data[i]).instructorName
-              )
-          );
+      if (value.data.length > 0) {
+        // currCourses = CurrentCourse.fromJson(value.data[0]);
+        for (var i = 0; i < value.data.length; i++) {
+          currentCourses.add(CurrentCourse(
+              courseName: CurrentCourse.fromJson(value.data[i]).courseName,
+              courseCode: CurrentCourse.fromJson(value.data[i]).courseCode,
+              instructorName:
+                  CurrentCourse.fromJson(value.data[i]).instructorName));
           print(value.data[i]);
         }
         print(currentCourses.length.toString());
-      }
-      else{
+      } else {
         currentCourses = [];
       }
       emit(CurrentCoursesSuccessState());
@@ -238,16 +235,14 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-
   late TotalHoursAndGpa total_hour_gpa;
-
 
   void getTotalHoursAndGpa(String token) {
     emit(TotalHoursAndGpaLoadingState());
 
     DioHelper.getDataWithAuth(TOTAL_HOURS_AND_GPA, token, null).then((value) {
       print(value.data);
-      totalHours =TotalHoursAndGpa.fromJson(value.data).hours!;
+      totalHours = TotalHoursAndGpa.fromJson(value.data).hours!;
       totalGpa = TotalHoursAndGpa.fromJson(value.data).gpa!;
       emit(TotalHoursAndGpaSuccessState());
     }).catchError((error) {
@@ -404,7 +399,7 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-  late dynamic updateCourseResponce;
+  /*late dynamic updateCourseResponce;
 
   void updateCourse(
     String token,
@@ -455,6 +450,25 @@ class AppCubit extends Cubit<AppStates> {
     }).catchError((error) {
       print(error);
       emit(GetCourseByIDErrorState(error.toString()));
+    });
+  }*/
+
+  void deleteAdvisor(String token, String ssn) {
+    emit(DeleteAdvisorLoadingState());
+    var formData = FormData.fromMap(
+      {
+        'ssn': ssn,
+      },
+    );
+    DioHelper.deleteDataWithAuth(DELETE_ADVISOR, token, formData, null)
+        .then((value) {
+      WidgetsFlutterBinding.ensureInitialized();
+      print(value.data);
+      //allAdvisors(token);
+      emit(DeleteAdvisorSuccessState(value.data));
+    }).catchError((error) {
+      print(error.toString());
+      emit(DeleteAdvisorErrorState(error.toString()));
     });
   }
 

@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saas/main.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
-
 import '../../shared/bloc/cubit.dart';
 import '../../shared/bloc/states.dart';
 
-class GetAdvisors extends StatelessWidget {
-  GetAdvisors(this.advisorsData, {Key? key}) : super(key: key);
+class GetAdvisors extends StatefulWidget {
+  GetAdvisors(this.advisorsData, this.token, {Key? key}) : super(key: key);
 
   List<dynamic> advisorsData;
+  String token;
 
+  @override
+  State<GetAdvisors> createState() => _GetAdvisorsState();
+}
+
+class _GetAdvisorsState extends State<GetAdvisors> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -21,21 +25,21 @@ class GetAdvisors extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
       child: BlocConsumer<AppCubit, AppStates>(
-        listener: (BuildContext context, AppStates state) {},
+        listener: (BuildContext context, AppStates state) {
+          if (state is DeleteAdvisorSuccessState) {
+            showToast(state.responce['message'], ToastStates.Success);
+            Navigator.pop(context);
+          }
+        },
         builder: (BuildContext context, AppStates state) {
+          AppCubit cubit = AppCubit.get(context);
+
           return Scaffold(
               appBar: AppBar(
                 title: Text(
-                  isArabic ? 'المرشدين الأكادميين' : 'The Advisors',
-                  style: isArabic
-                      ? arTitleStyle(
-                          color: defaultColor,
-                          size: 20,
-                          weight: FontWeight.w600)
-                      : titleStyle(
-                          color: defaultColor,
-                          size: 20,
-                          weight: FontWeight.w600),
+                  'The Advisors',
+                  style: titleStyle(
+                      color: defaultColor, size: 20, weight: FontWeight.w600),
                 ),
                 backgroundColor: defaultBackgroundColor,
                 systemOverlayStyle: SystemUiOverlayStyle(
@@ -44,12 +48,10 @@ class GetAdvisors extends StatelessWidget {
                 ),
               ),
               body: SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
                 physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
                     ListView.separated(
                       physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
@@ -66,69 +68,61 @@ class GetAdvisors extends StatelessWidget {
                             ),
                           ],
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              Row(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            widthSpace(),
+                            SizedBox(
+                              width: 270,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  widthSpace(),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        '  ${advisorsData[index]['fullName']}',
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            color: defaultColor,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'ID: ${advisorsData[index]['id']}\nLevel: ${advisorsData[index]['level']}\nEmail: ${advisorsData[index]['email']}\nPhone:  ${advisorsData[index]['phone']}',
-                                              style: bodyStyle2(size: 16),
-                                            ),
-                                            heightSpace(),
-                                          ],
+                                  heightSpace(),
+                                  Text(
+                                    '  ${widget.advisorsData[index]['fullName']}',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: defaultColor,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'ID: ${widget.advisorsData[index]['id']}\nLevel: ${widget.advisorsData[index]['level']}\nEmail: ${widget.advisorsData[index]['email']}\nPhone:  ${widget.advisorsData[index]['phone']}',
+                                          style: bodyStyle2(size: 16),
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                  const Spacer(),
-                                  Column(
-                                    children: [
-                                      IconButton(
-                                          iconSize: 22,
-                                          onPressed: () {},
-                                          icon: Icon(
-                                            Icons.cancel_rounded,
-                                            color: Colors.red.shade700,
-                                          )),
-                                      IconButton(
-                                          iconSize: 22,
-                                          onPressed: () {},
-                                          icon: Icon(
-                                            Icons.edit,
-                                            color: defaultColor,
-                                          )),
-                                    ],
-                                  ),
-                                  widthSpace(),
+                                        heightSpace(),
+                                      ],
+                                    ),
+                                  )
                                 ],
                               ),
-                            ],
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                          ),
+                            ),
+                            const Spacer(),
+                            IconButton(
+                                iconSize: 22,
+                                onPressed: () {
+                                  deleteDialog(context, () {
+                                    cubit.deleteAdvisor(widget.token,
+                                        widget.advisorsData[index]['id']);
+                                    widget.advisorsData.removeAt(index);
+                                  }, () {
+                                    Navigator.pop(context);
+                                  });
+                                },
+                                icon: Icon(
+                                  Icons.cancel_rounded,
+                                  color: Colors.red.shade700,
+                                )),
+                          ],
                         ),
                       ),
-                      itemCount: advisorsData.length,
+                      itemCount: widget.advisorsData.length,
                       separatorBuilder: (context, index) => SizedBox(
                         height: height / 50,
                       ),

@@ -1,11 +1,10 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saas/main.dart';
 import 'package:saas/modules/for_admin/get_courses.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
-
 import '../../shared/bloc/cubit.dart';
 import '../../shared/bloc/states.dart';
 
@@ -31,8 +30,13 @@ class _SelectCourseCategoryState extends State<SelectCourseCategory> {
       create: (BuildContext context) => AppCubit(),
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (BuildContext context, AppStates state) {
-          if (state is GetCoursesSuccessState) {     
-              navigateTo(context, GetCourses(coursesData: state.courses, token: widget.token,));
+          if (state is GetCoursesSuccessState) {
+            navigateTo(
+                context,
+                GetCourses(
+                  coursesData: state.courses,
+                  token: widget.token,
+                ));
           }
         },
         builder: (BuildContext context, AppStates state) {
@@ -40,16 +44,9 @@ class _SelectCourseCategoryState extends State<SelectCourseCategory> {
           return Scaffold(
               appBar: AppBar(
                 title: Text(
-                  isArabic ? 'المواد' : 'The Courses',
-                  style: isArabic
-                      ? arTitleStyle(
-                          color: defaultColor,
-                          size: 20,
-                          weight: FontWeight.w600)
-                      : titleStyle(
-                          color: defaultColor,
-                          size: 20,
-                          weight: FontWeight.w600),
+                  'The Courses',
+                  style: titleStyle(
+                      color: defaultColor, size: 20, weight: FontWeight.w600),
                 ),
                 backgroundColor: defaultBackgroundColor,
                 systemOverlayStyle: SystemUiOverlayStyle(
@@ -72,18 +69,11 @@ class _SelectCourseCategoryState extends State<SelectCourseCategory> {
                             children: [
                               heightSpace(),
                               Text(
-                                isArabic
-                                    ? 'اختر فئة المواد التي تود عرضها:'
-                                    : 'Choose the category of the courses you want to list:',
-                                style: isArabic
-                                    ? arBodyStyle(
-                                        size: 16,
-                                        color: defaultColor,
-                                        weight: FontWeight.bold)
-                                    : bodyStyle3(
-                                        size: 16,
-                                        color: defaultColor,
-                                        weight: FontWeight.bold),
+                                'Choose the category of the courses you want to list:',
+                                style: bodyStyle3(
+                                    size: 16,
+                                    color: defaultColor,
+                                    weight: FontWeight.bold),
                               ),
                               heightSpace(),
                               heightSpace(),
@@ -92,8 +82,8 @@ class _SelectCourseCategoryState extends State<SelectCourseCategory> {
                                       enabledBorder: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(30),
-                                          borderSide:
-                                              const BorderSide(color: Colors.grey))),
+                                          borderSide: const BorderSide(
+                                              color: Colors.grey))),
                                   value: selectedCategory,
                                   items: menueCategory
                                       .map((category) =>
@@ -109,16 +99,22 @@ class _SelectCourseCategoryState extends State<SelectCourseCategory> {
                               heightSpace(),
                               heightSpace(),
                               heightSpace(),
-                              defaultButton(
-                                function: () {
-                                  if (formKey.currentState!.validate()) {
-                                    print(
-                                        'selecting $selectedCategory Category');
-                                    cubit.allCourses(
-                                        widget.token, selectedCategory);
-                                  }
-                                },
-                                text: isArabic ? 'عرض' : 'List',
+                              ConditionalBuilder(
+                                condition: state is! GetCoursesLoadingState,
+                                builder: (context) => defaultButton(
+                                  function: () {
+                                    if (formKey.currentState!.validate()) {
+                                      print(
+                                          'selecting $selectedCategory Category');
+                                      cubit.allCourses(
+                                          widget.token, selectedCategory);
+                                    }
+                                  },
+                                  text: 'List',
+                                ),
+                                fallback: (context) => const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
                               ),
                             ],
                           ),

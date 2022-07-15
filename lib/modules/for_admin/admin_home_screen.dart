@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saas/main.dart';
 import 'package:saas/modules/for_admin/select_course_category.dart';
 import 'package:saas/modules/for_admin/select_student_level.dart';
 import 'package:saas/shared/bloc/cubit.dart';
 import 'package:saas/shared/bloc/states.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
-import 'package:toggle_switch/toggle_switch.dart';
+//import 'package:toggle_switch/toggle_switch.dart';
 import '../login_screen.dart';
 import 'add_advisor.dart';
 import 'add_student.dart';
@@ -30,7 +29,7 @@ class HomeAdminScreen extends StatelessWidget {
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (BuildContext context, AppStates state) {
           if (state is GetAdvisorsSuccessState) {
-            navigateTo(context, GetAdvisors(state.advisors));
+            navigateTo(context, GetAdvisors(state.advisors, token));
           }
         },
         builder: (BuildContext context, AppStates state) {
@@ -65,17 +64,17 @@ class HomeAdminScreen extends StatelessWidget {
                         ),
                         Image.asset(
                           'assets/images/SAAS Logo 1.png',
-                          width: width / 3,
+                          width: width / 2.5,
                         ),
                         SizedBox(
                           height: height / 65,
                         ),
                         Text(
-                          "Ahmed Maher Ali",
+                          "Ahmed Ali",
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!
-                              .copyWith(color: Colors.white, fontSize: 26),
+                              .copyWith(color: Colors.white, fontSize: 28),
                         ),
                         SizedBox(
                           height: height / 65,
@@ -85,7 +84,7 @@ class HomeAdminScreen extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!
-                              .copyWith(color: lightDefaultColor),
+                              .copyWith(color: lightDefaultColor,fontSize: 24),
                         ),
                       ],
                     ),
@@ -100,7 +99,7 @@ class HomeAdminScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(14.0),
                     child: Column(
                       children: [
-                        heightSpace(),
+                        /*heightSpace(),
                         heightSpace(),
                         adminSectionName(
                             isArabic
@@ -133,13 +132,13 @@ class HomeAdminScreen extends StatelessWidget {
                               },
                             ),
                           ],
-                        ),
+                        ),*/
+                        //heightSpace(),
                         heightSpace(),
-                        heightSpace(),
-                        adminSectionName(isArabic ? 'المرشدين' : 'Advisors',
+                        adminSectionName('Advisors',
                             Icons.account_circle_outlined),
                         settingItemAdmin(const Icon(Icons.list_rounded),
-                            isArabic ? 'عرض المرشدين' : 'List current advisors',
+                            'List current advisors',
                             () {
                           print("Get advisors . . . ");
                           print(token);
@@ -147,49 +146,51 @@ class HomeAdminScreen extends StatelessWidget {
                         }),
                         settingItem(
                             const Icon(Icons.person_add),
-                            isArabic ? 'اضافة مرشد جديد' : 'Add new advisor',
+                            'Add new advisor',
                             context,
                             AddAdvisor(token)),
                         heightSpace(),
-                        adminSectionName(isArabic ? 'المواد' : 'Courses',
+                        adminSectionName('Courses',
                             Icons.account_tree_outlined),
                         settingItem(
                             const Icon(Icons.list_rounded),
-                            isArabic ? 'عرض المواد' : 'List all courses',
+                            'List all courses',
                             context,
                             SelectCourseCategory(
                               token: token,
                             )),
                         settingItem(
                           const Icon(Icons.add_chart_rounded),
-                          isArabic ? 'اضافة مادة جديدة' : 'Add new course',
+                          'Add new course',
                           context,
                           AddCourse(token),
                         ),
                         heightSpace(),
-                        adminSectionName(isArabic ? 'الطلاب' : 'Students',
+                        adminSectionName('Students',
                             Icons.account_box_outlined),
                         settingItem(
                             const Icon(Icons.list_rounded),
-                            isArabic ? 'عرض الطلاب' : 'List students',
+                            'List students',
                             context,
-                             SelectStudentLevel(token: token,)),
+                            SelectStudentLevel(
+                              token: token,
+                            )),
                         settingItem(
                             const Icon(Icons.person_add),
-                            isArabic ? 'اضافة طالب جديد' : 'Add new student',
+                           'Add new student',
                             context,
-                            AddStudent( token: token)),
+                            AddStudent(token: token)),
                         heightSpace(),
-                        /*adminSectionName(isArabic ? 'الدرجات' : 'Degrees',
+                        /*adminSectionName( 'Degrees',
                             Icons.account_box_outlined),
                         settingItem(
                             const Icon(Icons.addchart_rounded),
-                            isArabic ? 'ادخال الدرجات' : 'Insert degrees',
+                            'Insert degrees',
                             context,
                             const PhoneScreen()),
                         settingItem(
                             const Icon(Icons.edit_note_rounded),
-                            isArabic ? 'تعديل الدرجات' : 'Edit degrees',
+                            'Edit degrees',
                             context,
                             const PhoneScreen()),*/
                         TextButton(
@@ -208,11 +209,8 @@ class HomeAdminScreen extends StatelessWidget {
                                 ),
                                 widthSpace(),
                                 Text(
-                                  isArabic ? 'تسجيل الخروج' : 'LOGOUT',
-                                  style: isArabic
-                                      ? arTitleStyle(
-                                          size: 20, color: defaultColor)
-                                      : titleStyle(
+                                  'LOGOUT',
+                                  style: titleStyle(
                                           size: 20, color: defaultColor),
                                 ),
                               ],

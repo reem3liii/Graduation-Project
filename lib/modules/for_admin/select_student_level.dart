@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,13 +41,8 @@ class _SelectStudentLevelState extends State<SelectStudentLevel> {
           return Scaffold(
               appBar: AppBar(
                 title: Text(
-                  isArabic ? 'الطلاب' : 'The Students',
-                  style: isArabic
-                      ? arTitleStyle(
-                          color: defaultColor,
-                          size: 20,
-                          weight: FontWeight.w600)
-                      : titleStyle(
+                  'The Students',
+                  style: titleStyle(
                           color: defaultColor,
                           size: 20,
                           weight: FontWeight.w600),
@@ -72,15 +68,8 @@ class _SelectStudentLevelState extends State<SelectStudentLevel> {
                             children: [
                               heightSpace(),
                               Text(
-                                isArabic
-                                    ? 'اختر مستوى الطلاب الذي تود عرضه:'
-                                    : 'Choose the level of students you want to list:',
-                                style: isArabic
-                                    ? arBodyStyle(
-                                        size: 16,
-                                        color: defaultColor,
-                                        weight: FontWeight.bold)
-                                    : bodyStyle3(
+                                'Choose the level of students you want to list:',
+                                style: bodyStyle3(
                                         size: 16,
                                         color: defaultColor,
                                         weight: FontWeight.bold),
@@ -109,17 +98,23 @@ class _SelectStudentLevelState extends State<SelectStudentLevel> {
                               heightSpace(),
                               heightSpace(),
                               heightSpace(),
-                              defaultButton(
+                              ConditionalBuilder(
+                                condition: state is! GetStudentsLoadingState,
+                                builder: (context) => defaultButton(
                                 function: () {
                                   if (formKey.currentState!.validate()) {
                                     print('selecting level $selectedLevel');
                                     cubit.allStudents(
                                         widget.token, selectedLevel);
-                                    //navigateTo(context, const GetStudents());
                                   }
                                 },
-                                text: isArabic ? 'عرض' : 'List',
+                                text:'List',
                               ),
+                                fallback: (context) => const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              ),
+                              
                             ],
                           ),
                         ),
