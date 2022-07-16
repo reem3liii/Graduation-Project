@@ -182,8 +182,8 @@ Widget defaultForwardArrow() => const Icon(
 Widget settingSectionName(name) => Text(
       name,
       style: isArabic
-          ? arTitleStyle(color: defaultColor, size: 20)
-          : titleStyle(color: defaultColor, size: 20),
+          ? arTitleStyle(color: MyApp.themeNotifier.value == ThemeMode.light? defaultColor: defaultLightColor, size: 20)
+          : titleStyle(color: MyApp.themeNotifier.value == ThemeMode.light? defaultColor: defaultLightColor, size: 20),
     );
 
 Widget adminSectionName(name, icon) => Padding(
@@ -292,7 +292,6 @@ Widget settingSwitchItem(icon, title, context, leftIcon, rightIcon, function) =>
         height: 60,
         decoration: BoxDecoration(
           borderRadius: BorderRadiusDirectional.circular(10),
-          //color: defaultLightColor.withOpacity(0.5),
         ),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -305,7 +304,7 @@ Widget settingSwitchItem(icon, title, context, leftIcon, rightIcon, function) =>
                 title,
                 style: isArabic
                     ? arBodyStyle(size: 18)
-                    : Theme.of(context).textTheme.bodyText1?.copyWith(
+                    : Theme.of(context).textTheme.bodyText2?.copyWith(
                           fontSize: 18,
                           fontWeight: FontWeight.normal,
                         ),
@@ -326,7 +325,6 @@ Widget settingSwitchItem(icon, title, context, leftIcon, rightIcon, function) =>
                 ),
                 width: 80,
                 //h//eight: 30,
-                //innerSize: 20,
               )
             ],
           ),
@@ -572,14 +570,16 @@ Widget recCoursesItem(
                       isArabic ? course.arCourseName : course.courseName,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                            fontSize: 18,
+                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
                           ),
                     ),
                     Text(
                       '(${course.courseCode})',
-                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                            fontSize: 18,
+                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
                           ),
                     ),
                     const SizedBox(

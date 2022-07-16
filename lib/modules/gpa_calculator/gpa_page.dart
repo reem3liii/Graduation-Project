@@ -307,9 +307,6 @@ class _GPACalculatorState extends State<GPACalculator> {
                 child: defaultButton(
                   width: 150,
                   function: () {
-                    if(gpaControllers.length == 0){
-
-                    }
                     for (int j = 0; j < fieldCount; j++) {
                       if (gpaControllers[j].text.toString() != "") {
                         semesterHours += double.parse(
@@ -323,8 +320,6 @@ class _GPACalculatorState extends State<GPACalculator> {
                       }
                     }
                     res = (semesterPoints / semesterHours);
-                    //print(semesterHours.toString());
-                    //print(semesterPoints.toString());
                     print(semesterPoints / semesterHours);
                     if(cumulativeGPA.text.toString() != "" && creditsEarned.text.toString() != ""){
                       cumulativeGpa = (
@@ -353,7 +348,6 @@ class _GPACalculatorState extends State<GPACalculator> {
                   text: isArabic ? 'احسب' : 'CALCULATE',
                 ),
               ),
-              // ignore: unnecessary_string_interpolations
               heightSpace(),
               heightSpace(),
               Text(
@@ -420,25 +414,3 @@ class _GPACalculatorState extends State<GPACalculator> {
     super.didChangeDependencies();
   } // convert to a list
 }
-
-
-  /*alert()  {
-    return showDialog(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title:  const Text('Please enter number of courses to calculate GPA'),
-          actions: <Widget>[
-            FlatButton(
-              child:  const Icon(Icons.clear,size: 40.0,),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-}*/
