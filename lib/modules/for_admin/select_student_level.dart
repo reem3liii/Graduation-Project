@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +14,7 @@ List<int> menueLevels = [1, 2, 3, 4];
 int selectedLevel = menueLevels[0];
 
 class SelectStudentLevel extends StatefulWidget {
-  SelectStudentLevel({Key? key, required this.token}) : super(key: key);
+  const SelectStudentLevel({Key? key, required this.token}) : super(key: key);
 
   final String token;
 
@@ -24,8 +25,8 @@ class SelectStudentLevel extends StatefulWidget {
 class _SelectStudentLevelState extends State<SelectStudentLevel> {
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
+    //double height = MediaQuery.of(context).size.height;
+    //double width = MediaQuery.of(context).size.width;
 
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
@@ -40,13 +41,8 @@ class _SelectStudentLevelState extends State<SelectStudentLevel> {
           return Scaffold(
               appBar: AppBar(
                 title: Text(
-                  isArabic ? 'الطلاب' : 'The Students',
-                  style: isArabic
-                      ? arTitleStyle(
-                          color: defaultColor,
-                          size: 20,
-                          weight: FontWeight.w600)
-                      : titleStyle(
+                  'The Students',
+                  style: titleStyle(
                           color: defaultColor,
                           size: 20,
                           weight: FontWeight.w600),
@@ -72,15 +68,8 @@ class _SelectStudentLevelState extends State<SelectStudentLevel> {
                             children: [
                               heightSpace(),
                               Text(
-                                isArabic
-                                    ? 'اختر مستوى الطلاب الذي تود عرضه:'
-                                    : 'Choose the level of students you want to list:',
-                                style: isArabic
-                                    ? arBodyStyle(
-                                        size: 16,
-                                        color: defaultColor,
-                                        weight: FontWeight.bold)
-                                    : bodyStyle3(
+                                'Choose the level of students you want to list:',
+                                style: bodyStyle3(
                                         size: 16,
                                         color: defaultColor,
                                         weight: FontWeight.bold),
@@ -109,17 +98,23 @@ class _SelectStudentLevelState extends State<SelectStudentLevel> {
                               heightSpace(),
                               heightSpace(),
                               heightSpace(),
-                              defaultButton(
+                              ConditionalBuilder(
+                                condition: state is! GetStudentsLoadingState,
+                                builder: (context) => defaultButton(
                                 function: () {
                                   if (formKey.currentState!.validate()) {
                                     print('selecting level $selectedLevel');
                                     cubit.allStudents(
                                         widget.token, selectedLevel);
-                                    //navigateTo(context, const GetStudents());
                                   }
                                 },
-                                text: isArabic ? 'عرض' : 'List',
+                                text:'List',
                               ),
+                                fallback: (context) => const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              ),
+                              
                             ],
                           ),
                         ),

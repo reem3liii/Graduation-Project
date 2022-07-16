@@ -20,9 +20,10 @@ const String TOTAL_HOURS_AND_GPA = 'Students/GetTotalHoursAndGpa';
 
 const String COURSES_ON_SEMESTERS = 'Students/GetCoursesOnSemester';
 
-const String UPDATE_COURSE = 'Courses/UpdateCourse';
+//const String UPDATE_COURSE = 'Courses/UpdateCourse';
 
 const String GET_COURSE_BY_ID = 'Courses/GetCoursebyId';
 
 const String CURRENT_USER_DATA = 'Acount/GetCurrentUser';
 
+const String DELETE_ADVISOR = 'Users/Delete';

@@ -1,17 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:rolling_switch/rolling_switch.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:saas/main.dart';
 import 'package:saas/shared/design/colors.dart';
-
 import 'json_models.dart';
 import 'models.dart';
 
 void navigateTo(context, widget) => Navigator.push(
+
       context,
       MaterialPageRoute(
         builder: (context) => widget,
@@ -459,7 +457,8 @@ Widget coursesList(
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: chooseColor(course.courseCode.toString()).withOpacity(0.2),
+                color:
+                    chooseColor(course.courseCode.toString()).withOpacity(0.2),
               ),
               clipBehavior: Clip.antiAliasWithSaveLayer,
             ),
@@ -502,8 +501,8 @@ Widget coursesList(
                 Expanded(
                   child: Text(
                     //isArabic
-                       // ? "دكتور ${course.arCourseProfessor}":
-                         "Dr. ${course.instructorName}",
+                    // ? "دكتور ${course.arCourseProfessor}":
+                    "Dr. ${course.instructorName}",
                     style:
                         TextStyle(fontSize: 15.0, color: Colors.grey.shade700),
                     overflow: TextOverflow.ellipsis,
@@ -751,9 +750,7 @@ void showToast(String msg, ToastStates state) => Fluttertoast.showToast(
       backgroundColor: chooseToastColor(state),
       textColor: Colors.white,
       fontSize: 16,
-      
     );
-
 
 Color chooseToastColor(ToastStates state) {
   Color color;
@@ -773,15 +770,15 @@ Color chooseToastColor(ToastStates state) {
 
 Color chooseColor(String str) {
   Color color;
-  if(str[0] == 'M') {
+  if (str[0] == 'M') {
     color = Colors.pink;
-  } else if(str[0] == 'U') {
+  } else if (str[0] == 'U') {
     color = Colors.purple;
-  } else if(str[0] == 'C') {
+  } else if (str[0] == 'C') {
     color = Colors.cyan;
-  } else if(str[0] == 'I') {
+  } else if (str[0] == 'I') {
     color = Colors.indigo;
-  } else if(str[0] == 'S') {
+  } else if (str[0] == 'S') {
     color = Colors.deepOrange;
   } else {
     color = Colors.green;
@@ -789,10 +786,10 @@ Color chooseColor(String str) {
   return color;
 }
 
-String createCourseAbbreviation(String Str){
+String createCourseAbbreviation(String Str) {
   List<String> a = [];
-  for(var i=0;i<Str.length;i++){
-    if(Str[i].toUpperCase() == Str[i] && Str[i] != ' ' && Str[i] != '-'){
+  for (var i = 0; i < Str.length; i++) {
+    if (Str[i].toUpperCase() == Str[i] && Str[i] != ' ' && Str[i] != '-') {
       a.add(Str[i].toString());
     }
   }
@@ -800,3 +797,32 @@ String createCourseAbbreviation(String Str){
   //print(abbreviation);
   return abbreviation;
 }
+
+deleteDialog(context,deleteFun,cancelFun) => showDialog(
+    builder: (BuildContext context) => AlertDialog(
+          content: Text(
+            "Are you sure you want to delete it?",
+            style: titleStyle(
+              color: defaultColor,
+              size: 16,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: deleteFun,
+              child: Text(
+                "YES",
+                style: TextStyle(
+                  color: Colors.red,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: cancelFun,
+              child: Text("NO"),
+            ),
+          ],
+          elevation: 20,
+        ),
+    context: context,
+    barrierDismissible: false);

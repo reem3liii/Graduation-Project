@@ -1,22 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saas/modules/login_screen.dart';
 import 'package:saas/modules/splash_screen.dart';
-import 'package:saas/shared/bloc/cubit.dart';
-import 'package:saas/shared/bloc/states.dart';
 import 'package:saas/shared/cache_helper.dart';
 import 'package:saas/shared/design/themes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter/services.dart';
 import 'package:saas/shared/dio_helper.dart';
 
-import 'modules/for_admin/admin_home_screen.dart';
 
 bool isArabic = false;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   //Bloc.observer = MyBlocObserver();
   DioHelper.init();
   await CacheHelper.init();
@@ -35,9 +28,9 @@ void main() async {
     widget = Splash();
   }*/
 
-  runApp(MyApp(
-    //startWidget: widget,
-  ));
+  runApp(const MyApp(
+      //startWidget: widget,
+      ));
 }
 
 class MyApp extends StatelessWidget {
@@ -47,7 +40,7 @@ class MyApp extends StatelessWidget {
   //final Widget startWidget;
   const MyApp({
     Key? key,
-    //required this.startWidget, 
+    //required this.startWidget,
   }) : super(key: key);
 
   @override
@@ -61,7 +54,7 @@ class MyApp extends StatelessWidget {
             theme: lightTheme,
             darkTheme: darkTheme,
             themeMode: currentMode,
-            home: const Splash(),//startWidget,
+            home: const Splash(), //startWidget,
             localizationsDelegates: const [
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,

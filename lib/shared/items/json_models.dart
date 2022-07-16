@@ -193,6 +193,7 @@ class CoursesOnSemester {
 
 List<CoursesOnSemester> courses_Semester = [];
 
+
 class CurrentUserData {
   String? name;
   String? nameArb;

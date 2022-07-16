@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/main.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
-
 import '../../shared/bloc/cubit.dart';
 import '../../shared/bloc/states.dart';
 
@@ -19,7 +18,7 @@ List<String> menueCategory = ['GEN', 'CSC', 'ISC', 'MAT', 'UNI', 'SEN'];
 String? selectedCategory = menueCategory[0];
 
 class UpdateCourse extends StatefulWidget {
-  UpdateCourse(this.token, this.courseOldData);
+  const UpdateCourse(this.token, this.courseOldData, {Key? key}) : super(key: key);
   final token;
   final Map<String, dynamic> courseOldData;
 
@@ -34,7 +33,7 @@ class _UpdateCourseState extends State<UpdateCourse> {
         create: (BuildContext context) => AppCubit(),
         child: BlocConsumer<AppCubit, AppStates>(
             listener: (BuildContext context, AppStates state) {
-          if (state is UpdateCoursesSuccessState) {
+          /*if (state is UpdateCoursesSuccessState) {
             showToast("Updated successfully", ToastStates.Success);
             courseNameController.clear();
             courseArabicNameController.clear();
@@ -44,17 +43,14 @@ class _UpdateCourseState extends State<UpdateCourse> {
             selectedCategory = menueCategory[0];
           } else if (state is UpdateCoursesErrorState) {
             showToast(state.error, ToastStates.Error);
-          }
+          }*/
         }, builder: (BuildContext context, AppStates state) {
           AppCubit cubit = AppCubit.get(context);
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                isArabic ? 'إضافة مادة' : 'Update course',
-                style: isArabic
-                    ? arTitleStyle(
-                        color: defaultColor, size: 20, weight: FontWeight.w600)
-                    : titleStyle(
+                'Update course',
+                style: titleStyle(
                         color: defaultColor, size: 20, weight: FontWeight.w600),
               ),
               backgroundColor: defaultBackgroundColor,
@@ -64,7 +60,7 @@ class _UpdateCourseState extends State<UpdateCourse> {
               ),
             ),
             body: CustomScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               slivers: [
                 SliverFillRemaining(
                   hasScrollBody: false,
@@ -195,7 +191,7 @@ class _UpdateCourseState extends State<UpdateCourse> {
                                     enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:
-                                            BorderSide(color: Colors.grey))),
+                                            const BorderSide(color: Colors.grey))),
                                 value: selectedCategory,
                                 items: menueCategory
                                     .map((category) => DropdownMenuItem<String>(
@@ -337,7 +333,7 @@ class _UpdateCourseState extends State<UpdateCourse> {
                             heightSpace(),
                             defaultButton(
                               function: () {
-                                if (formKey.currentState!.validate()) {
+                                /*if (formKey.currentState!.validate()) {
                                   print('Updating course');
                                   cubit.updateCourse(
                                       widget.token,
@@ -349,7 +345,7 @@ class _UpdateCourseState extends State<UpdateCourse> {
                                       int.parse(courseHoursController.text),
                                       int.parse(courseDegreeController.text),
                                       lecturerIDController.text);
-                                }
+                                }*/
                               },
                               text: isArabic ? 'إضافة' : 'Update',
                             ),
