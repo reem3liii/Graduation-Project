@@ -90,7 +90,9 @@ class AppCubit extends Cubit<AppStates> {
         .then((value) {
       print(value.data);
       currentUser = CurrentUser.fromJson(value.data);
-      token=currentUser.userLogin!.token.toString();
+      if(currentUser.status.toString() == 'success'){
+        token = currentUser.userLogin!.token.toString();
+      }
       //currentUser.userLogin.roles.first.toString();
       emit(LoginSuccessState(currentUser));
     }).catchError((error) {
@@ -174,14 +176,14 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
   //Student part (API)
-  late SemesterAndGrade semAndGra;
+  //late SemesterAndGrade semAndGra;
 
   void getSemestersAndGrades(String token) {
     emit(semesterAndGradesLoadingState());
 
     DioHelper.getDataWithAuth(SEMESTERS_GRADES, token, null).then((value) {
       if(value.data.length > 0){
-        semAndGra = SemesterAndGrade.fromJson(value.data[0]);
+        //semAndGra = SemesterAndGrade.fromJson(value.data[0]);
         for(var i=0;i<value.data.length;i++) {
           semestersAndGrades.add(
               SemesterAndGrade(
@@ -190,10 +192,6 @@ class AppCubit extends Cubit<AppStates> {
               ));
           print(value.data[i].toString());
         }
-        for(var i=0;i<value.data.length;i++) {
-          getCoursesOnSemester(token,SemesterAndGrade.fromJson(value.data[i]).semesterName.toString());
-        }
-
       }
       else{
         semestersAndGrades = [];
@@ -232,7 +230,7 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-  late TotalHoursAndGpa total_hour_gpa;
+  //late TotalHoursAndGpa total_hour_gpa;
 
 
   void getTotalHoursAndGpa(String token) {
@@ -254,10 +252,11 @@ class AppCubit extends Cubit<AppStates> {
   void getCoursesOnSemester(String token, String semestername) {
     emit(CoursesOnSemesterLoadingState());
     var formData = FormData.fromMap({'semestername': semestername});
+    courses_Semester=[];
     DioHelper.postDataWithAuth(COURSES_ON_SEMESTERS, token, formData, null)
         .then((value) {
       //print(value.data);
-      /*for(var i=0;i<value.data.length;i++) {
+      for(var i=0;i<value.data.length;i++) {
         courses_Semester.add(
             CoursesOnSemester(
                 courseName: CoursesOnSemester.fromJson(value.data[i]).courseName,
@@ -266,7 +265,7 @@ class AppCubit extends Cubit<AppStates> {
         );
         //print(value.data[i]);
       }
-      for(var i=0;i<value.data.length;i++) {
+      /*for(var i=0;i<value.data.length;i++) {
         print(courses_Semester.length.toString());
         print(courses_Semester[i].courseName);
         print(courses_Semester[i].gpa);
@@ -300,11 +299,6 @@ class AppCubit extends Cubit<AppStates> {
       emit(CurrentUserDataErrorState(error.toString()));
     });
   }
-
-  /*bool has_current_courses = false;
-  void hasCurrentCourses(){
-    if()
-  }*/
   //End Student Part***************
 
   late List<dynamic> allStudentsData;

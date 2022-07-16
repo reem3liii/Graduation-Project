@@ -12,9 +12,14 @@ import 'package:saas/shared/items/json_models.dart';
 import '../login_screen.dart';
 import '../setting_screens/app_info.dart';
 
-class SettingScreen extends StatelessWidget {
+class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
 
+  @override
+  State<SettingScreen> createState() => _SettingScreenState();
+}
+
+class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -44,7 +49,7 @@ class SettingScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  settingSectionName(
+                  /*settingSectionName(
                       isArabic ? 'الملف الشخصي' : 'Account',
                       //context
                   ),
@@ -62,13 +67,13 @@ class SettingScreen extends StatelessWidget {
                     context,
                     const PhoneScreen(),
                   ),
-                  heightSpace(),
+                  heightSpace(),*/
                   settingSectionName(
                     isArabic ? 'عام' : 'General',
                     //context,
                   ),
                   heightSpace(),
-                  settingSwitchItem(
+                  /*settingSwitchItem(
                     const Icon(Icons.language_rounded,),
                     isArabic ? 'اللغة' : 'Language',
                     context,
@@ -77,12 +82,11 @@ class SettingScreen extends StatelessWidget {
                     Icons.change_circle_outlined,
                         (bool state){},
                   ),
-                  heightSpace(),
+                  heightSpace(),*/
                   settingSwitchItem(
                     const Icon(Icons.brightness_4_rounded,),
                     isArabic ? 'الاضاءة' : 'Theme',
                     context,
-                    //const PasswordScreen(),
                     Icons.light_mode_outlined,
                     Icons.dark_mode_outlined,
                         (bool state){
@@ -90,6 +94,7 @@ class SettingScreen extends StatelessWidget {
                           MyApp.themeNotifier.value == ThemeMode.light
                               ? ThemeMode.dark
                               : ThemeMode.light;
+
                     },
                   ),
                   heightSpace(),
@@ -110,12 +115,6 @@ class SettingScreen extends StatelessWidget {
                       navigateToThenRemove(context, LoginScreen());
                       print('Logout');
                     },
-                    /*child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadiusDirectional.circular(10),
-                        color: defaultColor,
-                      ),*/
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(

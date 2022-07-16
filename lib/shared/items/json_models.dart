@@ -179,7 +179,7 @@ class CoursesOnSemester {
   CoursesOnSemester({this.gpa, this.courseName});
 
   CoursesOnSemester.fromJson(Map<String, dynamic> json) {
-    gpa = json['gpa'];
+    gpa = (json['gpa']as num).toDouble();
     courseName = json['courseName'];
   }
 
@@ -191,7 +191,7 @@ class CoursesOnSemester {
   }
 }
 
-List<dynamic> courses_Semester = [];
+List<CoursesOnSemester> courses_Semester = [];
 
 class CurrentUserData {
   String? name;

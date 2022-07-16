@@ -22,9 +22,7 @@ class HomeScreen extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => AppCubit()..getTotalHoursAndGpa(token),
       child: BlocConsumer<AppCubit, AppStates>(
-        listener: (BuildContext context, AppStates state) {
-
-        },
+        listener: (BuildContext context, AppStates state) {},
         builder: (BuildContext context, AppStates state) {
           AppCubit cubit = AppCubit.get(context);
           return Scaffold(
@@ -107,7 +105,7 @@ class HomeScreen extends StatelessWidget {
                                 titleText: isArabic
                                     ? 'المعدل الأكاديمي التراكمي الكلي'
                                     : 'Total GPA',
-                                value: totalGpa.toString(),
+                                value: totalGpa.toStringAsFixed(2),
                                 color: Colors.green.shade500,
                                 percentValue: totalGpa/4,
                                 titleColor: MyApp.themeNotifier.value == ThemeMode.light? Colors.black : Colors.white,
@@ -166,7 +164,6 @@ class HomeScreen extends StatelessWidget {
                           size: 20.0,
                         )
                             : Theme.of(context).textTheme.bodyText1,
-                        //TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),
                       ),
                       SizedBox(
                         height: height / 100,

@@ -41,7 +41,7 @@ class RecommendedScreen extends StatelessWidget {
                 shrinkWrap: true,
                 itemBuilder: (context, index) => recCoursesItem(
                   courses[index],
-                  height: height / 4,
+                  height: height / 4.5,
                   width: width,
                   color: MyApp.themeNotifier.value == ThemeMode.light?
                   Colors.white.withOpacity(0.85)

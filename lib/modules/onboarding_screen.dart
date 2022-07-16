@@ -38,7 +38,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         image: 'assets/images/onboarding3.png',
         title: 'Let\'s get started',
         body:
-            'You are now ready to use the application, you can login or sign up by using your university email.',
+            'You are now ready to use the application, you can login by using your email.',
         arTitle: 'لنبدأ',
         arBody:
             ' أنت الآن مستعد لاستخدام التطبيق، يمكنك تسجيل الدخول أو الاشتراك عبر البريد الالكتروني الجامعي الخاص بك.'),
