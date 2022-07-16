@@ -4,13 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/main.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
-
 import '../../shared/bloc/cubit.dart';
 import '../../shared/bloc/states.dart';
-import 'degrees.dart';
 
 class GetStudents extends StatefulWidget {
-  GetStudents({Key? key, required this.students}) : super(key: key);
+  const GetStudents({Key? key, required this.students}) : super(key: key);
   final List<dynamic> students;
 
   @override
@@ -21,7 +19,7 @@ class _GetStudentsState extends State<GetStudents> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
+    //double width = MediaQuery.of(context).size.width;
 
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
@@ -31,13 +29,8 @@ class _GetStudentsState extends State<GetStudents> {
           return Scaffold(
               appBar: AppBar(
                 title: Text(
-                  isArabic ? 'الطلاب' : 'The Students',
-                  style: isArabic
-                      ? arTitleStyle(
-                          color: defaultColor,
-                          size: 20,
-                          weight: FontWeight.w600)
-                      : titleStyle(
+                  'The Students',
+                  style: titleStyle(
                           color: defaultColor,
                           size: 20,
                           weight: FontWeight.w600),
@@ -49,12 +42,10 @@ class _GetStudentsState extends State<GetStudents> {
                 ),
               ),
               body: SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
                 physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
                     ListView.separated(
                       physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
@@ -71,20 +62,19 @@ class _GetStudentsState extends State<GetStudents> {
                             ),
                           ],
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  widthSpace(),
-                                  Column(
+                        child: Column(
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                widthSpace(),
+                                SizedBox(
+                                  width: 270,
+                                  child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
+                                      heightSpace(),
                                       Text(
                                         '  ${widget.students[index]['fullName']}',
                                         style: TextStyle(
@@ -108,50 +98,42 @@ class _GetStudentsState extends State<GetStudents> {
                                             ),
                                           ],
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
-                                  const Spacer(),
-                                  Column(
-                                    children: [
-                                      IconButton(
-                                          iconSize: 22,
-                                          onPressed: () {},
-                                          icon: Icon(
-                                            Icons.cancel_rounded,
-                                            color: Colors.red.shade700,
-                                          )),
-                                      IconButton(
-                                          iconSize: 22,
-                                          onPressed: () {},
-                                          icon: Icon(
-                                            Icons.edit,
-                                            color: defaultColor,
-                                          )),
-                                    ],
-                                  ),
-                                  widthSpace(),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  TextButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          navigateTo(context, const Degrees());
-                                        });
-                                      },
-                                      child: Text(
-                                        'View degrees',
-                                        style: titleStyle(
-                                            color: defaultColor, size: 15),
-                                      )),
-                                ],
-                              ),
-                            ],
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                          ),
+                                ),
+                                /*const Spacer(),
+                                IconButton(
+                                    iconSize: 22,
+                                    onPressed: () {
+                                      deleteDialog(context, (){},(){});
+                                    },
+                                    icon: Icon(
+                                      Icons.cancel_rounded,
+                                      color: Colors.red.shade700,
+                                    )),*/
+                                
+                              ],
+                            ),
+                            /*Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                TextButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        navigateTo(context, const Degrees());
+                                      });
+                                    },
+                                    child: Text(
+                                      'View degrees',
+                                      style: titleStyle(
+                                          color: defaultColor, size: 15),
+                                    )),
+                              ],
+                            ),*/
+                            heightSpace(),
+                          ],
+                          crossAxisAlignment: CrossAxisAlignment.start,
                         ),
                       ),
                       itemCount: widget.students.length,

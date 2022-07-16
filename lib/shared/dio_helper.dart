@@ -51,14 +51,22 @@ class DioHelper {
     return await dio.post(url, data: data, queryParameters: query);
   }
 
-  static Future<Response> updateDataWithAuth(String url, String token,  Map<String,dynamic> query,
+  /*static Future<Response> updateDataWithAuth(String url, String token,  Map<String,dynamic> query,
       dynamic data,) async {
     dio.options.headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',
     };
     return await dio.put(url, data: data, queryParameters: query);
-  }
+  }*/
 
+  static Future<Response> deleteDataWithAuth(String url, String token,
+      dynamic data, Map<String, dynamic>? query) async {
+    dio.options.headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+    return await dio.delete(url, data: data, queryParameters: query);
+  }
 
 }

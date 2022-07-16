@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:saas/modules/onboarding_screen.dart';
 import 'package:saas/shared/cache_helper.dart';
 import 'package:saas/shared/design/colors.dart';
-import 'package:saas/shared/items/components.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);

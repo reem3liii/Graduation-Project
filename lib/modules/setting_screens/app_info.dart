@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/main.dart';
 import 'package:saas/shared/bloc/cubit.dart';
 import 'package:saas/shared/bloc/states.dart';
-//import 'package:saas/shared/components.dart';
-//import 'package:saas/shared/colors.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
 
@@ -15,19 +13,21 @@ class InfoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
-      child: BlocConsumer<AppCubit,AppStates>(
-        listener: (BuildContext context,AppStates state){},
-        builder: (BuildContext context,AppStates state){
+      child: BlocConsumer<AppCubit, AppStates>(
+        listener: (BuildContext context, AppStates state) {},
+        builder: (BuildContext context, AppStates state) {
           return Scaffold(
             appBar: AppBar(
               title: Text(
                 isArabic ? 'عن التطبيق' : 'About SAAS',
                 style: isArabic
                     ? arTitleStyle(
-                    color: defaultColor, size: 22, weight: FontWeight.w600)
+                        color: defaultColor, size: 22, weight: FontWeight.w600)
                     : AppBarTheme.of(context).titleTextStyle?.copyWith(
-                  color: MyApp.themeNotifier.value == ThemeMode.light? defaultColor: defaultLightColor,
-                ),
+                          color: MyApp.themeNotifier.value == ThemeMode.light
+                              ? defaultColor
+                              : defaultLightColor,
+                        ),
               ),
               //leading: IconButton(
               // icon: isArabic
@@ -37,43 +37,60 @@ class InfoScreen extends StatelessWidget {
               //   Navigator.pop(context);
               // },
               //),
-              backgroundColor: MyApp.themeNotifier.value == ThemeMode.light? defaultBackgroundColor:defaultDarkBackgroundColor,
+              backgroundColor: MyApp.themeNotifier.value == ThemeMode.light
+                  ? defaultBackgroundColor
+                  : defaultDarkBackgroundColor,
               systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor: MyApp.themeNotifier.value == ThemeMode.light? defaultBackgroundColor:defaultDarkBackgroundColor,
-                statusBarIconBrightness: MyApp.themeNotifier.value == ThemeMode.light? Brightness.dark:Brightness.light,
+                statusBarColor: MyApp.themeNotifier.value == ThemeMode.light
+                    ? defaultBackgroundColor
+                    : defaultDarkBackgroundColor,
+                statusBarIconBrightness:
+                    MyApp.themeNotifier.value == ThemeMode.light
+                        ? Brightness.dark
+                        : Brightness.light,
               ),
             ),
-            body:  Padding(
-              padding: const EdgeInsets.all(16),
-              child: Container(
-                height: double.infinity,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: defaultLightColor.withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(15),
-                ),
+            body: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
                 child: Column(
                   children: [
+                    const Image(
+                      image: AssetImage('assets/images/onboarding1.png'),
+                      height: 250,
+                    ),
+                    Text(
+                      'SAAS is an acadimic support system for students and acadimic advisors',
+                      style:  bodyStyle3(size: 20, weight: FontWeight.bold),
+                    ),
                     const Image(
                       image: AssetImage('assets/images/onboarding2.png'),
                       height: 250,
                     ),
                     Text(
-                      isArabic
-                          ? 'تطبيق SAAS هو نظام دعم أكاديمي للطلاب والمرشدين الأكادميين. \nيساعدك من خلال اقتراح المقررات التي تلبي احتياجاتك الحالية، وفي نفس الوقت تحسن الأداء الأكاديمي.'
-                          : 'SAAS is an acadimic support system for students and acadimic advisors.\nIt helps you by suggesting courses that meet your current needs, and at the same time improve the academic performance.',
+                       'The goal of the application is to help you by suggesting courses that meet your current needs, and at the same time improve the academic performance',
+                      style: bodyStyle3(size: 20, weight: FontWeight.bold),
+                    ),
+                    const Image(
+                      image: AssetImage('assets/images/onboarding3.png'),
+                      height: 250,
+                    ),
+                    /*Text(
+                       'SAAS is an acadimic support system for students and acadimic advisors.\nIt helps you by suggesting courses that meet your current needs, and at the same time improve the academic performance.',
                       style: isArabic
                           ? arBodyStyle(size: 20, weight: FontWeight.bold)
                           : bodyStyle3(size: 20, weight: FontWeight.bold),
-                    ),
+                    ),*/
+                    
                   ],
                 ),
               ),
+              
             ),
           );
         },
       ),
     );
-
   }
 }

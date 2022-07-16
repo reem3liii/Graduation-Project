@@ -167,7 +167,7 @@ class GetStudentsErrorState extends AppStates {
 }
 
 
-class UpdateCoursesLoadingState extends AppStates {}
+/*class UpdateCoursesLoadingState extends AppStates {}
 
 class UpdateCoursesSuccessState extends AppStates {
   final dynamic updateResponse;
@@ -189,4 +189,16 @@ class GetCourseByIDSuccessState extends AppStates {
 class GetCourseByIDErrorState extends AppStates {
   final String error;
   GetCourseByIDErrorState(this.error);
+}*/
+
+class DeleteAdvisorLoadingState extends AppStates {}
+
+class DeleteAdvisorSuccessState extends AppStates {
+  final dynamic responce;
+  DeleteAdvisorSuccessState(this.responce);
+}
+
+class DeleteAdvisorErrorState extends AppStates {
+  final String error;
+  DeleteAdvisorErrorState(this.error);
 }

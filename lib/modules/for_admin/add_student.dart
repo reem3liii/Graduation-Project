@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/main.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
-
 import '../../shared/bloc/cubit.dart';
 import '../../shared/bloc/states.dart';
 
@@ -26,8 +25,6 @@ var studentAccYearController = TextEditingController();
 var studentGradYearController = TextEditingController();
 var studentEmailController = TextEditingController();
 var studentPasswordController = TextEditingController();
-//List<String> menueLevels = ['1', '2', '3', '4'];
-//String? selectedLevel = menueLevels[0];
 List<String> menueSemesters = ['1', '2', '3', '4', '5', '6', '7', '8'];
 String selectedSemester = menueSemesters[0];
 List<String> menueDepartment = ['SWE', 'BIO', 'CS', 'IS', 'IT'];
@@ -77,11 +74,8 @@ class _AddStudentState extends State<AddStudent> {
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                isArabic ? 'إضافة طالب' : 'Add student',
-                style: isArabic
-                    ? arTitleStyle(
-                        color: defaultColor, size: 20, weight: FontWeight.w600)
-                    : titleStyle(
+                'Add student',
+                style: titleStyle(
                         color: defaultColor, size: 20, weight: FontWeight.w600),
               ),
               backgroundColor: defaultBackgroundColor,
@@ -91,7 +85,7 @@ class _AddStudentState extends State<AddStudent> {
               ),
             ),
             body: CustomScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               slivers: [
                 SliverFillRemaining(
                   hasScrollBody: false,
@@ -106,15 +100,8 @@ class _AddStudentState extends State<AddStudent> {
                           children: [
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'أدخل رقم تعريف الطالب :'
-                                  : 'Enter student SSN:',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                              'Enter student SSN:',
+                              style: bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -126,9 +113,7 @@ class _AddStudentState extends State<AddStudent> {
                               preIcon: Icons.badge_outlined,
                               validator: (studentIDController) {
                                 if (studentIDController.toString().isEmpty) {
-                                  return isArabic
-                                      ? 'من فضلك أدخل الرقم!'
-                                      : 'Please enter the SSN!';
+                                  return 'Please enter the SSN!';
                                 } else {
                                   return null;
                                 }
@@ -137,15 +122,8 @@ class _AddStudentState extends State<AddStudent> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'أدخل اسم الطالب :'
-                                  : 'Enter student name (English):',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                              'Enter student name (English):',
+                              style: bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -157,9 +135,7 @@ class _AddStudentState extends State<AddStudent> {
                               preIcon: Icons.perm_identity_rounded,
                               validator: (studentNameController) {
                                 if (studentNameController.toString().isEmpty) {
-                                  return isArabic
-                                      ? 'من فضلك أدخل الاسم!'
-                                      : 'Please enter the name!';
+                                  return 'Please enter the name!';
                                 } else {
                                   return null;
                                 }
@@ -168,15 +144,8 @@ class _AddStudentState extends State<AddStudent> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'أدخل اسم الطالب :'
-                                  : 'Enter student name (Arabic):',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                              'Enter student name (Arabic):',
+                              style: bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -191,9 +160,7 @@ class _AddStudentState extends State<AddStudent> {
                                 if (studentArabicNameController
                                     .toString()
                                     .isEmpty) {
-                                  return isArabic
-                                      ? 'من فضلك أدخل الاسم!'
-                                      : 'Please enter the name!';
+                                  return 'Please enter the name!';
                                 } else {
                                   return null;
                                 }
@@ -202,15 +169,8 @@ class _AddStudentState extends State<AddStudent> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'اختر المستوى المسؤول عنه المرشد :'
-                                  : 'Choose the gender of the student:',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                              'Choose the gender of the student:',
+                              style: bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -235,15 +195,8 @@ class _AddStudentState extends State<AddStudent> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'أدخل اسم المرشد :'
-                                  : 'Enter student birth of date (in this style yyyy-mm-dd):',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                              'Enter student birth of date (in this style yyyy-mm-dd):',
+                              style: bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -256,9 +209,7 @@ class _AddStudentState extends State<AddStudent> {
                               preIcon: Icons.calendar_month_rounded,
                               validator: (studentBODController) {
                                 if (studentBODController.toString().isEmpty) {
-                                  return isArabic
-                                      ? 'من فضلك أدخل الاسم!'
-                                      : 'Please enter the date!';
+                                  return 'Please enter the date!';
                                 } else {
                                   return null;
                                 }
@@ -267,15 +218,8 @@ class _AddStudentState extends State<AddStudent> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'أدخل رقم الهاتف الخاص بالطالب :'
-                                  : 'Enter student phone number :',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                             'Enter student phone number :',
+                              style:  bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -287,9 +231,7 @@ class _AddStudentState extends State<AddStudent> {
                               preIcon: Icons.phone,
                               validator: (studentPhoneController) {
                                 if (studentPhoneController.toString().isEmpty) {
-                                  return isArabic
-                                      ? 'من فضلك أدخل رقم الهاتف!'
-                                      : 'Please enter phone number!';
+                                  return 'Please enter phone number!';
                                 } else {
                                   return null;
                                 }
@@ -298,15 +240,8 @@ class _AddStudentState extends State<AddStudent> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'أدخل البريد الالكتروني الخاص بالطالب :'
-                                  : 'Enter student city:',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                               'Enter student city:',
+                              style: bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -318,9 +253,7 @@ class _AddStudentState extends State<AddStudent> {
                               preIcon: Icons.location_city_rounded,
                               validator: (studentCityController) {
                                 if (studentCityController.toString().isEmpty) {
-                                  return isArabic
-                                      ? 'من فضلك أدخل البريد الالكتروني!'
-                                      : 'Please enter the city!';
+                                  return 'Please enter the city!';
                                 } else {
                                   return null;
                                 }
@@ -329,15 +262,8 @@ class _AddStudentState extends State<AddStudent> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'أدخل البريد الالكتروني الخاص بالطالب :'
-                                  : 'Enter student address:',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                              'Enter student address:',
+                              style: bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -351,9 +277,7 @@ class _AddStudentState extends State<AddStudent> {
                                 if (studentAddressController
                                     .toString()
                                     .isEmpty) {
-                                  return isArabic
-                                      ? 'من فضلك أدخل البريد الالكتروني!'
-                                      : 'Please enter the address!';
+                                  return 'Please enter the address!';
                                 } else {
                                   return null;
                                 }
@@ -362,15 +286,8 @@ class _AddStudentState extends State<AddStudent> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'أدخل البريد الالكتروني الخاص بالطالب :'
-                                  : 'Enter student previous qualification:',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                              'Enter student previous qualification:',
+                              style: bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -382,9 +299,7 @@ class _AddStudentState extends State<AddStudent> {
                               preIcon: Icons.assignment_outlined,
                               validator: (studentPQController) {
                                 if (studentPQController.toString().isEmpty) {
-                                  return isArabic
-                                      ? 'من فضلك أدخل البريد الالكتروني!'
-                                      : 'Please enter the previous qualification!';
+                                  return 'Please enter the previous qualification!';
                                 } else {
                                   return null;
                                 }
@@ -393,15 +308,8 @@ class _AddStudentState extends State<AddStudent> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'أدخل البريد الالكتروني الخاص بالطالب :'
-                                  : 'Enter student previous institute:',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                              'Enter student previous institute:',
+                              style: bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -415,9 +323,7 @@ class _AddStudentState extends State<AddStudent> {
                                 if (studentInstituteController
                                     .toString()
                                     .isEmpty) {
-                                  return isArabic
-                                      ? 'من فضلك أدخل البريد الالكتروني!'
-                                      : 'Please enter the previous institute!';
+                                  return 'Please enter the previous institute!';
                                 } else {
                                   return null;
                                 }
@@ -426,15 +332,8 @@ class _AddStudentState extends State<AddStudent> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'أدخل البريد الالكتروني الخاص بالطالب :'
-                                  : 'Enter student previous total degree:',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                             'Enter student previous total degree:',
+                              style: bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -449,9 +348,7 @@ class _AddStudentState extends State<AddStudent> {
                                 if (studentTotalPrevDegreeController
                                     .toString()
                                     .isEmpty) {
-                                  return isArabic
-                                      ? 'من فضلك أدخل البريد الالكتروني!'
-                                      : 'Please enter the previous total degree!';
+                                  return 'Please enter the previous total degree!';
                                 } else {
                                   return null;
                                 }
@@ -460,15 +357,8 @@ class _AddStudentState extends State<AddStudent> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'أدخل البريد الالكتروني الخاص بالطالب :'
-                                  : 'Enter the precentage of the previous total degree:',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                             'Enter the precentage of the previous total degree:',
+                              style: bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -485,9 +375,7 @@ class _AddStudentState extends State<AddStudent> {
                                 if (studentPrecentagePrevDegreeController
                                     .toString()
                                     .isEmpty) {
-                                  return isArabic
-                                      ? 'من فضلك أدخل البريد الالكتروني!'
-                                      : 'Please enter the precentage!';
+                                  return 'Please enter the precentage!';
                                 } else {
                                   return null;
                                 }
@@ -496,15 +384,8 @@ class _AddStudentState extends State<AddStudent> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'أدخل البريد الالكتروني الخاص بالطالب :'
-                                  : 'Enter the acceptence year of the student:',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                               'Enter the acceptence year of the student:',
+                              style: bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -518,9 +399,7 @@ class _AddStudentState extends State<AddStudent> {
                                 if (studentAccYearController
                                     .toString()
                                     .isEmpty) {
-                                  return isArabic
-                                      ? 'من فضلك أدخل البريد الالكتروني!'
-                                      : 'Please enter the acceptence year!';
+                                  return 'Please enter the acceptence year!';
                                 } else {
                                   return null;
                                 }
@@ -529,15 +408,8 @@ class _AddStudentState extends State<AddStudent> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'أدخل البريد الالكتروني الخاص بالطالب :'
-                                  : 'Enter the expected graduation year of the student:',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                             'Enter the expected graduation year of the student:',
+                              style: bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -551,9 +423,7 @@ class _AddStudentState extends State<AddStudent> {
                                 if (studentGradYearController
                                     .toString()
                                     .isEmpty) {
-                                  return isArabic
-                                      ? 'من فضلك أدخل البريد الالكتروني!'
-                                      : 'Please enter the expected graduation year!';
+                                  return 'Please enter the expected graduation year!';
                                 } else {
                                   return null;
                                 }
@@ -562,15 +432,8 @@ class _AddStudentState extends State<AddStudent> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'اختر مستوى الطالب:'
-                                  : 'Choose the semester of the student:',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                             'Choose the semester of the student:',
+                              style: bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -595,15 +458,8 @@ class _AddStudentState extends State<AddStudent> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'اختر مستوى الطالب:'
-                                  : 'Choose the department of the student:',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                             'Choose the department of the student:',
+                              style: bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -629,15 +485,8 @@ class _AddStudentState extends State<AddStudent> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'أدخل البريد الالكتروني الخاص بالطالب :'
-                                  : 'Enter student e-mail:',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                              'Enter student e-mail:',
+                              style: bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -649,9 +498,7 @@ class _AddStudentState extends State<AddStudent> {
                               preIcon: Icons.email_rounded,
                               validator: (studentEmailController) {
                                 if (studentEmailController.toString().isEmpty) {
-                                  return isArabic
-                                      ? 'من فضلك أدخل البريد الالكتروني!'
-                                      : 'Please enter the email!';
+                                  return 'Please enter the email!';
                                 } else {
                                   return null;
                                 }
@@ -660,15 +507,8 @@ class _AddStudentState extends State<AddStudent> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                              isArabic
-                                  ? 'أدخل البريد الالكتروني الخاص بالطالب :'
-                                  : 'Enter temporary password:',
-                              style: isArabic
-                                  ? arBodyStyle(
-                                      size: 16,
-                                      color: defaultColor,
-                                      weight: FontWeight.bold)
-                                  : bodyStyle3(
+                               'Enter temporary password:',
+                              style:  bodyStyle3(
                                       size: 16,
                                       color: defaultColor,
                                       weight: FontWeight.bold),
@@ -682,9 +522,7 @@ class _AddStudentState extends State<AddStudent> {
                                 if (studentPasswordController
                                     .toString()
                                     .isEmpty) {
-                                  return isArabic
-                                      ? 'من فضلك أدخل البريد الالكتروني!'
-                                      : 'Please enter the password!';
+                                  return 'Please enter the password!';
                                 } else {
                                   return null;
                                 }
@@ -722,7 +560,7 @@ class _AddStudentState extends State<AddStudent> {
                                       studentPasswordController.text);
                                 }
                               },
-                              text: isArabic ? 'إضافة' : 'Add',
+                              text: 'Add',
                             ),
                             heightSpace(),
                             heightSpace(),
