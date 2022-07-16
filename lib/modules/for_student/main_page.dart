@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/main.dart';
-import 'package:saas/modules/gpa_calculator/gpa_page.dart';
 import 'package:saas/shared/bloc/cubit.dart';
 import 'package:saas/shared/bloc/states.dart';
 import 'package:saas/shared/items/components.dart';
@@ -9,8 +8,8 @@ import 'package:saas/shared/items/components.dart';
 class MainPage extends StatelessWidget {
   MainPage(this.token);
   final token;
-  //List<dynamic> semAndGradeData;
 
+  @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
 

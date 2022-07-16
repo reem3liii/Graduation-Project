@@ -16,10 +16,10 @@ class LoginScreen extends StatelessWidget {
   var passwordController = TextEditingController();
   var formKey = GlobalKey<FormState>();
 
-  /*
+
   bool get isEmail {
     String p =
-        '[a-z0-9!#\$%&\'*+/=?^_`{|}~-]+(?:.[a-z0-9!#\$%&\'*+/=?^_`{|}~-]+)*@ci.suez.edu.eg';
+        '[a-z0-9!#\$%&\'*+/=?^_`{|}~-]+(?:.[a-z0-9!#\$%&\'*+/=?^_`{|}~-]+)*@gmail.com';
     RegExp regExp = RegExp(p);
     return regExp.hasMatch(emailController.toString());
   }
@@ -30,7 +30,6 @@ class LoginScreen extends StatelessWidget {
     RegExp regExp2 = RegExp(pattern);
     return regExp2.hasMatch(passwordController.toString());
   }
-  */
 
   int initialValue = 0;
 
@@ -45,8 +44,6 @@ class LoginScreen extends StatelessWidget {
         listener: (BuildContext context, AppStates state) {
           if (state is LoginSuccessState) {
             if (state.currentUser.status.toString() == "success") {
-              //print(state.currentUser.message);
-
               AppCubit.get(context).enterSelectedRole();
               CacheHelper.putData(key: 'token', value: state.currentUser.userLogin?.token).then((value){
                 navigateToThenRemove(context,AppCubit.get(context).selectedRoleMainPage);
@@ -155,11 +152,11 @@ class LoginScreen extends StatelessWidget {
                                         return isArabic
                                             ? 'أدخل البريد الإلكتروني!'
                                             : 'Email Field is Empty!';
-                                      } else /*if (!isEmail) {
+                                      } else if (!isEmail) {
                                         return isArabic
                                             ? 'تحقق من بريدك الإلكتروني'
                                             : 'Check Your Email';
-                                      }*/
+                                      }
                                         return null;
                                     },
                                   ),
@@ -187,11 +184,11 @@ class LoginScreen extends StatelessWidget {
                                         return isArabic
                                             ? 'أدخل كلمة المرور!'
                                             : 'Password Field is Empty!';
-                                      } else /*if (!ispass) {
+                                      } else if (!ispass) {
                                         return isArabic
                                             ? 'تحقق من كلمة المرور'
                                             : 'Check Your Password, Please!';
-                                      }*/
+                                      }
                                         return null;
                                     },
                                   ),
