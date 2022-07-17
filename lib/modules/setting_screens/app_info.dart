@@ -62,7 +62,9 @@ class InfoScreen extends StatelessWidget {
                     ),
                     Text(
                       'SAAS is an acadimic support system for students and acadimic advisors',
-                      style:  bodyStyle3(size: 20, weight: FontWeight.bold),
+                      style:  bodyStyle3(size: 20, weight: FontWeight.bold,
+                          color: MyApp.themeNotifier.value == ThemeMode.light? Colors.black: Colors.white,
+                      ),
                     ),
                     const Image(
                       image: AssetImage('assets/images/onboarding2.png'),
@@ -70,7 +72,9 @@ class InfoScreen extends StatelessWidget {
                     ),
                     Text(
                        'The goal of the application is to help you by suggesting courses that meet your current needs, and at the same time improve the academic performance',
-                      style: bodyStyle3(size: 20, weight: FontWeight.bold),
+                      style: bodyStyle3(size: 20, weight: FontWeight.bold,
+                        color: MyApp.themeNotifier.value == ThemeMode.light? Colors.black: Colors.white,
+                      ),
                     ),
                     const Image(
                       image: AssetImage('assets/images/onboarding3.png'),

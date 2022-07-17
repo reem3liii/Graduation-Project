@@ -5,6 +5,7 @@ import 'package:saas/modules/setting_screens/password.dart';
 import 'package:saas/modules/setting_screens/phone.dart';
 import 'package:saas/shared/bloc/cubit.dart';
 import 'package:saas/shared/bloc/states.dart';
+import 'package:saas/shared/cache_helper.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
 import 'package:saas/main.dart';
@@ -94,7 +95,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           MyApp.themeNotifier.value == ThemeMode.light
                               ? ThemeMode.dark
                               : ThemeMode.light;
-
+                          //CacheHelper.putData(key:'isDark',value: MyApp.themeNotifier.value);
                     },
                   ),
                   heightSpace(),

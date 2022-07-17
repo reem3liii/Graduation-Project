@@ -152,6 +152,24 @@ class CurrentUserDataErrorState extends AppStates {
   final String error;
   CurrentUserDataErrorState(this.error);
 }
+
+class GetIsCheckControlLoadingState extends AppStates {}
+
+class GetIsCheckControlSuccessState extends AppStates {}
+
+class GetIsCheckControlErrorState extends AppStates {
+  final String error;
+  GetIsCheckControlErrorState(this.error);
+}
+
+class GetRecommendedCoursesLoadingState extends AppStates {}
+
+class GetRecommendedCoursesSuccessState extends AppStates {}
+
+class GetRecommendedCoursesErrorState extends AppStates {
+  final String error;
+  GetRecommendedCoursesErrorState(this.error);
+}
 //End Student States
 
 class GetStudentsLoadingState extends AppStates {}

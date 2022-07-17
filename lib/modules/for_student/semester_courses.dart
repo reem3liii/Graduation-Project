@@ -35,125 +35,128 @@ class showSemesterCourses extends StatelessWidget {
                 ),
               ),
             ),
-            body: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsetsDirectional.only(
-                        top: 15,
-                        start: 15,
-                        end: 30,
-                        bottom: 10,
-                      ),
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: width/2,
-                            child: Text('Courses',
-                              style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w700,
-                                color:
-                                MyApp.themeNotifier.value == ThemeMode.light?
-                                defaultColor
-                                    :
-                                defaultLightColor,
+            body: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.only(
+                    start: 20,
+                    end: 20,
+                    bottom: 30,
+                  ),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsetsDirectional.only(
+                          top: 15,
+                          start: 15,
+                          end: 30,
+                          bottom: 10,
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: width/2,
+                              child: Text('Courses',
+                                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w700,
+                                  color:
+                                  MyApp.themeNotifier.value == ThemeMode.light?
+                                  defaultColor
+                                      :
+                                  defaultLightColor,
+                                ),
                               ),
                             ),
-                          ),
-                          const Spacer(),
-                          Expanded(
-                            child: Text('GPA',
-                              style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w700,
-                                color:
-                                MyApp.themeNotifier.value == ThemeMode.light?
-                                defaultColor
-                                    :
-                                defaultLightColor,
-                              ),),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: MyApp.themeNotifier.value == ThemeMode.light?
-                        Colors.white
-                            :
-                        Colors.black.withOpacity(0.8),
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: const [
-                          BoxShadow(
-                            blurRadius: 0,
-                            offset: Offset(0.2, 0.2),
-                            color: Colors.grey,
-                          ),
-                        ],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: ListView.separated(
-                          physics: const ScrollPhysics(),
-                          shrinkWrap: true,
-                          itemBuilder: (context, sub) => SizedBox(
-                            height: height/17,
-                            child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment
-                                    .spaceBetween,
-                                children: [
-                                  SizedBox(
-                                    width: width/2,
-                                    child: Text(
-                                      //isArabic
-                                      //? arSubjects[index].keys.toList()[sub]:
-                                      courses_Semester[sub].courseName.toString(),
-                                      maxLines: 2,
-                                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.w500,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                  ),
-                                  const Spacer(),
-                                  Expanded(
-                                    child: Text(
-                                      courses_Semester[sub].gpa!.toStringAsFixed(1),
-                                      style: bodyStyle(
-                                          size: 18,
-                                          weight: FontWeight.w600,
-                                          color: courses_Semester[sub].gpa! >
-                                              standard
-                                              ? Colors.green
-                                              : Colors.red
-                                      ),
-                                    ),
-                                  ),
-                                ]),
-                          ),
-                          separatorBuilder: (context, sub) => Divider(
-                            thickness: 1,
-                            color:
-                            MyApp.themeNotifier.value == ThemeMode.light?
-                            Colors.grey[300]
-                                :
-                            Colors.grey[800],
-                          ),
-                          itemCount: courses_Semester.length,
+                            const Spacer(),
+                            Expanded(
+                              child: Text('GPA',
+                                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w700,
+                                  color:
+                                  MyApp.themeNotifier.value == ThemeMode.light?
+                                  defaultColor
+                                      :
+                                  defaultLightColor,
+                                ),),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                  ],
+                      Container(
+                        decoration: BoxDecoration(
+                          color: MyApp.themeNotifier.value == ThemeMode.light?
+                          Colors.white
+                              :
+                          Colors.black.withOpacity(0.8),
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: const [
+                            BoxShadow(
+                              blurRadius: 0,
+                              offset: Offset(0.2, 0.2),
+                              color: Colors.grey,
+                            ),
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(18.0),
+                          child: ListView.separated(
+                            physics: const ScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (context, sub) => SizedBox(
+                              height: height/15,
+                              child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment
+                                      .spaceBetween,
+                                  children: [
+                                    SizedBox(
+                                      width: width/2,
+                                      child: Text(
+                                        //isArabic
+                                        //? arSubjects[index].keys.toList()[sub]:
+                                        courses_Semester[sub].courseName.toString(),
+                                        maxLines: 2,
+                                        style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                                          fontSize: 19,
+                                          fontWeight: FontWeight.w500,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    Expanded(
+                                      child: Text(
+                                        courses_Semester[sub].gpa!.toStringAsFixed(1),
+                                        style: bodyStyle(
+                                            size: 18,
+                                            weight: FontWeight.w600,
+                                            color: courses_Semester[sub].gpa! >
+                                                standard
+                                                ? Colors.green
+                                                : Colors.red
+                                        ),
+                                      ),
+                                    ),
+                                  ]),
+                            ),
+                            separatorBuilder: (context, sub) => Divider(
+                              thickness: 1,
+                              color:
+                              MyApp.themeNotifier.value == ThemeMode.light?
+                              Colors.grey[300]
+                                  :
+                              Colors.grey[800],
+                            ),
+                            itemCount: courses_Semester.length,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
           );
         },
       ),

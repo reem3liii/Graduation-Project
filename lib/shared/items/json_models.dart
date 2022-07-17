@@ -269,3 +269,4 @@ class CurrentUserData {
 CurrentUserData? currentUserInf;
 List userInformation = [];
 String token ='';
+bool isCheckControl = false;

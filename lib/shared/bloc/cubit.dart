@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/modules/for_admin/admin_home_screen.dart';
+import 'package:saas/modules/for_advisor/homeAdvisor_screen.dart';
 import 'package:saas/modules/for_student/details.dart';
 import 'package:saas/modules/for_student/home_screen.dart';
 import 'package:saas/modules/for_student/main_page.dart';
@@ -36,7 +37,7 @@ class AppCubit extends Cubit<AppStates> {
       selectedRoleMainPage = HomeAdminScreen(
           currentUser.userLogin?.token, currentUser.userLogin?.email);
     } else {
-      selectedRoleMainPage = GPACalculator();
+      selectedRoleMainPage = HomeAdvisorScreen();
     }
     emit(AccessTheCurrentRoleState());
   }
@@ -300,6 +301,32 @@ class AppCubit extends Cubit<AppStates> {
       emit(CurrentUserDataErrorState(error.toString()));
     });
   }
+
+  void getIsCheckControl(String token) {
+    emit(GetIsCheckControlLoadingState());
+
+    DioHelper.getDataWithAuth(IS_CHECK_CINTROL, token, null).then((value) {
+      isCheckControl = value.data;
+      print(isCheckControl);
+      emit(GetIsCheckControlSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(GetIsCheckControlErrorState(error.toString()));
+    });
+  }
+
+  /*void getRecommendedCourses(String token) {
+    emit(GetRecommendedCoursesLoadingState());
+
+    DioHelper.getDataWithAuth(SHOW_RECOMENEDED_COURSES, token, null).then((value) {
+      isCheckControl = value.data;
+      print(isCheckControl);
+      emit(GetRecommendedCoursesSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(GetRecommendedCoursesErrorState(error.toString()));
+    });
+  }*/
   //End Student Part***************
 
   late List<dynamic> allStudentsData;

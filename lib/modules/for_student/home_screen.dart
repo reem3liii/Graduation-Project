@@ -219,7 +219,12 @@ class HomeScreen extends StatelessWidget {
                           defaultButton(
                             width: width / 1.3,
                             function: () {
-                              navigateTo(context, const RecommendedScreen());
+                              if(isCheckControl){
+                                navigateTo(context, const RecommendedScreen());
+                              }else{
+                                showToast('Recommendation system is not available at the moment.', ToastStates.Error);
+                              }
+                              
                             },
                             text: isArabic ? 'بدء التوصية' : 'Start recommendation',
                           ),
