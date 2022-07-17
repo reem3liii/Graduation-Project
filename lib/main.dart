@@ -13,6 +13,7 @@ void main() async {
   //Bloc.observer = MyBlocObserver();
   DioHelper.init();
   await CacheHelper.init();
+  //bool isDark = CacheHelper.getData(key: 'isDark');
 
   /*Widget widget;
   bool? splash = CacheHelper.getData(key: 'splash');
@@ -29,6 +30,7 @@ void main() async {
   }*/
 
   runApp(const MyApp(
+    //isDark
       //startWidget: widget,
       ));
 }
@@ -42,7 +44,6 @@ class MyApp extends StatelessWidget {
     Key? key,
     //required this.startWidget,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<ThemeMode>(

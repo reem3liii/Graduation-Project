@@ -312,6 +312,7 @@ Widget settingSwitchItem(icon, title, context, leftIcon, rightIcon, function) =>
               const Spacer(),
               RollingSwitch.icon(
                 onChanged: function,
+                initialState: MyApp.themeNotifier.value == ThemeMode.dark? true:false,
                 /*(bool state) {
                   print('turned ${(state) ? 'on' : 'off'}');
                 },*/
@@ -502,7 +503,7 @@ Widget coursesList(
                   child: Text(
                     //isArabic
                     // ? "دكتور ${course.arCourseProfessor}":
-                    "Dr. ${course.instructorName}",
+                    "${course.instructorName}",
                     style:
                         TextStyle(fontSize: 15.0, color: Colors.grey.shade700),
                     overflow: TextOverflow.ellipsis,

@@ -27,3 +27,7 @@ const String GET_COURSE_BY_ID = 'Courses/GetCoursebyId';
 const String CURRENT_USER_DATA = 'Acount/GetCurrentUser';
 
 const String DELETE_ADVISOR = 'Users/Delete';
+
+const String IS_CHECK_CINTROL ='RecCourses/IsCheckControll';
+
+const String SHOW_RECOMENEDED_COURSES = 'RecCourses/ShowReommendedCourses';
