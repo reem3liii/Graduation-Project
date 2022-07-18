@@ -31,3 +31,8 @@ const String DELETE_ADVISOR = 'Users/Delete';
 const String IS_CHECK_CINTROL ='RecCourses/IsCheckControll';
 
 const String SHOW_RECOMENEDED_COURSES = 'RecCourses/ShowReommendedCourses';
+
+const String EDIT_RECOMENEDED_COURSES_CONTROL ='RecCourses/EditControll';
+
+
+

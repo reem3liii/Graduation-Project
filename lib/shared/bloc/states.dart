@@ -220,3 +220,16 @@ class DeleteAdvisorErrorState extends AppStates {
   final String error;
   DeleteAdvisorErrorState(this.error);
 }
+
+
+class EditRecProcControllLoadingState extends AppStates {}
+
+class EditRecProcControllSuccessState extends AppStates {
+  final dynamic responce;
+  EditRecProcControllSuccessState(this.responce);
+}
+
+class EditRecProcControllErrorState extends AppStates {
+  final String error;
+  EditRecProcControllErrorState(this.error);
+}

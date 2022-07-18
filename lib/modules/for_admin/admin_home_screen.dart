@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:saas/shared/bloc/cubit.dart';
 import 'package:saas/shared/bloc/states.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
+import 'package:saas/shared/items/json_models.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../login_screen.dart';
 import 'add_advisor.dart';
@@ -15,7 +17,7 @@ import 'add_course.dart';
 import 'get_advisors.dart';
 
 class HomeAdminScreen extends StatelessWidget {
-  const HomeAdminScreen(this.token, this.email);
+  HomeAdminScreen(this.token, this.email);
   final token;
   final email;
 
@@ -25,15 +27,22 @@ class HomeAdminScreen extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
 
     return BlocProvider(
-      create: (BuildContext context) => AppCubit(),
+      create: (BuildContext context) => AppCubit()..getIsCheckControl(token),
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (BuildContext context, AppStates state) {
           if (state is GetAdvisorsSuccessState) {
             navigateTo(context, GetAdvisors(state.advisors, token));
           }
+          if (state is EditRecProcControllSuccessState) {
+            showToast(state.responce['message'], ToastStates.Success);
+            
+          } else if (state is EditRecProcControllErrorState) {
+            showToast(state.error, ToastStates.Error);
+          }
         },
         builder: (BuildContext context, AppStates state) {
           AppCubit cubit = AppCubit.get(context);
+          bool recProcOpen = isCheckControl;
           return Scaffold(
             backgroundColor: defaultColor,
             appBar: PreferredSize(
@@ -84,7 +93,7 @@ class HomeAdminScreen extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!
-                              .copyWith(color: lightDefaultColor,fontSize: 24),
+                              .copyWith(color: lightDefaultColor, fontSize: 24),
                         ),
                       ],
                     ),
@@ -101,55 +110,64 @@ class HomeAdminScreen extends StatelessWidget {
                       children: [
                         heightSpace(),
                         heightSpace(),
-                        adminSectionName(
-                            'Recommendation Process',
+                        adminSectionName('Recommendation Process',
                             Icons.manage_search_sharp),
                         heightSpace(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ToggleSwitch(
-                              totalSwitches: 2,
-                              labels: const ['Off', 'On'],
-                              fontSize: 18,
-                              activeBgColors: [
-                                [Colors.redAccent.shade700],
-                                [Colors.greenAccent.shade700]
+                        ConditionalBuilder(
+                          builder: (BuildContext context) {
+                            cubit.getIsCheckControl(token);
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ToggleSwitch(
+                                  totalSwitches: 2,
+                                  labels: const ['Off', 'On'],
+                                  fontSize: 18,
+                                  activeBgColors: [
+                                    [Colors.redAccent.shade700],
+                                    [Colors.greenAccent.shade700]
+                                  ],
+                                  inactiveBgColor: defaultBackgroundColor,
+                                  activeFgColor: Colors.white,
+                                  inactiveFgColor: Colors.grey.shade500,
+                                  borderColor: const [Colors.grey],
+                                  borderWidth: 0.7,
+                                  cornerRadius: 30,
+                                  initialLabelIndex: recProcOpen ? 1 : 0,
+                                  minWidth: 100,
+                                  minHeight: 50,
+                                  onToggle: (index) {
+                                     recProcOpen =
+                                        index == 0 ? false : true;
+                                    cubit.editRecProcControll(
+                                        token, recProcOpen);
+                                  },
+                                ),
                               ],
-                              inactiveBgColor: defaultBackgroundColor,
-                              activeFgColor: Colors.white,
-                              inactiveFgColor: Colors.grey.shade500,
-                              borderColor: const [Colors.grey],
-                              borderWidth: 0.7,
-                              cornerRadius: 30,
-                              initialLabelIndex: 0,
-                              minWidth: 100,
-                              minHeight: 50,
-                              onToggle: (index) {
-                                print('switched to $index ');
-                              },
-                            ),
-                          ],
+                            );
+                          },
+                          condition: state != GetIsCheckControlLoadingState(),
+                          fallback: (BuildContext context) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          },
                         ),
                         heightSpace(),
                         heightSpace(),
-                        adminSectionName('Advisors',
-                            Icons.account_circle_outlined),
+                        adminSectionName(
+                            'Advisors', Icons.account_circle_outlined),
                         settingItemAdmin(const Icon(Icons.list_rounded),
-                            'List current advisors',
-                            () {
+                            'List current advisors', () {
                           print("Get advisors . . . ");
                           print(token);
                           cubit.allAdvisors(token);
                         }),
-                        settingItem(
-                            const Icon(Icons.person_add),
-                            'Add new advisor',
-                            context,
-                            AddAdvisor(token)),
+                        settingItem(const Icon(Icons.person_add),
+                            'Add new advisor', context, AddAdvisor(token)),
                         heightSpace(),
-                        adminSectionName('Courses',
-                            Icons.account_tree_outlined),
+                        adminSectionName(
+                            'Courses', Icons.account_tree_outlined),
                         settingItem(
                             const Icon(Icons.list_rounded),
                             'List all courses',
@@ -164,8 +182,8 @@ class HomeAdminScreen extends StatelessWidget {
                           AddCourse(token),
                         ),
                         heightSpace(),
-                        adminSectionName('Students',
-                            Icons.account_box_outlined),
+                        adminSectionName(
+                            'Students', Icons.account_box_outlined),
                         settingItem(
                             const Icon(Icons.list_rounded),
                             'List students',
@@ -175,7 +193,7 @@ class HomeAdminScreen extends StatelessWidget {
                             )),
                         settingItem(
                             const Icon(Icons.person_add),
-                           'Add new student',
+                            'Add new student',
                             context,
                             AddStudent(token: token)),
                         heightSpace(),
@@ -208,8 +226,8 @@ class HomeAdminScreen extends StatelessWidget {
                                 widthSpace(),
                                 Text(
                                   'LOGOUT',
-                                  style: titleStyle(
-                                          size: 20, color: defaultColor),
+                                  style:
+                                      titleStyle(size: 20, color: defaultColor),
                                 ),
                               ],
                             ),

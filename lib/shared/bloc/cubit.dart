@@ -87,7 +87,7 @@ class AppCubit extends Cubit<AppStates> {
         .then((value) {
       print(value.data);
       currentUser = CurrentUser.fromJson(value.data);
-      if(currentUser.status.toString() == 'success'){
+      if (currentUser.status.toString() == 'success') {
         token = currentUser.userLogin!.token.toString();
       }
       //currentUser.userLogin.roles.first.toString();
@@ -184,19 +184,17 @@ class AppCubit extends Cubit<AppStates> {
     emit(semesterAndGradesLoadingState());
 
     DioHelper.getDataWithAuth(SEMESTERS_GRADES, token, null).then((value) {
-
-      if(value.data.length > 0){
+      if (value.data.length > 0) {
         //semAndGra = SemesterAndGrade.fromJson(value.data[0]);
-        for(var i=0;i<value.data.length;i++) {
-          semestersAndGrades.add(
-              SemesterAndGrade(
-                  semesterName: SemesterAndGrade.fromJson(value.data[i]).semesterName,
-                  gpAofSemester: SemesterAndGrade.fromJson(value.data[i]).gpAofSemester
-              ));
+        for (var i = 0; i < value.data.length; i++) {
+          semestersAndGrades.add(SemesterAndGrade(
+              semesterName:
+                  SemesterAndGrade.fromJson(value.data[i]).semesterName,
+              gpAofSemester:
+                  SemesterAndGrade.fromJson(value.data[i]).gpAofSemester));
           print(value.data[i].toString());
         }
-      }
-      else{
+      } else {
         semestersAndGrades = [];
       }
       emit(semesterAndGradesSuccessState());
@@ -206,24 +204,20 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-
   void getCurrentCourses(String token) {
     emit(CurrentCoursesLoadingState());
 
     DioHelper.getDataWithAuth(CURRENT_COURSES, token, null).then((value) {
-      if(value.data.length > 0){
-        for(var i=0;i<value.data.length;i++) {
-          currentCourses.add(
-              CurrentCourse(
-                  courseName: CurrentCourse.fromJson(value.data[i]).courseName,
-                  courseCode: CurrentCourse.fromJson(value.data[i]).courseCode,
-                  instructorName: CurrentCourse.fromJson(value.data[i]).instructorName
-              )
-          );
+      if (value.data.length > 0) {
+        for (var i = 0; i < value.data.length; i++) {
+          currentCourses.add(CurrentCourse(
+              courseName: CurrentCourse.fromJson(value.data[i]).courseName,
+              courseCode: CurrentCourse.fromJson(value.data[i]).courseCode,
+              instructorName:
+                  CurrentCourse.fromJson(value.data[i]).instructorName));
           print(value.data[i]);
         }
-      }
-      else{
+      } else {
         currentCourses = [];
       }
       emit(CurrentCoursesSuccessState());
@@ -254,17 +248,15 @@ class AppCubit extends Cubit<AppStates> {
   void getCoursesOnSemester(String token, String semestername) {
     emit(CoursesOnSemesterLoadingState());
     var formData = FormData.fromMap({'semestername': semestername});
-    courses_Semester=[];
+    courses_Semester = [];
     DioHelper.postDataWithAuth(COURSES_ON_SEMESTERS, token, formData, null)
         .then((value) {
       //print(value.data);
-      for(var i=0;i<value.data.length;i++) {
-        courses_Semester.add(
-            CoursesOnSemester(
-                courseName: CoursesOnSemester.fromJson(value.data[i]).courseName,
-                gpa: CoursesOnSemester.fromJson(value.data[i]).gpa,
-            )
-        );
+      for (var i = 0; i < value.data.length; i++) {
+        courses_Semester.add(CoursesOnSemester(
+          courseName: CoursesOnSemester.fromJson(value.data[i]).courseName,
+          gpa: CoursesOnSemester.fromJson(value.data[i]).gpa,
+        ));
         //print(value.data[i]);
       }
       /*for(var i=0;i<value.data.length;i++) {
@@ -290,7 +282,8 @@ class AppCubit extends Cubit<AppStates> {
       userInformation.add(currentUserInf!.department.toString().toUpperCase());
       userInformation.add((semestersAndGrades.length + 1).toString());
       userInformation.add(currentUserInf!.acceptenceYear.toString());
-      userInformation.add(currentUserInf!.brithOfdate.toString().substring(0,10));
+      userInformation
+          .add(currentUserInf!.brithOfdate.toString().substring(0, 10));
       userInformation.add(currentUserInf!.phoneNumber.toString());
       userInformation.add(currentUserInf!.city.toString());
       userInformation.add(currentUserInf!.address.toString());
@@ -515,6 +508,20 @@ class AppCubit extends Cubit<AppStates> {
     }).catchError((error) {
       print(error.toString());
       emit(DeleteAdvisorErrorState(error.toString()));
+    });
+  }
+
+
+void editRecProcControll(String token, bool state) {
+    emit(EditRecProcControllLoadingState());
+    
+    DioHelper.updateDataWithAuth(EDIT_RECOMENEDED_COURSES_CONTROL, token, null, state)
+        .then((value) {
+      print(value.data);
+      emit(EditRecProcControllSuccessState(value.data));
+    }).catchError((error) {
+      print(error.toString());
+      emit(EditRecProcControllErrorState(error.toString()));
     });
   }
 

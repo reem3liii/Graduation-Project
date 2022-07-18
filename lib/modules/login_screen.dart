@@ -44,6 +44,8 @@ class LoginScreen extends StatelessWidget {
         listener: (BuildContext context, AppStates state) {
           if (state is LoginSuccessState) {
             if (state.currentUser.status.toString() == "success") {
+              WidgetsFlutterBinding.ensureInitialized();
+              AppCubit.get(context).getIsCheckControl(state.currentUser.userLogin!.token!);
               AppCubit.get(context).enterSelectedRole();
               CacheHelper.putData(key: 'token', value: state.currentUser.userLogin?.token).then((value){
                 navigateToThenRemove(context,AppCubit.get(context).selectedRoleMainPage);

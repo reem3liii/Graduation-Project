@@ -19,7 +19,7 @@ class _SplashState extends State<Splash> {
   }
 
   _navigateToHome() async {
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 3));
     CacheHelper.putData(key: 'splash', value: true);
     Navigator.pushReplacement(context,
         MaterialPageRoute(builder: (context) => const OnboardingScreen()));
