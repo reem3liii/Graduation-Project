@@ -261,7 +261,7 @@ class _DegreesState extends State<Degrees> {
                     child: defaultButton(
                       function: () {
                         setState(() {
-                          navigateTo(context, const InsertDegrees());
+                          //navigateTo(context, const InsertDegrees());
                         });
                       },
                       text: isArabic ? 'ادخال' : 'INSERT',

@@ -1,19 +1,42 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saas/main.dart';
 import 'package:saas/shared/bloc/cubit.dart';
 import 'package:saas/shared/bloc/states.dart';
 import 'package:saas/shared/items/components.dart';
-import 'package:saas/shared/items/data.dart';
 import 'package:saas/shared/design/colors.dart';
-import 'package:saas/shared/items/models.dart';
 
-var arrayOfVisible =
-    List<bool>.generate(int.parse(data[5].toString()), (i) => false);
+List<Map> courses = [];
+var controllers = [
+  controller1,
+  controller2,
+  controller3,
+  controller4,
+  controller5,
+  controller6,
+  controller7,
+  controller8
+];
+var controller1 = TextEditingController();
+var controller2 = TextEditingController();
+var controller3 = TextEditingController();
+var controller4 = TextEditingController();
+var controller5 = TextEditingController();
+var controller6 = TextEditingController();
+var controller7 = TextEditingController();
+var controller8 = TextEditingController();
 
 class InsertDegrees extends StatefulWidget {
-  const InsertDegrees({Key? key}) : super(key: key);
+  const InsertDegrees(
+      {Key? key,
+      required this.currentCourses,
+      required this.token,
+      required this.studentId})
+      : super(key: key);
+  final dynamic currentCourses;
+  final String token;
+  final String studentId;
 
   @override
   State<InsertDegrees> createState() => _InsertDegreesState();
@@ -28,14 +51,29 @@ class _InsertDegreesState extends State<InsertDegrees> {
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
       child: BlocConsumer<AppCubit, AppStates>(
-        listener: (BuildContext context, AppStates state) {},
+        listener: (BuildContext context, AppStates state) {
+          if (state is InsertDegreesSuccessState) {
+            controller1.clear();
+            controller2.clear();
+            controller3.clear();
+            controller4.clear();
+            controller5.clear();
+            controller6.clear();
+            controller7.clear();
+            controller8.clear();
+            showToast(state.responce['message'], ToastStates.Success);
+          } else if (state is InsertDegreesErrorState) {
+            showToast(state.error, ToastStates.Error);
+          }
+        },
         builder: (BuildContext context, AppStates state) {
+          AppCubit cubit = AppCubit.get(context);
           return Scaffold(
             appBar: AppBar(
               title: Text(
                 'Insert degrees',
-                style:  titleStyle(
-                        color: defaultColor, size: 20, weight: FontWeight.w600),
+                style: titleStyle(
+                    color: defaultColor, size: 20, weight: FontWeight.w600),
               ),
               backgroundColor: defaultBackgroundColor,
               systemOverlayStyle: SystemUiOverlayStyle(
@@ -75,7 +113,8 @@ class _InsertDegreesState extends State<InsertDegrees> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          courses[index].courseName,
+                                          widget.currentCourses[index]
+                                              ['courseName'],
                                           maxLines: 2,
                                           style: TextStyle(
                                             color: defaultColor,
@@ -84,7 +123,8 @@ class _InsertDegreesState extends State<InsertDegrees> {
                                           ),
                                         ),
                                         Text(
-                                          courses[index].courseCode,
+                                          widget.currentCourses[index]
+                                              ['courseCode'],
                                           style: const TextStyle(
                                             fontSize: 14,
                                           ),
@@ -95,6 +135,7 @@ class _InsertDegreesState extends State<InsertDegrees> {
                                   widthSpace(),
                                   Expanded(
                                     child: TextField(
+                                      controller: controllers[index],
                                       keyboardType: TextInputType.number,
                                       maxLength: 3,
                                       decoration: InputDecoration(
@@ -115,14 +156,34 @@ class _InsertDegreesState extends State<InsertDegrees> {
                       separatorBuilder: (context, index) => SizedBox(
                             height: height / 50,
                           ),
-                      itemCount: courses.length),
+                      itemCount: widget.currentCourses.length),
                   heightSpace(),
                   heightSpace(),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: defaultButton(
-                      function: () {},
-                      text:'Save',
+                    child: ConditionalBuilder(
+                      builder: (BuildContext context) {
+                        return defaultButton(
+                          function: () {
+                            for (int i = 0;
+                                i < widget.currentCourses.length;
+                                i++) {
+                              courses.add({
+                                'grade': double.parse(controllers[i].text),
+                                'courseId': widget.currentCourses[i]
+                                    ['courseCode']
+                              });
+                            }
+                            cubit.insetDegrees(
+                                widget.token, widget.studentId, courses);
+                          },
+                          text: 'Save',
+                        );
+                      },
+                      condition: state != InsertDegreesLoadingState(),
+                      fallback: (BuildContext context) => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
                     ),
                   ),
                   heightSpace(),

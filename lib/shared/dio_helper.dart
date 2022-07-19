@@ -69,4 +69,14 @@ class DioHelper {
     return await dio.delete(url, data: data, queryParameters: query);
   }
 
+  static Future<Response> setDataWithAuth(String url, String token,
+      dynamic data, Map<String, dynamic>? query) async {
+    dio.options.headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+    return await dio.patch(url, data: data, queryParameters: query);
+    
+  }
+
 }

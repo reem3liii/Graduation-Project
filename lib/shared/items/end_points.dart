@@ -34,5 +34,11 @@ const String SHOW_RECOMENEDED_COURSES = 'RecCourses/ShowReommendedCourses';
 
 const String EDIT_RECOMENEDED_COURSES_CONTROL ='RecCourses/EditControll';
 
+const String GET_CURRENT_COURSES_FOR_ADMIN = 'Courses/CurrentCoursesToUpdate';
+
+const String INSER_DEGREES = 'Courses/AddGpaOfCourse';
+
+
+
 
 

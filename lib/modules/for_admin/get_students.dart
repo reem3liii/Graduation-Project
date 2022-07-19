@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saas/main.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
 import '../../shared/bloc/cubit.dart';
 import '../../shared/bloc/states.dart';
+import '../../modules/for_admin/insert_degrees.dart';
+
+int selectedIndex = -1;
 
 class GetStudents extends StatefulWidget {
-  const GetStudents({Key? key, required this.students}) : super(key: key);
+  const GetStudents({Key? key, required this.students, required this.token})
+      : super(key: key);
   final List<dynamic> students;
+  final String token;
 
   @override
   State<GetStudents> createState() => _GetStudentsState();
@@ -24,16 +28,25 @@ class _GetStudentsState extends State<GetStudents> {
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
       child: BlocConsumer<AppCubit, AppStates>(
-        listener: (BuildContext context, AppStates state) {},
+        listener: (BuildContext context, AppStates state) {
+          if (state is CurrentCoursesForAdminSuccessState) {
+            navigateTo(
+                context,
+                InsertDegrees(
+                  currentCourses: state.responce,
+                  studentId: widget.students[selectedIndex]['id'],
+                  token: widget.token,
+                ));
+          }
+        },
         builder: (BuildContext context, AppStates state) {
+          AppCubit cubit = AppCubit.get(context);
           return Scaffold(
               appBar: AppBar(
                 title: Text(
                   'The Students',
                   style: titleStyle(
-                          color: defaultColor,
-                          size: 20,
-                          weight: FontWeight.w600),
+                      color: defaultColor, size: 20, weight: FontWeight.w600),
                 ),
                 backgroundColor: defaultBackgroundColor,
                 systemOverlayStyle: SystemUiOverlayStyle(
@@ -112,26 +125,26 @@ class _GetStudentsState extends State<GetStudents> {
                                       Icons.cancel_rounded,
                                       color: Colors.red.shade700,
                                     )),*/
-                                
                               ],
                             ),
-                            /*Row(
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 TextButton(
                                     onPressed: () {
-                                      setState(() {
-                                        navigateTo(context, const Degrees());
-                                      });
+                                      selectedIndex = index;
+                                      cubit.getCurrentCoursesForAdmin(
+                                          widget.token,
+                                          widget.students[index]['id']);
                                     },
                                     child: Text(
-                                      'View degrees',
+                                      'Insert degrees',
                                       style: titleStyle(
                                           color: defaultColor, size: 15),
                                     )),
                               ],
-                            ),*/
-                            heightSpace(),
+                            ),
+                            //heightSpace(),
                           ],
                           crossAxisAlignment: CrossAxisAlignment.start,
                         ),
