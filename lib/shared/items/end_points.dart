@@ -1,5 +1,7 @@
 const String LOGIN = 'Acount/Login';
 
+const String GET_CURRENT_USER = 'Acount/GetCurrentUser';
+
 const String GET_ADVISORS = 'Users/GetAllAdvisor';
 
 const String GET_STUDENTS = 'Users/GetAllStudent';
@@ -31,6 +33,10 @@ const String DELETE_ADVISOR = 'Users/Delete';
 const String IS_CHECK_CINTROL ='RecCourses/IsCheckControll';
 
 const String SHOW_RECOMENEDED_COURSES = 'RecCourses/ShowReommendedCourses';
+
+const String RECOMENEDED_COURSES = 'RecCourses/RecommendedCourses';
+
+const String REGISTER_REC_COURSES_FOR_STUDENT = 'RecCourses/RegisterRecCoursesForStudent';
 
 const String EDIT_RECOMENEDED_COURSES_CONTROL ='RecCourses/EditControll';
 

@@ -23,7 +23,7 @@ class _DetailsState extends State<Details> {
    Widget build(BuildContext context) {
      double height = MediaQuery.of(context).size.height;
      double width = MediaQuery.of(context).size.width;
-     int standard = 2;
+     int standard = 1;
 
      AppCubit cubitDegrees = AppCubit.get(context);
      return BlocProvider(
@@ -126,7 +126,7 @@ class _DetailsState extends State<Details> {
                                                  animationDuration: 750,
                                                  lineHeight: height / 35,
                                                  percent: semestersAndGrades[index].gpAofSemester! / 4,
-                                                 progressColor: semestersAndGrades[index].gpAofSemester! > standard
+                                                 progressColor: semestersAndGrades[index].gpAofSemester! >= standard
                                                      ? defaultGreenColor.shade300
                                                      : Colors.red.shade400,
                                                  backgroundColor: MyApp.themeNotifier.value == ThemeMode.light? Colors.grey.shade200 : Colors.grey.shade800,

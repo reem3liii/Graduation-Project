@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/modules/for_admin/admin_home_screen.dart';
-import 'package:saas/modules/for_advisor/homeAdvisor_screen.dart';
+import 'package:saas/modules/for_advisor/advisor_screen.dart';
 import 'package:saas/modules/for_student/details.dart';
 import 'package:saas/modules/for_student/home_screen.dart';
 import 'package:saas/modules/for_student/main_page.dart';
@@ -37,9 +37,49 @@ class AppCubit extends Cubit<AppStates> {
       selectedRoleMainPage = HomeAdminScreen(
           currentUser.userLogin?.token, currentUser.userLogin?.email);
     } else {
-      selectedRoleMainPage = HomeAdvisorScreen();
+      CurrentUserFunc(currentUser.userLogin?.token);
+
+      selectedRoleMainPage = AdvisorScreen(
+        currentUser.userLogin?.token,
+        currentUser.userLogin?.email,
+        currentUser.userLogin!.username,
+        currentUser.userLogin!.id,
+        currentUser.userLogin!.roles,
+        currentUserList,
+      );
     }
     emit(AccessTheCurrentRoleState());
+  }
+
+  List<String> currentUserList = [];
+  void CurrentUserFunc(String? token) {
+    emit(GetCurrentUserLoadingState());
+    var i = 0;
+    DioHelper.getData(GET_CURRENT_USER, token, null).then((value) {
+      currentUserList.add(value.data["name"].toString());
+      currentUserList.add(value.data["gender"].toString());
+      currentUserList.add(value.data["brithOfdate"].toString());
+      currentUserList.add(value.data["address"].toString());
+      currentUserList.add(value.data["city"].toString());
+      currentUserList.add(value.data["phoneNumber"].toString());
+
+
+      // currentUserFuncvar![i++] = value.data["nameArb"];
+      // currentUserFuncvar![i++] = value.data["gender"];
+      // currentUserFuncvar![i++] = value.data["male"];
+      // currentUserFuncvar![i++] = value.data["brithOfdate"];
+      //  currentUserFuncvar![i++] = value.data["phoneNumber"];
+      //  print(currentUserFuncvar![0]);
+      //allAdvisorsData = Advisor.fromJson(value.data);
+      for (int i = 0; i < currentUserList.length;i++){
+        print(currentUserList[i]);
+
+      }
+      emit(GetCurrentUserSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(GetCurrentUserErrorState(error.toString()));
+    });
   }
 
   int selectedIndex = 0;
@@ -259,11 +299,6 @@ class AppCubit extends Cubit<AppStates> {
         ));
         //print(value.data[i]);
       }
-      /*for(var i=0;i<value.data.length;i++) {
-        print(courses_Semester.length.toString());
-        print(courses_Semester[i].courseName);
-        print(courses_Semester[i].gpa);
-      }*/
       coursesOnSemester = value.data;
       print(coursesOnSemester);
       emit(CoursesOnSemesterSuccessState(coursesOnSemester));
@@ -282,8 +317,7 @@ class AppCubit extends Cubit<AppStates> {
       userInformation.add(currentUserInf!.department.toString().toUpperCase());
       userInformation.add((semestersAndGrades.length + 1).toString());
       userInformation.add(currentUserInf!.acceptenceYear.toString());
-      userInformation
-          .add(currentUserInf!.brithOfdate.toString().substring(0, 10));
+      userInformation.add(currentUserInf!.brithOfdate.toString().substring(0, 10));
       userInformation.add(currentUserInf!.phoneNumber.toString());
       userInformation.add(currentUserInf!.city.toString());
       userInformation.add(currentUserInf!.address.toString());
@@ -308,23 +342,54 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-  /*void getRecommendedCourses(String token) {
-    emit(GetRecommendedCoursesLoadingState());
+  late RecommendedCourses recommCourses;
 
-    DioHelper.getDataWithAuth(SHOW_RECOMENEDED_COURSES, token, null).then((value) {
-      isCheckControl = value.data;
-      print(isCheckControl);
-      emit(GetRecommendedCoursesSuccessState());
+  void postRecommendedCourses(String token) {
+    emit(GetRecommendedCoursesLoadingState());
+    DioHelper.postDataWithAuth(RECOMENEDED_COURSES, token, null,null)
+        .then((value) {
+      recCourses=[];
+      recCoursesForStudent = [];
+      semesterHours = 0;
+      recommCourses = RecommendedCourses.fromJson(value.data);
+      if(recommCourses.status.toString() == "Success"){
+        minHours = recommCourses.min!.toInt();
+        maxHours = recommCourses.max!.toInt();
+        for (var i=0; i< recommCourses.courses!.length;i++) {
+          recCourses.add(recommCourses.courses![i].toString());
+          //print(recommCourses.courses![i].toString());
+        }
+      }
+
+      print(value.data);
+      emit(GetRecommendedCoursesSuccessState(recommCourses));
     }).catchError((error) {
-      print(error.toString());
+      print(error);
       emit(GetRecommendedCoursesErrorState(error.toString()));
     });
-  }*/
+  }
+
+
+  late  RegisterRecCoursesForStudent regRecCoursesForStudent;
+
+  void postRegisterRecCoursesForStudent(String token, List<String> recCoursesForStudent) {
+    emit(RegisterRecCoursesForStudentLoadingState());
+    DioHelper.postDataWithAuth(REGISTER_REC_COURSES_FOR_STUDENT, token, recCoursesForStudent, null)
+        .then((value) {
+      regRecCoursesForStudent = RegisterRecCoursesForStudent.fromJson(value.data);
+      print(value.data);
+      emit(RegisterRecCoursesForStudentSuccessState(regRecCoursesForStudent));
+    }).catchError((error) {
+      print(error);
+      emit(RegisterRecCoursesForStudentErrorState(error.toString()));
+    });
+  }
+
   //End Student Part***************
 
   late List<dynamic> allStudentsData;
 
-  void allStudents(String token, int level) {
+  void allStudents(String token, String level) {
     emit(GetStudentsLoadingState());
     var formData = FormData.fromMap({'level': level});
     DioHelper.postDataWithAuth(GET_STUDENTS, token, formData, null)
@@ -510,6 +575,134 @@ class AppCubit extends Cubit<AppStates> {
       emit(DeleteAdvisorErrorState(error.toString()));
     });
   }
+
+
+  List<String> categoryID = [
+    "Computer Science ",
+    "General requirements ",
+    "Information System ",
+    "Basic Sciences - Mathematics ",
+    "Software Engineering ",
+    "University requirements ",
+  ];
+
+  Map<String, List<Map<String, String>>> categoryCourses = {
+    "Computer Science ": [
+      {
+        "instructorName": "Dr.Ahmed Fouad",
+        "courseName": "Introduction to Computer Science",
+        "courseCode": "CSC101",
+        "level": "Level 1"
+      },
+      {
+        "instructorName": "Dr.Ahmed Fouad",
+        "courseName": "Digital Circuit",
+        "courseCode": "CSC102",
+        "level": "Level 1"
+      },
+      {
+        "instructorName": "Mohamed Asab",
+        "courseName": "Operating Systems",
+        "courseCode": "CSC303",
+        "level": "3"
+      }
+    ],
+
+    "General requirements ": [
+      {
+        "instructorName": "Dr.Reem Ali",
+        "courseName": "Discrete Mathematics",
+        "courseCode": "MAT401",
+        "level": "4"
+      }
+    ],
+
+    "Information System ": [
+      {
+        "instructorName": "Dr.Marwa Ahmed",
+        "courseName": "Introduction to Information Systems",
+        "courseCode": "ISC101",
+        "level": "Level 1"
+      }
+    ],
+    "Basic Sciences - Mathematics ": [
+      {
+        "instructorName": "Dr.Marwa Ahmed",
+        "courseName": "Discrete Mathematics",
+        "courseCode": "MAT101",
+        "level": "Level 1"
+      },
+      {
+        "instructorName": "Dr.Marwa Ahmed",
+        "courseName": "Statistics and Probability",
+        "courseCode": "MAT102",
+        "level": "Level 1"
+      },
+      {
+        "instructorName": "Dr.Reem Ali",
+        "courseName": "Math",
+        "courseCode": "MAT404",
+        "level": "1"
+      },
+      {
+        "instructorName": "Dr.Reem Ali",
+        "courseName": "Math 2",
+        "courseCode": "MAT410",
+        "level": "1"
+      }
+    ],
+    "Software Engineering ": [
+      {
+        "instructorName": "Dr.Reem Ali",
+        "courseName": "Software Engineering I",
+        "courseCode": "SEN201",
+        "level": "2"
+      },
+      {
+        "instructorName": "Dr.Reem Ali",
+        "courseName": "Software Engineering II",
+        "courseCode": "SEN202",
+        "level": "Level 2"
+      }
+    ],
+    "University requirements ": [
+      {
+        "instructorName": "Ahmed Ali",
+        "courseName": "University English",
+        "courseCode": "UNI101",
+        "level": "Level 1"
+      },
+      {
+        "instructorName": "Ahmed Ali",
+        "courseName": "Introduction to Quality and Anti-corruption",
+        "courseCode": "UNI102",
+        "level": "Level 1"
+      }
+    ],
+  };
+  int level = -1;
+  String? dropdownValue;
+  var levelsList = <DropdownMenuItem<String>>[
+    DropdownMenuItem(child: Text('level 1'), value: "1"),
+    DropdownMenuItem(child: Text('level 2'), value: "2"),
+    DropdownMenuItem(child: Text('level 3'), value: "3"),
+    DropdownMenuItem(child: Text('level 4'), value: "4"),
+  ];
+  void changeLevelNumber(String? newValue) async {
+    dropdownValue = newValue!;
+    level = int.parse(newValue);
+    print(level);
+    emit(LevelNumberChanged());
+    changeLoading();
+  }
+
+  bool loading = false;
+  void changeLoading() {
+    loading = !loading;
+    emit(ChangeLoadingState());
+  }
+
+
 
 
 void editRecProcControll(String token, bool state) {

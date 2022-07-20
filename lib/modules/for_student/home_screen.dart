@@ -22,7 +22,25 @@ class HomeScreen extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => AppCubit()..getTotalHoursAndGpa(token),
       child: BlocConsumer<AppCubit, AppStates>(
-        listener: (BuildContext context, AppStates state) {},
+        listener: (BuildContext context, AppStates state) {
+          if (state is GetRecommendedCoursesSuccessState) {
+            if (state.recommCourses.status.toString() == "Success") {
+              print(state.recommCourses.status.toString());
+              navigateTo(context, const RecommendedScreen());
+              /*WidgetsFlutterBinding.ensureInitialized();
+              AppCubit.get(context).getIsCheckControl(state.currentUser.userLogin!.token!);
+              AppCubit.get(context).enterSelectedRole();
+              CacheHelper.putData(key: 'token', value: state.currentUser.userLogin?.token).then((value){
+                navigateToThenRemove(context,AppCubit.get(context).selectedRoleMainPage);
+              });*/
+
+            }else if(state.recommCourses.status == "Fail"){
+              print(state.recommCourses.status.toString());
+              showToast(state.recommCourses.message.toString(), ToastStates.Error);
+
+            }
+          }
+        },
         builder: (BuildContext context, AppStates state) {
           AppCubit cubit = AppCubit.get(context);
           return Scaffold(
@@ -213,23 +231,35 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(
                         height: height / 30,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          defaultButton(
-                            width: width / 1.3,
-                            function: () {
-                              if(isCheckControl){
-                                navigateTo(context, const RecommendedScreen());
-                              }else{
-                                showToast('Recommendation system is not available at the moment.', ToastStates.Error);
-                              }
-                              
-                            },
-                            text: isArabic ? 'بدء التوصية' : 'Start recommendation',
-                          ),
-                        ],
+                      ConditionalBuilder(
+                        condition: state is! GetRecommendedCoursesLoadingState,
+                        builder: (context) => Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            defaultButton(
+                              width: width / 1.3,
+                              function: () {
+                                if(isCheckControl){
+                                  cubit.postRecommendedCourses(token);
+                                  /*if(cubit.recommCourses.status == "Success"){
+
+                                }
+                                else{
+                                  showToast('Recommendation system is not available at the moment.', ToastStates.Error);
+                                }*/
+
+                                }else{
+                                  showToast('Recommendation system is not available at the moment.', ToastStates.Error);
+                                }
+
+                              },
+                              text: isArabic ? 'بدء التوصية' : 'Start recommendation',
+                            ),
+                          ],
+                        ),
+                        fallback: (context) => const Center(child: CircularProgressIndicator(),),
                       ),
+
                       SizedBox(
                         height: height / 30,
                       ),

@@ -62,7 +62,7 @@ class ProfileScreen extends StatelessWidget {
                         CircleAvatar(
                           radius: width / 6,
                           backgroundColor: Colors.transparent,
-                          backgroundImage:currentUserInf!.gender.toString() == 'male'?
+                          backgroundImage:currentUserInf!.gender.toString() == 'Male'||currentUserInf!.gender.toString() == 'male'?
                           const AssetImage('assets/images/male_student.jpeg')
                           :
                           const AssetImage('assets/images/female_student.jpeg'),

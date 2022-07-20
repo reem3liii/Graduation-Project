@@ -1,4 +1,4 @@
-var labels = [
+/*var labels = [
   'National ID',
   'Gender',
   'postion',
@@ -15,6 +15,6 @@ var data = [
   '01021324132',
   'Ahmed fouad',
   'ahmedfouad8@gmail.com'
-];
+];*/
 
 

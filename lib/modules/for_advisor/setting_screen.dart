@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:saas/modules/for_advisor/loginAdvisor_screen.dart';
+import 'package:saas/modules/login_screen.dart';
 import 'package:saas/modules/setting_screens/app_info.dart';
 import 'package:saas/modules/setting_screens/password.dart';
 import 'package:saas/modules/setting_screens/phone.dart';
@@ -90,7 +90,7 @@ class SettingScreenAdv extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  navigateToThenRemove(context,  LoginAdvisortScreen());
+                  navigateToThenRemove(context,  LoginScreen());
                   print('Logout');
                 },
                 child: Container(

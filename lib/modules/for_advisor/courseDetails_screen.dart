@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:saas/shared/design/colors.dart';
 import 'package:saas/shared/items/components.dart';
-import 'package:saas/shared/items/data.dart';
-import 'package:saas/shared/items/json_models.dart';
 
-class StudentDetails extends StatelessWidget {
-  final chosenStudent;
+class CourseDetails extends StatelessWidget {
+  final chosenCourse;
 
-  const StudentDetails({Key? key, required this.chosenStudent})
-      : super(key: key);
+  const CourseDetails({Key? key, required this.chosenCourse}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -27,7 +24,7 @@ class StudentDetails extends StatelessWidget {
         centerTitle: true,
         iconTheme: IconThemeData(color: lightDefaultColor),
         title: Text(
-          chosenStudent["fullName"],
+          chosenCourse["courseName"],
           style: titleStyle(
             size: 20,
             color: Colors.white,
@@ -42,7 +39,7 @@ class StudentDetails extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: ListView.separated(
             physics: const BouncingScrollPhysics(),
-            // scrollDirection: Axis.vertical,
+// scrollDirection: Axis.vertical,
             shrinkWrap: true,
             itemBuilder: (context, index) => SizedBox(
                   //  height: height / 15,
@@ -51,16 +48,15 @@ class StudentDetails extends StatelessWidget {
                       Flexible(
                         child: SizedBox(
                           width: width / 2.8,
-                          child: Text(studentKeysLabel[index],
-                     style: TextStyle(color: defaultColor,fontSize: 20)
-),
+                          child: Text(coursesKeysLabel[index],
+                              style: TextStyle(fontSize: 20,color: defaultColor,fontWeight: FontWeight.bold)),
                         ),
                       ),
+                      SizedBox(width: width / 10),
                       Flexible(
                         child: Text(
-                          chosenStudent[studentKeys[index]].toString(),
-              style: TextStyle(color: defaultColor,fontSize: 20)
-
+                          chosenCourse[coursesKeys[index]].toString(),
+                          style: TextStyle(fontSize: 20,color: Colors.black),
                         ),
                       )
                     ],
@@ -69,11 +65,9 @@ class StudentDetails extends StatelessWidget {
             separatorBuilder: (context, index) => SizedBox(
               height: height/10,
               child: Divider(
-                  thickness: 2,
-                  indent: width / 3,
-                  color: Colors.grey[300]),
+                  thickness: 2, indent: width / 3, color: Colors.grey[300]),
             ),
-            itemCount: studentKeys.length),
+            itemCount: coursesKeys.length),
       ),
     );
   }

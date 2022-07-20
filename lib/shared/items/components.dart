@@ -523,7 +523,7 @@ Widget coursesList(
     );
 
 Widget recCoursesItem(
-  CurrentCourses course, {
+  String course, {
   required double height,
   required double width,
   required Color color,
@@ -542,21 +542,21 @@ Widget recCoursesItem(
           borderRadius: BorderRadius.circular(12),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(15),
           child: Row(
             children: [
               Container(
                 padding: const EdgeInsets.all(8),
                 child: Text(
-                  course.courseAbbreviation,
-                  style: TextStyle(
+                  createCourseAbbreviation(course),
+                  style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 30.0,
-                      color: courses[1].color),
+                      color: Colors.green),
                 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color: courses[1].color.withOpacity(0.2),
+                  color: Colors.green.withOpacity(0.2),
                 ),
                 clipBehavior: Clip.antiAliasWithSaveLayer,
               ),
@@ -568,25 +568,33 @@ Widget recCoursesItem(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      isArabic ? course.arCourseName : course.courseName,
-                      maxLines: 2,
+                      //isArabic ? course.arCourseName :
+                      course,
+                      maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyText2?.copyWith(
                         fontSize: 17,
                         fontWeight: FontWeight.w600,
                           ),
                     ),
-                    Text(
-                      '(${course.courseCode})',
-                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w500,
-                          ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
+                    const SizedBox(height: 8,),
                     Row(
+                      children: [
+                        const Icon(Icons.watch_later_outlined,color: Colors.grey,size: 17,),
+                        const SizedBox(width: 10,),
+                        Text(
+                          '${coursesHours(course).toString()} credits',
+                          style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    /*const SizedBox(
+                      height: 5,
+                    ),*/
+                    /*Row(
                       children: [
                         Icon(
                           Icons.perm_identity,
@@ -615,19 +623,93 @@ Widget recCoursesItem(
                         ),
                       ],
                       crossAxisAlignment: CrossAxisAlignment.start,
-                    ),
+                    ),*/
                   ],
                 ),
               ),
               const Spacer(),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  print('add course');
+                  bool isExist = false;
+                  if(recCoursesForStudent.isEmpty){
+                    recCoursesForStudent.add(course.toString());
+                    semesterHours += coursesHours(course);
+                    showToast('This course selected successfully', ToastStates.Success);
+                  }
+                  else{
+                    for(var i=0 ; i< recCoursesForStudent.length ; i++){
+                      if(recCoursesForStudent[i] == course){
+                        isExist = true;
+                        break;
+                      }
+                      else{
+                        isExist = false;
+                      }
+                    }
+                    if(isExist){
+                      showToast('This Course is already chosen', ToastStates.Error);
+                    }
+                    else{
+                      if(semesterHours+coursesHours(course) <= maxHours){
+                        recCoursesForStudent.add(course.toString());
+                        showToast('This course selected successfully', ToastStates.Success);
+                        semesterHours += coursesHours(course);
+                      }
+                      else{
+                        showToast('This course can not selected because you will exceed the maximum number of hours available.', ToastStates.Error);
+                      }
+
+                    }
+                  }
+                  for(var i=0 ; i< recCoursesForStudent.length ; i++){
+                    print(recCoursesForStudent[i]);
+                  }
+                  print(semesterHours.toString());
+                  print(recCoursesForStudent.length);
+                },
                 icon: const Icon(Icons.add_circle_rounded),
                 color: defaultColor1,
                 iconSize: 30,
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  print('remove course');
+                  bool isNotExist = false;
+                  int indexCourse = 0;
+                  if(recCoursesForStudent.isEmpty){
+                    showToast('The selected course list is empty.', ToastStates.Error);
+                  }
+                  else{
+                    for(var i=0 ; i< recCoursesForStudent.length ; i++){
+                      if(recCoursesForStudent[i] == course){
+                        indexCourse = i;
+                        isNotExist = true;
+                        break;
+
+                      }
+                      else{
+                        isNotExist = false;
+
+                      }
+                    }
+                    if(isNotExist){
+                      recCoursesForStudent.removeAt(indexCourse);
+                      showToast('This Course is deleted', ToastStates.Error);
+                      semesterHours -= coursesHours(course);
+                    }
+                    else{
+                      showToast('This course is not in the selected courses list', ToastStates.Warning);
+                    }
+                  }
+
+                  for(var i=0 ; i< recCoursesForStudent.length ; i++){
+                    print(recCoursesForStudent[i].replaceAll('\\"','"').toString());
+                  }
+                  print(recCoursesForStudent);
+                  print(semesterHours.toString());
+                  print(recCoursesForStudent.length);
+                },
                 icon: const Icon(Icons.cancel_rounded),
                 color: Colors.redAccent.shade700,
                 iconSize: 30,
@@ -790,13 +872,23 @@ Color chooseColor(String str) {
 String createCourseAbbreviation(String Str) {
   List<String> a = [];
   for (var i = 0; i < Str.length; i++) {
-    if (Str[i].toUpperCase() == Str[i] && Str[i] != ' ' && Str[i] != '-') {
+    if (Str[i].toUpperCase() == Str[i] && Str[i] != ' ' && Str[i] != '-'&&Str[i] != '&') {
       a.add(Str[i].toString());
     }
   }
   String abbreviation = a.join();
   //print(abbreviation);
   return abbreviation;
+}
+int coursesHours(String Str) {
+  int hours = 0;
+  if(Str == 'Technical Writing'){
+    hours = 2;
+  }
+  else{
+    hours = 3;
+  }
+  return hours;
 }
 
 deleteDialog(context,deleteFun,cancelFun) => showDialog(
@@ -827,3 +919,17 @@ deleteDialog(context,deleteFun,cancelFun) => showDialog(
         ),
     context: context,
     barrierDismissible: false);
+
+List studentKeys = ["id", "fullName", "email", "level", "phone"];
+List studentKeysLabel = ["ID", "Name", "Email", "Level", "Phone"];
+
+List advisorDataLabel = ["Email", "ID", "Role"];
+List advisorDataListLabel = ["Gender","Birth Of Date","Address","City","Phone Number"];
+
+List coursesKeys = ["instructorName", "courseName", "courseCode", "level"];
+List coursesKeysLabel = [
+  "Instructor Name",
+  "Course Name",
+  "Course Code",
+  "Level"
+];

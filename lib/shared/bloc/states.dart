@@ -164,12 +164,28 @@ class GetIsCheckControlErrorState extends AppStates {
 
 class GetRecommendedCoursesLoadingState extends AppStates {}
 
-class GetRecommendedCoursesSuccessState extends AppStates {}
+class GetRecommendedCoursesSuccessState extends AppStates {
+  final RecommendedCourses recommCourses;
+  GetRecommendedCoursesSuccessState(this.recommCourses);
+}
 
 class GetRecommendedCoursesErrorState extends AppStates {
   final String error;
   GetRecommendedCoursesErrorState(this.error);
 }
+
+class RegisterRecCoursesForStudentLoadingState extends AppStates {}
+
+class RegisterRecCoursesForStudentSuccessState extends AppStates {
+  final RegisterRecCoursesForStudent regRecCoursesForStudent;
+  RegisterRecCoursesForStudentSuccessState(this.regRecCoursesForStudent);
+}
+
+class RegisterRecCoursesForStudentErrorState extends AppStates {
+  final String error;
+  RegisterRecCoursesForStudentErrorState(this.error);
+}
+
 //End Student States
 
 class GetStudentsLoadingState extends AppStates {}
@@ -233,3 +249,21 @@ class EditRecProcControllErrorState extends AppStates {
   final String error;
   EditRecProcControllErrorState(this.error);
 }
+
+class GetCurrentUserLoadingState extends AppStates {}
+
+class GetCurrentUserSuccessState extends AppStates {
+  //final Advisor advisor;
+  //GetAdvisorsSuccessState(this.advisor);
+}
+
+class GetCurrentUserErrorState extends AppStates {
+  final String error;
+  GetCurrentUserErrorState(this.error);
+}
+
+class LevelNumberChanged extends AppStates {}
+class ChangeLoadingState extends AppStates {}
+
+class ListOfStudentsAdd extends AppStates {}
+class StudentsListLength extends AppStates {}

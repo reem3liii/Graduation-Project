@@ -270,3 +270,56 @@ CurrentUserData? currentUserInf;
 List userInformation = [];
 String token ='';
 bool isCheckControl = false;
+
+class RecommendedCourses {
+  String? message;
+  String? status;
+  List<String>? courses;
+  int? max;
+  int? min;
+
+  RecommendedCourses({this.status, this.courses, this.max, this.min,this.message});
+
+  RecommendedCourses.fromJson(Map<String, dynamic> json) {
+    message = json['message'];
+    status = json['status'];
+    courses = json['courses'].cast<String>();
+    max = json['max'];
+    min = json['min'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['message'] = this.message;
+    data['status'] = this.status;
+    data['courses'] = this.courses;
+    data['max'] = this.max;
+    data['min'] = this.min;
+    return data;
+  }
+}
+
+List<String> recCourses = [];
+List<String> recCoursesForStudent = [];
+int semesterHours = 0;
+int minHours = 0;
+int maxHours = 0;
+
+class RegisterRecCoursesForStudent {
+  String? message;
+  String? status;
+
+  RegisterRecCoursesForStudent({this.message, this.status});
+
+  RegisterRecCoursesForStudent.fromJson(Map<String, dynamic> json) {
+    message = json['message'];
+    status = json['status'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['message'] = this.message;
+    data['status'] = this.status;
+    return data;
+  }
+}

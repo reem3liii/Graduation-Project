@@ -105,7 +105,7 @@ class _SelectStudentLevelState extends State<SelectStudentLevel> {
                                   if (formKey.currentState!.validate()) {
                                     print('selecting level $selectedLevel');
                                     cubit.allStudents(
-                                        widget.token, selectedLevel);
+                                        widget.token, selectedLevel.toString());
                                   }
                                 },
                                 text:'List',

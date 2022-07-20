@@ -62,7 +62,7 @@ class HomeAdminScreen extends StatelessWidget {
                 children: [
                   Container(
                     width: double.infinity,
-                    height: height / 2.3,
+                    height: height / 2.2,
                     color: defaultColor,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,

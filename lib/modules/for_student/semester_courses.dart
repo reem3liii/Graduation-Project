@@ -16,7 +16,7 @@ class showSemesterCourses extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    int standard = 2;
+    int standard = 1;
     return BlocProvider(
       create: (BuildContext context) => AppCubit()..getCoursesOnSemester(token, SemesterName),
       child: BlocConsumer<AppCubit,AppStates>(
@@ -132,7 +132,7 @@ class showSemesterCourses extends StatelessWidget {
                                         style: bodyStyle(
                                             size: 18,
                                             weight: FontWeight.w600,
-                                            color: courses_Semester[sub].gpa! >
+                                            color: courses_Semester[sub].gpa! >=
                                                 standard
                                                 ? Colors.green
                                                 : Colors.red
