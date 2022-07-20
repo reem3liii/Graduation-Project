@@ -67,8 +67,8 @@ class _coursesScreenState extends State<coursesScreen> {
                        onTap: () {
                                               //cubitDegrees.visible(index);
                                               setState(() {
-                                                arrayOfVisible[index] =
-                                                    !arrayOfVisible[index];
+                                                /*arrayOfVisible[index] =
+                                                    !arrayOfVisible[index];*/
                                               });
                                             },
                       child: Container(
@@ -109,7 +109,7 @@ class _coursesScreenState extends State<coursesScreen> {
                                     ),
                                   ),
                                   Visibility(
-                                    visible: arrayOfVisible[index],
+                                    //visible: arrayOfVisible[index],
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 10, horizontal: 20),

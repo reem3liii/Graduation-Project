@@ -705,10 +705,12 @@ class AppCubit extends Cubit<AppStates> {
 
 
 
-void editRecProcControll(String token, bool state) {
+void editRecProcControll(String token, String state) {
     emit(EditRecProcControllLoadingState());
     
-    DioHelper.updateDataWithAuth(EDIT_RECOMENEDED_COURSES_CONTROL, token, null, state)
+    DioHelper.updateDataWithAuth(EDIT_RECOMENEDED_COURSES_CONTROL, token, null, {
+  "ischeck": state
+})
         .then((value) {
       print(value.data);
       emit(EditRecProcControllSuccessState(value.data));

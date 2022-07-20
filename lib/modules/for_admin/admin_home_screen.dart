@@ -35,14 +35,14 @@ class HomeAdminScreen extends StatelessWidget {
           }
           if (state is EditRecProcControllSuccessState) {
             showToast(state.responce['message'], ToastStates.Success);
-            
           } else if (state is EditRecProcControllErrorState) {
             showToast(state.error, ToastStates.Error);
           }
         },
         builder: (BuildContext context, AppStates state) {
           AppCubit cubit = AppCubit.get(context);
-          bool recProcOpen = isCheckControl;
+          String recProcOpen;
+          bool recProcOpenBool = isCheckControl;
           return Scaffold(
             backgroundColor: defaultColor,
             appBar: PreferredSize(
@@ -133,12 +133,12 @@ class HomeAdminScreen extends StatelessWidget {
                                   borderColor: const [Colors.grey],
                                   borderWidth: 0.7,
                                   cornerRadius: 30,
-                                  initialLabelIndex: recProcOpen ? 1 : 0,
+                                  initialLabelIndex: recProcOpenBool ? 1 : 0,
                                   minWidth: 100,
                                   minHeight: 50,
                                   onToggle: (index) {
-                                     recProcOpen =
-                                        index == 0 ? false : true;
+                                    recProcOpen = index == 0 ? "false" : "true";
+                                    recProcOpenBool = index == 0 ? false : true;
                                     cubit.editRecProcControll(
                                         token, recProcOpen);
                                   },
