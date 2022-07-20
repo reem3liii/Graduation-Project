@@ -206,7 +206,7 @@ class _AddStudentState extends State<AddStudent> {
                               textEditingController: studentBODController,
                               textInputType: TextInputType.datetime,
 
-                              preIcon: Icons.calendar_view_month_rounded,
+                              preIcon: Icons.calendar_month_rounded,
                               validator: (studentBODController) {
                                 if (studentBODController.toString().isEmpty) {
                                   return 'Please enter the date!';
@@ -368,7 +368,7 @@ class _AddStudentState extends State<AddStudent> {
                               textEditingController:
                                   studentPrecentagePrevDegreeController,
                               textInputType: TextInputType.number,
-                              preIcon: Icons.email,
+                              preIcon: Icons.percent_rounded,
 
                               validator:
                                   (studentPrecentagePrevDegreeController) {
@@ -507,7 +507,7 @@ class _AddStudentState extends State<AddStudent> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                               'Enter temporary password:',
+                               'Enter password:',
                               style:  bodyStyle3(
                                       size: 16,
                                       color: defaultColor,

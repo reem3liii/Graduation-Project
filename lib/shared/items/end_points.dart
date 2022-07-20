@@ -40,5 +40,11 @@ const String REGISTER_REC_COURSES_FOR_STUDENT = 'RecCourses/RegisterRecCoursesFo
 
 const String EDIT_RECOMENEDED_COURSES_CONTROL ='RecCourses/EditControll';
 
+const String GET_CURRENT_COURSES_FOR_ADMIN = 'Courses/CurrentCoursesToUpdate';
+
+const String INSER_DEGREES = 'Courses/AddGpaOfCourse';
+
+
+
 
 

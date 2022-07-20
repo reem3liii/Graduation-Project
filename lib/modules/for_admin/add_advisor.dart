@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saas/main.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
@@ -193,7 +192,7 @@ class _AddAdvisorState extends State<AddAdvisor> {
                           defaultTextField(
                             textEditingController: advisorBODController,
                             textInputType: TextInputType.datetime,
-                            preIcon: Icons.calendar_view_month_rounded,
+                            preIcon: Icons.calendar_month_rounded,
                             validator: (advisorBODController) {
                               if (advisorBODController.toString().isEmpty) {
                                 return  'Please enter the date!';
@@ -319,7 +318,7 @@ class _AddAdvisorState extends State<AddAdvisor> {
                           heightSpace(),
                           heightSpace(),
                           Text(
-                             'Enter temporary password:',
+                             'Enter password:',
                             style: bodyStyle3(
                                     size: 16,
                                     color: defaultColor,

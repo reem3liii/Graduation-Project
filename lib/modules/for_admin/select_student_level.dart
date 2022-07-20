@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saas/main.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
+import 'package:saas/shared/items/json_models.dart';
 import '../../shared/bloc/cubit.dart';
 import '../../shared/bloc/states.dart';
 import 'get_students.dart';
@@ -33,7 +34,7 @@ class _SelectStudentLevelState extends State<SelectStudentLevel> {
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (BuildContext context, AppStates state) {
           if (state is GetStudentsSuccessState) {     
-             navigateTo(context, GetStudents(students: state.students));
+             navigateTo(context, GetStudents(students: state.students, token: token,));
           }
         },
         builder: (BuildContext context, AppStates state) {

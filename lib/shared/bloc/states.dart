@@ -267,3 +267,27 @@ class ChangeLoadingState extends AppStates {}
 
 class ListOfStudentsAdd extends AppStates {}
 class StudentsListLength extends AppStates {}
+class CurrentCoursesForAdminLoadingState extends AppStates {}
+
+class CurrentCoursesForAdminSuccessState extends AppStates {
+  final dynamic responce;
+  CurrentCoursesForAdminSuccessState(this.responce);
+}
+
+class CurrentCoursesForAdminErrorState extends AppStates {
+  final String error;
+  CurrentCoursesForAdminErrorState(this.error);
+}
+
+class InsertDegreesLoadingState extends AppStates {}
+
+class InsertDegreesSuccessState extends AppStates {
+  final dynamic responce;
+  InsertDegreesSuccessState(this.responce);
+}
+
+class InsertDegreesErrorState extends AppStates {
+  final String error;
+  InsertDegreesErrorState(this.error);
+}
+

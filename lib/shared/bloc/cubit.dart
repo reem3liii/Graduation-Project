@@ -718,5 +718,50 @@ void editRecProcControll(String token, bool state) {
     });
   }
 
+
+void getCurrentCoursesForAdmin( String token, String id, ) 
+{
+    emit(CurrentCoursesForAdminLoadingState());
+var formData = FormData.fromMap({'studentid': id,},);
+    DioHelper.postDataWithAuth(
+            GET_CURRENT_COURSES_FOR_ADMIN,
+            token,
+            formData,
+            null)
+        .then((value) {
+      print(value.data);
+      emit(CurrentCoursesForAdminSuccessState(value.data));
+    }).catchError((error) {
+      print(error.toString());
+      emit(CurrentCoursesForAdminErrorState(error.toString()));
+    });
+  }
+
+void insetDegrees( String token, String id,List<Map> courses, {int sem=1, int fail = 0, int abs=0, int eva=5} ) 
+{
+    emit(InsertDegreesLoadingState());
+
+    DioHelper.setDataWithAuth(
+            INSER_DEGREES,
+            token,
+            {
+              'studentid': id,
+              'stemesterId': sem,
+              'failures': fail,
+              'absences': abs,
+              'semester_Evaluation': eva,
+              "courses": courses,
+            },
+            null)
+        .then((value) {
+      print(value.data);
+      emit(InsertDegreesSuccessState(value.data));
+    }).catchError((error) {
+      print(error.toString());
+      emit(InsertDegreesErrorState(error.toString()));
+    });
+  }
+
+
 //Block END
 }
