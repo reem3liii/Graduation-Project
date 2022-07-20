@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saas/main.dart';
 import 'package:saas/shared/items/components.dart';
 import 'package:saas/shared/design/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
@@ -319,7 +318,7 @@ class _AddAdvisorState extends State<AddAdvisor> {
                           heightSpace(),
                           heightSpace(),
                           Text(
-                             'Enter temporary password:',
+                             'Enter password:',
                             style: bodyStyle3(
                                     size: 16,
                                     color: defaultColor,

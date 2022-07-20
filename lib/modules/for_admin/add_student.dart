@@ -507,7 +507,7 @@ class _AddStudentState extends State<AddStudent> {
                             heightSpace(),
                             heightSpace(),
                             Text(
-                               'Enter temporary password:',
+                               'Enter password:',
                               style:  bodyStyle3(
                                       size: 16,
                                       color: defaultColor,

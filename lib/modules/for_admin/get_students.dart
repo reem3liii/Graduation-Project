@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +24,7 @@ class _GetStudentsState extends State<GetStudents> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    //double width = MediaQuery.of(context).size.width;
+    double width = MediaQuery.of(context).size.width;
 
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
@@ -59,100 +60,124 @@ class _GetStudentsState extends State<GetStudents> {
                 physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
-                    ListView.separated(
-                      physics: const BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) => Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: const [
-                            BoxShadow(
-                              blurRadius: 0,
-                              offset: Offset(0.2, 0.2),
-                              color: Colors.grey,
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                widthSpace(),
-                                SizedBox(
-                                  width: 270,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      heightSpace(),
-                                      Text(
-                                        '  ${widget.students[index]['fullName']}',
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            color: defaultColor,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            const SizedBox(
-                                              height: 4,
-                                            ),
-                                            Text(
-                                              'ID: ${widget.students[index]['id']}\nLevel: ${widget.students[index]['level']}\nEmail: ${widget.students[index]['email']}\nPhone:  ${widget.students[index]['phone']}',
-                                              style: bodyStyle2(size: 16),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                    ConditionalBuilder(
+                      builder: (BuildContext context) {
+                        return ListView.separated(
+                          physics: const BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) => Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                  blurRadius: 0,
+                                  offset: Offset(0.2, 0.2),
+                                  color: Colors.grey,
                                 ),
-                                /*const Spacer(),
-                                IconButton(
-                                    iconSize: 22,
-                                    onPressed: () {
-                                      deleteDialog(context, (){},(){});
-                                    },
-                                    icon: Icon(
-                                      Icons.cancel_rounded,
-                                      color: Colors.red.shade700,
-                                    )),*/
                               ],
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            child: Column(
                               children: [
-                                TextButton(
-                                    onPressed: () {
-                                      selectedIndex = index;
-                                      cubit.getCurrentCoursesForAdmin(
-                                          widget.token,
-                                          widget.students[index]['id']);
-                                    },
-                                    child: Text(
-                                      'Insert degrees',
-                                      style: titleStyle(
-                                          color: defaultColor, size: 15),
-                                    )),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    widthSpace(),
+                                    SizedBox(
+                                      width: 270,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          heightSpace(),
+                                          Text(
+                                            '  ${widget.students[index]['fullName']}',
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: defaultColor,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 16),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                const SizedBox(
+                                                  height: 4,
+                                                ),
+                                                Text(
+                                                  'ID: ${widget.students[index]['id']}\nLevel: ${widget.students[index]['level']}\nEmail: ${widget.students[index]['email']}\nPhone:  ${widget.students[index]['phone']}',
+                                                  style: bodyStyle2(size: 16),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    /*const Spacer(),
+                                  IconButton(
+                                      iconSize: 22,
+                                      onPressed: () {
+                                        deleteDialog(context, (){},(){});
+                                      },
+                                      icon: Icon(
+                                        Icons.cancel_rounded,
+                                        color: Colors.red.shade700,
+                                      )),*/
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    TextButton(
+                                        onPressed: () {
+                                          selectedIndex = index;
+                                          cubit.getCurrentCoursesForAdmin(
+                                              widget.token,
+                                              widget.students[index]['id']);
+                                        },
+                                        child: Text(
+                                          'Insert degrees',
+                                          style: titleStyle(
+                                              color: defaultColor, size: 15),
+                                        )),
+                                  ],
+                                ),
+                                //heightSpace(),
                               ],
+                              crossAxisAlignment: CrossAxisAlignment.start,
                             ),
-                            //heightSpace(),
-                          ],
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                        ),
-                      ),
-                      itemCount: widget.students.length,
-                      separatorBuilder: (context, index) => SizedBox(
-                        height: height / 50,
-                      ),
+                          ),
+                          itemCount: widget.students.length,
+                          separatorBuilder: (context, index) => SizedBox(
+                            height: height / 50,
+                          ),
+                        );
+                      },
+                      condition: widget.students.isNotEmpty,
+                      fallback: (BuildContext context) {
+                        return Center(
+                          child: Column(
+                            children: [
+                              Image.asset(
+                            'assets/images/noCourses.png',
+                            width: width/1.5,
+                          ),
+                              Text(
+                                "There are no students in this level.\nPlease add new ones!",
+                                style: bodyStyle3(
+                                size: 18,
+                                //color: defaultColor,
+                                weight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
                     const SizedBox(
                       height: 20,
